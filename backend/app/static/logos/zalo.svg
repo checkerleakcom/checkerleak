@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+  <circle cx="12" cy="12" r="12" fill="#0068FF"/>
+  <path d="M7 8h10a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-4.5L9 18v-2H7a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2z" fill="#FFFFFF"/>
+  <text x="12" y="13.8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="5" font-weight="900" fill="#0068FF" text-anchor="middle">Zalo</text>
+</svg>

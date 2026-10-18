@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+  <rect width="24" height="24" rx="5" fill="#000000"/>
+  <text x="7" y="15" font-family="'Arial Black', Impact, sans-serif" font-size="7" font-weight="900" fill="#FFFFFF" text-anchor="middle">P</text>
+  <rect x="11.5" y="6.5" width="10" height="11" rx="2.5" fill="#FF9900"/>
+  <text x="16.5" y="15" font-family="'Arial Black', Impact, sans-serif" font-size="7" font-weight="900" fill="#000000" text-anchor="middle">hub</text>
+</svg>

@@ -1,0 +1,168 @@
+# CheckerLeak.com — Complete Technical Reference & Knowledge Base
+Version: 2.2.2 | Architecture: Carrier-Grade Low-Latency REST API | Protocols: HTTP/2, TLS 1.3
+
+## 1. System Overview
+CheckerLeak.com is a carrier-grade contact intelligence and identity footprint verification engine designed for high-volume growth teams, lead generation agencies, Web3 brokers, and enterprise risk systems. It verifies phone numbers, email addresses, and digital identities across 240+ countries and territories without incurring SMS delivery fees or alerting the target recipient.
+
+### Core Architecture Principles:
+- **Zero-Retention (Privacy-First)**: CheckerLeak never persists raw phone numbers or query payloads. All memory buffers are wiped immediately after the verification pipeline returns.
+- **Cascading Execution**: Local offline ITU E.164 normalization runs first (sub-millisecond), screening out invalid prefixes before invoking higher-level telecom HLR or OTT messaging probes. This reduces API spend by up to 90%.
+- **Zero-KYC Crypto Settlement**: Customers can fund balance accounts anonymously via Bitcoin (BTC) or Tether (USDT ERC-20 / TRC-20) using a real-time mempool transaction scanner with instant credit allocation.
+
+---
+
+## 2. Exhaustive Catalog of All 102 Verification Engines
+
+### Category 1: Social & Messaging (43 Engines)
+1. **Telegram Checker**: Detects whether phone number is registered on Telegram MTProto network.
+2. **Telegram Days Checker**: Estimates account age in days based on user ID generation sequential algorithms.
+3. **Telegram Age & Gender Checker**: Infers demographic metrics (age bracket, gender) from public profile telemetry.
+4. **WhatsApp Bulk Checker**: High-throughput validation of active WhatsApp accounts.
+5. **WhatsApp Advanced Checker**: Returns registration status, profile bio status, and avatar presence.
+6. **WhatsApp Days Checker**: Estimates duration of WhatsApp registration.
+7. **WhatsApp Age & Gender Checker**: Profile-level demographic estimation.
+8. **Viber Checker**: Probes Viber directory for active mobile subscription.
+9. **Viber Days Checker**: Registration duration on Viber network.
+10. **Viber Avatar, Age, Gender & Others Checker**: Multi-attribute profile enrichment for Viber contacts.
+11. **iMessage Checker**: Hardware-level Apple IDS directory query confirming blue-bubble routing and APNs capability.
+12. **RCS Checker**: Checks GSMA Universal Profile 2.4 RCS messaging capability on Android devices.
+13. **Telegram Username Registration Checker**: Verifies if a specific @username is claimed or available.
+14. **Telegram Username Profile Checker**: Extracts public metadata for a verified Telegram username.
+15. **Apple Checker**: Checks Apple ID association across iOS/macOS ecosystem.
+16. **Facebook Checker**: Verifies phone number association with Meta Facebook Graph.
+17. **Instagram Checker**: Checks if phone number is mapped to an Instagram profile.
+18. **Line Checker**: Validates registration on Japan/Taiwan/Thailand's primary messaging network (LINE).
+19. **Line Profile Checker**: Extracts public LINE display name and avatar presence.
+20. **Botim Checker**: Verifies active account presence on UAE and Gulf region's primary VoIP app (BOTIM).
+21. **Botim Age & Gender Checker**: Demographic enrichment for Gulf BOTIM users.
+22. **LinkedIn Number Checker**: Detects professional LinkedIn account associated with phone number.
+23. **Zalo Checker**: Verifies registration on Vietnam's leading chat platform (Zalo).
+24. **Zalo Days Checker**: Account age on Zalo network.
+25. **Zalo Age & Gender Checker**: Demographic indicators for Vietnamese Zalo profiles.
+26. **VKontakte Checker**: Verifies account presence on VK (VKontakte), the dominant Russian/CIS social platform.
+27. **Signal Checker**: Checks registration on Signal Messenger's secure directory.
+28. **Twitter / X Checker**: Detects phone number association on X (Twitter).
+29. **TikTok Checker**: Probes TikTok for mobile number registration and active creator handle.
+30. **Microsoft Checker**: Validates phone association with Microsoft / Xbox Live accounts.
+31. **Snapchat Checker**: Probes Snapchat directory for registered mobile numbers.
+32. **Messenger Checker**: Validates standalone Facebook Messenger activation.
+33. **GoTo Checker**: Verifies enterprise account presence on GoTo / GoToMeeting telephony.
+34. **Threads Checker**: Checks profile association with Meta Threads.
+35. **Band Checker**: Checks membership on Band social community platform.
+36. **BongaCams Account Checker**: Verifies account presence on adult streaming network.
+37. **Rabota.ru Registration Checker**: Verifies job seeker presence on Russia's Rabota recruitment portal.
+38. **RusDate Registration Checker**: Probes dating profile association on RusDate.
+39. **GitHub Developer Checker**: Validates phone/email link to active GitHub developer profiles.
+40. **Discord & Nitro Presence Checker**: Detects Discord user registration, avatar, and Nitro badge status.
+41. **OK.ru (Odnoklassniki) Checker**: Detects account presence on Odnoklassniki social network.
+42. **KakaoTalk & KakaoPay Checker**: Verifies account on South Korea's super-app KakaoTalk and active KakaoPay status.
+43. **WeChat Real-Name Checker**: Probes WeChat directory and real-name authentication (实名认证) indicators.
+
+### Category 2: Crypto Exchanges & Web3 (12 Engines)
+44. **KuCoin Checker**: Validates registered phone number on KuCoin crypto exchange.
+45. **KuCoin Email Checker**: Validates registered email address on KuCoin.
+46. **HTX Checker**: Checks mobile registration on HTX (Huobi) digital asset exchange.
+47. **HTX Email Checker**: Checks email registration on HTX exchange.
+48. **CoinW Checker**: Checks mobile account on CoinW global crypto exchange.
+49. **CoinW Email Checker**: Checks email registration on CoinW exchange.
+50. **Crypto.com Checker**: Verifies mobile registration on Crypto.com App.
+51. **Crypto.com Email Checker**: Verifies email registration on Crypto.com.
+52. **Binance Checker**: High-precision phone footprint probe on Binance global exchange.
+53. **Binance Email Checker**: Checks email registration on Binance global exchange.
+54. **OKX Checker**: Verifies mobile presence on OKX Web3 & trading exchange.
+55. **OKX Email Checker**: Verifies email address registered on OKX.
+
+### Category 3: Email Verification & Native SMTP Handshakes (19 Engines)
+56. **Apple Email Checker**: Validates Apple ID registration for target email.
+57. **Facebook Email Checker**: Detects email mapped to Meta Facebook accounts.
+58. **Amazon Email Checker**: Confirms active Amazon customer account for given email.
+59. **Instagram Email Checker**: Verifies email address linked to Instagram account.
+60. **Netflix Email Checker**: Probes Netflix subscription directory for email existence.
+61. **LinkedIn Email Checker**: Verifies email address mapped to LinkedIn profile.
+62. **LinkedIn Email Profile Checker**: Enriches LinkedIn profile title and company using email address.
+63. **Twitter / X Email Checker**: Detects X (Twitter) profile linked to email address.
+64. **Pornhub Email Checker**: Checks email registration on adult entertainment platform.
+65. **Gmail Account Checker**: Direct Google Workspace & Gmail mailbox handshake.
+66. **Gmail Avatar Checker**: Extracts public Google profile avatar and full name.
+67. **Yandex Account Checker**: Validates Yandex Mail / Yandex ID registration.
+68. **Yandex Avatar Checker**: Fetches public Yandex user avatar image.
+69. **Mail.ru Account Checker**: Validates active mailbox on Mail.ru network.
+70. **Mail.ru Avatar Checker**: Fetches public Mail.ru user avatar.
+71. **Outlook Account Checker**: Microsoft Live / Office365 mailbox verification.
+72. **Yahoo Account Checker**: Yahoo Mail and AOL mailbox presence verification.
+73. **Email Validation (Native RFC 5322 & MX Handshake)**: Zero-cost native SMTP port 25 handshake validating MX records, mailbox existence, and catch-all flags.
+74. **TikTok Email Checker**: Verifies email address mapped to TikTok account.
+
+### Category 4: Fintech & Neobanks (4 Engines)
+75. **PayPal Account Checker**: Validates whether phone or email has an active PayPal account.
+76. **Revolut Presence Checker**: Probes Revolut directory to confirm active European/UK neobank customer.
+77. **Wise (TransferWise) Checker**: Checks account registration for international money transfers.
+78. **CashApp $Cashtag Checker**: Detects active Square/Block CashApp account and retrieves public $Cashtag.
+
+### Category 5: Fraud, Risk & Telecom HLR (8 Engines)
+79. **Phone Number Validation**: ITU E.164 normalization, country prefix, valid national significant number.
+80. **Number Active Checker**: Live SS7 / Diameter network interrogation confirming phone is currently powered on and attached to base station.
+81. **High-value Users Checker**: Heuristic scoring evaluating multi-platform saturation, carrier tier, and digital footprint.
+82. **Carrier Detection**: Identifies original and ported Mobile Network Operator (MNO/MVNO).
+83. **Advanced US Carrier Checker**: Identifies US Tier-1 telcos (Verizon, AT&T, T-Mobile) vs MVNOs (Mint, Cricket, Boost).
+84. **Sideline Checker**: Detects virtual secondary numbers issued by Sideline / Pinger.
+85. **SIM Swap & Port-Out Risk**: Identifies recent IMSI changes and carrier porting within 30-90 days to prevent account takeover (ATO).
+86. **Disposable & Burner Number Risk**: Flags temporary online SMS receive numbers, VoIP burners, and free SMS gateways.
+
+### Category 6: E-Commerce, Mobility & Quick Commerce (16 Engines)
+87. **E-commerce Activity Checker**: Composite e-commerce shopper footprint score.
+88. **Amazon Checker**: Detects registered Amazon customer account via mobile number.
+89. **MAX Checker**: Verifies Warner Bros Discovery MAX (HBO) subscriber account.
+90. **MAX Full Info Checker**: Enriches plan status and profile indicators for MAX.
+91. **Netflix Number Checker**: Checks Netflix mobile account registration.
+92. **Spotify Email Checker**: Confirms Spotify listener or premium subscription account.
+93. **DHL Checker**: Validates recipient registration on DHL Express delivery network.
+94. **Airbnb Checker**: Detects active Airbnb guest or host profile.
+95. **Temu Checker**: Verifies registered shopper on Temu global shopping app.
+96. **Wheely Account Checker**: Validates account on luxury chauffeur service Wheely (UK, France, UAE).
+97. **Uber / Careem Footprint**: Probes ride-hailing rider/driver accounts in MENA, US, and Europe.
+98. **Glovo Customer Footprint**: Evaluates Glovo Cash-on-Delivery (COD) trust score and Prime membership.
+99. **Talabat Gulf Delivery Checker**: Validates active food delivery customer across GCC (UAE, Saudi Arabia, Kuwait, Qatar).
+100. **DoorDash & DashPass Checker**: Detects US food delivery customer and DashPass membership status.
+101. **Avito Seller & Buyer Checker**: Enriches Russian classifieds footprint on Avito (reputation, listings, verified seller).
+102. **Grab Super-App Footprint**: Verifies user profile across Southeast Asia's Grab ecosystem (GrabFood, GrabPay, GrabCar).
+
+---
+
+## 3. REST API Specifications
+
+### Base URL:
+`https://checkerleak.com/v1` (Local dev: `http://127.0.0.1:8000/v1`)
+
+### Authentication:
+Pass standard Bearer token in the `Authorization` HTTP header:
+`Authorization: Bearer pk_live_your_api_key_here`
+
+### Core Endpoints:
+1. `POST /v1/verify/single` — Real-time cascading verification for a single contact.
+2. `POST /v1/verify/batch` — High-speed parallel list verification.
+3. `POST /v1/verify/service` — Targeted probe for any single engine from the 102 catalog.
+4. `POST /v1/batch/upload-file` — File upload supporting CSV and TXT formats up to 50,000 numbers per batch.
+5. `GET /v1/geo/detect` — Returns client IP, ISO country code, localized telecom carriers, and recommended engines.
+6. `GET /v1/billing/plans` — Returns pricing tiers and credit packs.
+
+---
+
+## 4. Competitive Benchmarks
+| Benchmark Metric | CheckerLeak.com | NumberChecker.AI | Twilio Lookup v2 |
+| :--- | :--- | :--- | :--- |
+| **Catalog Depth** | 102 Engines | ~18 Engines | Telecom Only (Carrier & Line Type) |
+| **Apple Blue-Bubble** | Yes (Native IDS) | No | No |
+| **Crypto Exchanges** | 6 Exchanges (Binance, OKX, etc.) | None | None |
+| **Neobanks / Fintech** | Revolut, Wise, PayPal, CashApp | Partial | None |
+| **Speed (Single Check)** | < 150ms | 1200ms - 2500ms | 350ms - 500ms |
+| **Payment Anonymity** | 100% Crypto (Zero KYC) | Mandatory Stripe Card | Enterprise Agreement / Invoice |
+| **Data Retention** | 0 Days (In-memory only) | Undisclosed | 30+ Days |
+
+---
+
+## 5. Pricing Structure
+- **Starter Pack**: $19.00 USD (1,000 credits, $0.019 / check)
+- **Professional Pack**: $49.00 USD (5,000 credits, $0.0098 / check)
+- **Enterprise Pack**: $149.00 USD (25,000 credits, $0.0059 / check)
+- **Whale Custom Tier**: From $0.90 per 10,000 checks for API aggregators and high-volume brokers.

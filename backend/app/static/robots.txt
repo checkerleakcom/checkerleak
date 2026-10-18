@@ -1,0 +1,49 @@
+# robots.txt for CheckerLeak.com
+# Optimized for Google, Bing, and Next-Gen AI Search Engines (ChatGPT, Perplexity, Claude, Meta, Apple)
+
+User-agent: *
+Allow: /
+Allow: /docs
+Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /sitemap.xml
+Disallow: /v1/auth/
+Disallow: /v1/developer/regenerate-key
+Disallow: /v1/billing/checkout
+
+# AI Engine Search & Inference Crawlers (GEO Optimization)
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+# Canonical XML Sitemap
+Sitemap: https://checkerleak.com/sitemap.xml

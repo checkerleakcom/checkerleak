@@ -1,0 +1,1910 @@
+function getBrandSvg(brand, size = 18) {
+      switch (brand) {
+
+        case "generic_crypto":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-600"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v8"></path><path d="M8 12h8"></path></svg>`;
+
+        case "telegram":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#229ED9"/><path d="M5.4 11.9l11.6-4.6c.5-.2 1 .1.8.7l-2 9.4c-.1.6-.5.7-1 .4l-2.8-2.1-1.3 1.3c-.2.2-.3.3-.6.3l.2-2.8 5.1-4.6c.2-.2 0-.3-.3-.1l-6.3 4-2.8-.9c-.6-.2-.6-.6.1-.8z" fill="#fff"/></svg>`;
+        case "whatsapp":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#25D366"/><path d="M17.5 14.3c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-1 1.1-.2.2-.4.2-.7.1-.3-.1-1.3-.5-2.5-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.7.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.7-.9-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9s1.2 3.3 1.4 3.5c.2.2 2.4 3.7 5.8 5.1.8.3 1.4.5 1.9.7.8.2 1.5.2 2.1.1.7-.1 2.1-.9 2.4-1.7.3-.8.3-1.5.2-1.7-.1-.1-.3-.2-.6-.3z" fill="#fff"/></svg>`;
+        case "viber":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#7360F2"/><path d="M7 6c2.5-.5 7.5-.5 10 0 1.2.3 2 1.3 2 2.7 0 5-1.5 8.3-4.5 9.3l-1.5 2-1-2h-3C6 18 5 16.5 5 12 5 8 6 6.3 7 6zm3.5 3c-.3 0-.5.2-.5.5s.2.5.5.5c1.1 0 2 .9 2 2 0 .3.2.5.5.5s.5-.2.5-.5c0-1.7-1.3-3-3-3z" fill="#fff"/></svg>`;
+        case "imessage":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#34C759"/><path d="M17.5 11c0 3-2.5 5.5-5.5 5.5-1 0-1.8-.3-2.6-.7L6 17l1.3-2.9C6.5 13.2 6 12.2 6 11 6 8 8.5 5.5 12 5.5s5.5 2.5 5.5 5.5z" fill="#fff"/></svg>`;
+        case "rcs":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1A73E8"/><path d="M7 11a5 5 0 0 1 10 0v2a3 3 0 0 1-3 3H9l-3 3v-8z" fill="#fff"/><circle cx="9.5" cy="12" r="1" fill="#EA4335"/><circle cx="12" cy="12" r="1" fill="#FBBC04"/><circle cx="14.5" cy="12" r="1" fill="#34A853"/></svg>`;
+        case "apple":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="#000"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.4c.66-.82 1.11-1.96.99-3.1-.96.04-2.12.64-2.8 1.44-.6.69-1.12 1.83-1 2.93 1.07.08 2.15-.45 2.81-1.27z"/></svg>`;
+        case "facebook":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1877F2"/><path d="M15.5 12h-2.5v7h-3v-7h-1.5v-2.5h1.5v-1.7c0-2 1.2-3.1 3-3.1.9 0 1.6.1 1.8.1v2.1h-1.2c-1 0-1.2.5-1.2 1.2v1.4h2.4l-.3 2.5z" fill="#fff"/></svg>`;
+        case "amazon":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#232F3E"/><path d="M15.8 15.5c-2.4 1.7-6 .9-8.3-.4-.2-.1-.2-.4 0-.5 1.5-.7 4.2-1.4 7.7-.3.7.2.9.9.6 1.2z" fill="#FF9900"/><path d="M12.5 7.5c-2.4 0-4.3 1.5-4.3 4 0 1.8 1 2.7 2.4 2.7 1.4 0 2.4-.8 2.8-1.5v1.2h1.8V9.8c0-1.8-1.1-2.3-2.7-2.3zm-.2 5c-1 0-1.7-.6-1.7-1.6 0-1.1.7-1.8 1.8-1.8 1 0 1.6.7 1.6 1.7 0 1.1-.7 1.7-1.7 1.7z" fill="#fff"/></svg>`;
+        case "instagram":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><defs><linearGradient id="igG_${size}" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#FFDC80"/><stop offset="50%" stop-color="#FD1D1D"/><stop offset="100%" stop-color="#C13584"/></linearGradient></defs><rect width="24" height="24" rx="6" fill="url(#igG_${size})"/><rect x="6" y="6" width="12" height="12" rx="3.5" fill="none" stroke="#fff" stroke-width="1.8"/><circle cx="12" cy="12" r="3" fill="none" stroke="#fff" stroke-width="1.8"/><circle cx="15.5" cy="8.5" r="0.8" fill="#fff"/></svg>`;
+        case "netflix":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#000"/><path d="M7 5h2.5v14H7z" fill="#E50914"/><path d="M14.5 5H17v14h-2.5z" fill="#E50914"/><path d="M7 5l7.5 14H17L9.5 5z" fill="#B81D24"/></svg>`;
+        case "line":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#06C755"/><path d="M6 11.5c0-3.3 2.7-6 6-6s6 2.7 6 6c0 3-2.3 5.4-5.2 5.9l-2.4 1.3.6-2.1c-3-.6-5-2.7-5-5.1z" fill="#fff"/><text x="12" y="13" font-size="5" font-weight="900" text-anchor="middle" fill="#06C755" font-family="sans-serif">LINE</text></svg>`;
+        case "botim":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#0084FF"/><text x="12" y="15" font-size="9" font-weight="900" text-anchor="middle" fill="#fff" font-family="sans-serif">B</text></svg>`;
+        case "linkedin":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#0A66C2"/><path d="M7 9h2.5v8H7zM8.2 6.5A1.3 1.3 0 1 1 8.2 9a1.3 1.3 0 0 1 0-2.5zM11 9h2.4v1.1c.4-.7 1.3-1.3 2.6-1.3 2.4 0 3 1.6 3 3.6V17h-2.5v-4.1c0-1-.2-1.8-1.3-1.8s-1.4.9-1.4 1.8V17H11z" fill="#fff"/></svg>`;
+        case "zalo":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#0068FF"/><text x="12" y="15" font-size="7" font-weight="900" text-anchor="middle" fill="#fff" font-family="sans-serif">Zalo</text></svg>`;
+        case "vk":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#0077FF"/><text x="12" y="15" font-size="8" font-weight="900" text-anchor="middle" fill="#fff" font-family="sans-serif">VK</text></svg>`;
+        case "twitter":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#000"/><path d="M7 6.5l3.9 5.2-4.1 4.8h1.2l3.4-4 2.8 4h3.8l-4.1-5.5 3.8-4.5h-1.2l-3.2 3.8-2.6-3.8H7zm1.8 1h1.5l6.9 9h-1.5l-6.9-9z" fill="#fff"/></svg>`;
+        case "tiktok":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#000"/><path d="M15 6a4 4 0 0 0 3 3v2a6 6 0 0 1-3-1v5a4 4 0 1 1-4-4c.3 0 .7 0 1 .1V13a2 2 0 1 0 2 2V6h1z" fill="#00F2FE"/><path d="M14.7 6.2a4 4 0 0 0 3 3v1.5a5.5 5.5 0 0 1-3-1v5.2a4 4 0 1 1-4-4c.3 0 .7 0 1 .1V13.2a2 2 0 1 0 2 2V6.2h1z" fill="#fff"/></svg>`;
+        case "microsoft":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" fill="#F25022"/><rect x="13" y="4" width="7" height="7" fill="#7FBA00"/><rect x="4" y="13" width="7" height="7" fill="#00A4EF"/><rect x="13" y="13" width="7" height="7" fill="#FFB900"/></svg>`;
+        case "snapchat":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#FFFC00"/><path d="M12 6c-2.3 0-3.5 1.5-3.5 3.3 0 .6.2 1.3.4 1.8-.4.2-1 .5-1.1.9-.1.3.1.6.4.7.7.2 1.1.1 1.4-.2.4.9 1.2 1.5 2.4 1.5s2-.6 2.4-1.5c.3.3.7.4 1.4.2.3-.1.5-.4.4-.7-.1-.4-.7-.7-1.1-.9.2-.5.4-1.2.4-1.8 0-1.8-1.2-3.3-3.5-3.3z" fill="#fff" stroke="#000" stroke-width="0.8"/></svg>`;
+        case "messenger":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#006AFF"/><path d="M12 6c-3.6 0-6.5 2.7-6.5 6 0 1.9 1 3.6 2.5 4.6l-.6 2 2.1-.9c.8.2 1.6.3 2.5.3 3.6 0 6.5-2.7 6.5-6s-2.9-6-6.5-6zm1.1 8.2l-2-2.1-3.6 2.1 4-4.2 2 2.1 3.6-2.1-4 4.2z" fill="#fff"/></svg>`;
+        case "threads":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#000"/><text x="12" y="16" font-size="12" font-weight="900" text-anchor="middle" fill="#fff" font-family="sans-serif">@</text></svg>`;
+        case "spotify":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1ED760"/><path d="M16.5 14.5c-.2.3-.5.4-.8.2-2.3-1.4-5.2-1.7-8.6-.9-.3.1-.7-.1-.8-.4-.1-.3.1-.7.4-.8 3.8-.9 7-.5 9.6 1.1.3.2.4.5.2.8zm1.2-2.6c-.2.4-.7.5-1 .3-2.7-1.6-6.7-2.1-9.9-1.1-.4.1-.8-.1-.9-.5-.1-.4.1-.8.5-.9 3.6-1.1 8-.5 11 1.3.4.2.5.6.3.9z" fill="#000"/></svg>`;
+        case "binance":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#F3BA2F"/><path d="M12 7l2 2-3 3 1.2 1.2 4.2-4.2L12 4.8 7.6 9.2l4.2 4.2 1.2-1.2-3-3L12 7zM12 17l-2-2 3-3-1.2-1.2-4.2 4.2L12 19.2l4.4-4.4-1.2-1.2-3 3-2.2-2.6z" fill="#000"/></svg>`;
+        case "kucoin":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#23AF91"/><text x="12" y="16" font-size="11" font-weight="900" text-anchor="middle" fill="#fff" font-family="sans-serif">K</text></svg>`;
+        case "htx":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#1B2129"/><path d="M12 6c1 2 4 4 4 7a4 4 0 0 1-8 0c0-3 3-5 4-7z" fill="#0092FF"/><path d="M12 10c.7 1 2 2 2 3.5a2 2 0 0 1-4 0c0-1.5 1.3-2.5 2-3.5z" fill="#FF8D00"/></svg>`;
+        case "coinw":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#2A64F6"/><text x="12" y="16" font-size="11" font-weight="900" text-anchor="middle" fill="#fff" font-family="sans-serif">W</text></svg>`;
+        case "cryptocom":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#061121"/><path d="M12 6l5 3v5c0 3-2.5 5.5-5 6.5-2.5-1-5-3.5-5-6.5V9l5-3z" fill="#002D74"/></svg>`;
+        case "okx":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#000"/><rect x="6" y="6" width="4" height="4" fill="#fff"/><rect x="14" y="6" width="4" height="4" fill="#fff"/><rect x="10" y="10" width="4" height="4" fill="#fff"/><rect x="6" y="14" width="4" height="4" fill="#fff"/><rect x="14" y="14" width="4" height="4" fill="#fff"/></svg>`;
+        case "gmail":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><rect width="24" height="24" rx="5" fill="#fff"/><path d="M6 7v10h2.5V11L12 14l3.5-3v6H18V7l-6 5-6-5z" fill="#EA4335"/><path d="M6 7l6 5 6-5H6z" fill="#FBBC04"/><path d="M6 7v3.5L8.5 12V7H6z" fill="#4285F4"/><path d="M18 7v3.5L15.5 12V7H18z" fill="#34A853"/></svg>`;
+        case "outlook":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#0078D4"/><text x="12" y="16" font-size="12" font-weight="900" text-anchor="middle" fill="#fff" font-family="sans-serif">O</text></svg>`;
+        case "yahoo":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6001D2"/><text x="12" y="16" font-size="10" font-weight="900" text-anchor="middle" fill="#fff" font-family="sans-serif">Y!</text></svg>`;
+        case "yandex":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FC3F1D"/><text x="12" y="16" font-size="11" font-weight="900" text-anchor="middle" fill="#fff" font-family="sans-serif">Я</text></svg>`;
+        case "mailru":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#005FF9"/><text x="12" y="16" font-size="12" font-weight="900" text-anchor="middle" fill="#FFA900" font-family="sans-serif">@</text></svg>`;
+        case "paypal":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#003087"/><path d="M8 7h4c1.7 0 3 .8 3 2.4 0 1.8-1.3 3.1-3 3.1h-1.5l-1 5H7.5L8 7z" fill="#0079C1"/><path d="M10 9h3.5c1.4 0 2.5.7 2.5 2 0 1.6-1.1 2.7-2.5 2.7H12l-.8 4.3H9.7L10 9z" fill="#00457C"/></svg>`;
+        case "revolut":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#000"/><text x="12" y="16" font-size="12" font-weight="900" text-anchor="middle" fill="#fff" font-family="sans-serif">R</text></svg>`;
+        case "wise":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#9FE870"/><path d="M8 8l3 5 3-5h3l-5 8h-2L6 8h2z" fill="#163300"/></svg>`;
+        case "cashapp":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#00D632"/><text x="12" y="16" font-size="13" font-weight="900" text-anchor="middle" fill="#fff" font-family="sans-serif">$</text></svg>`;
+        case "signal":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#3A76F0"/><path d="M12 6a6 6 0 0 0-6 6c0 1.6.6 3 1.6 4.1L7 18l2.2-.6c.8.4 1.8.6 2.8.6a6 6 0 0 0 6-6 6 6 0 0 0-6-6z" fill="#fff"/></svg>`;
+        case "github":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#24292E"/><path d="M12 6a6 6 0 0 0-1.9 11.7c.3.1.4-.1.4-.3v-1.1c-1.7.4-2-.8-2-.8-.2-.5-.5-.9-.9-1.1-.5-.4 0-.4 0-.4.6 0 1 .6 1 .6.5.9 1.4.7 1.8.5.1-.4.3-.7.5-.9-1.3-.2-2.7-.7-2.7-3 0-.7.2-1.2.6-1.6-.1-.2-.3-.8.1-1.6 0 0 .5-.2 1.7.6a6 6 0 0 1 3.1 0c1.2-.8 1.7-.6 1.7-.6.4.8.2 1.4.1 1.6.4.4.6 1 .6 1.6 0 2.3-1.4 2.8-2.7 3 .3.3.5.8.5 1.6v2.3c0 .2.1.4.4.3A6 6 0 0 0 12 6z" fill="#fff"/></svg>`;
+        case "dhl":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#FFCC00"/><text x="12" y="15" font-size="7" font-weight="900" text-anchor="middle" fill="#D40511" font-family="sans-serif">DHL</text></svg>`;
+        case "temu":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><rect width="24" height="24" rx="5" fill="#FB7701"/><text x="12" y="15" font-size="7" font-weight="900" text-anchor="middle" fill="#fff" font-family="sans-serif">temu</text></svg>`;
+        case "airbnb":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF5A5F"/><path d="M12 7c-1.5 0-2.5 1.5-2.5 3.5 0 2.5 2.5 5.5 2.5 5.5s2.5-3 2.5-5.5c0-2-1-3.5-2.5-3.5zm0 4.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" fill="#fff"/></svg>`;
+        case "phone":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#2563EB"/><path d="M16 14.5l-2-1c-.3-.1-.6 0-.8.2l-.7.7c-1.1-.6-2-1.5-2.6-2.6l.7-.7c.2-.2.3-.5.2-.8l-1-2c-.1-.3-.4-.5-.8-.5H8c-.5 0-.9.4-.9.9 0 4.5 3.6 8.1 8.1 8.1.5 0 .9-.4.9-.9v-1c0-.4-.2-.7-.5-.8z" fill="#fff"/></svg>`;
+        case "activity":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#0284C7"/><polyline points="6 12 9 12 11 8 13 16 15 12 18 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+        case "radio":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#64748B"/><circle cx="12" cy="12" r="2" fill="#fff"/><path d="M8 8a5.5 5.5 0 0 1 8 0M6 6a8.5 8.5 0 0 1 12 0" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>`;
+        case "shopping-cart":
+        case "shopping-bag":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#84CC16"/><path d="M8 8h8l-1 6H9L8 8zm0 0L7 5H5" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><circle cx="10" cy="17" r="1" fill="#fff"/><circle cx="14" cy="17" r="1" fill="#fff"/></svg>`;
+        case "award":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#0284C7"/><circle cx="12" cy="10" r="4" fill="none" stroke="#fff" stroke-width="1.8"/><polyline points="10 14 9 18 12 16 15 18 14 14" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+        case "flame":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#EA580C"/><path d="M12 6c1 2 4 4 4 7a4 4 0 0 1-8 0c0-3 3-5 4-7z" fill="#fff"/></svg>`;
+        case "shield-alert":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#DC2626"/><path d="M12 6l5 2v5c0 3-2.5 5.5-5 6.5-2.5-1-5-3.5-5-6.5V8l5-2z" fill="#fff"/><circle cx="12" cy="14.5" r="0.8" fill="#DC2626"/><line x1="12" y1="9.5" x2="12" y2="12.5" stroke="#DC2626" stroke-width="1.5" stroke-linecap="round"/></svg>`;
+        case "car":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#000"/><path d="M7 14l1.5-4h7L17 14H7z" fill="#fff"/><circle cx="9" cy="15" r="1.2" fill="#fff"/><circle cx="15" cy="15" r="1.2" fill="#fff"/></svg>`;
+        case "heart":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#E11D48"/><path d="M12 17l-4.5-4.5a3 3 0 0 1 4.2-4.2L12 8.6l.3-.3a3 3 0 0 1 4.2 4.2L12 17z" fill="#fff"/></svg>`;
+        case "home":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#0D9488"/><path d="M12 7l5 4.5V17h-3v-4h-4v4H7v-5.5L12 7z" fill="#fff"/></svg>`;
+        case "discord":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#5865F2"/><path d="M16.5 8.5c-.8-.4-1.7-.6-2.6-.7-.1.2-.2.5-.3.7-1-.1-2-.1-3 0-.1-.2-.2-.5-.3-.7-.9.1-1.8.3-2.6.7-1.6 2.3-2 4.6-1.8 6.9 1 .8 2 1.3 3 1.3.2-.3.4-.7.6-1-1-.4-1.2-1-1.2-1 .1 0 .2.1.3.2 1.8 1.1 3.9 1.1 5.7 0 .1-.1.2-.1.3-.2 0 0-.2.6-1.2 1 .2.3.4.7.6 1 1 0 2-.5 3-1.3.2-2.3-.2-4.6-1.8-6.9zm-6 5.5c-.6 0-1-.5-1-1.2s.4-1.2 1-1.2 1 .5 1 1.2-.4 1.2-1 1.2zm3 0c-.6 0-1-.5-1-1.2s.4-1.2 1-1.2 1 .5 1 1.2-.4 1.2-1 1.2z" fill="#fff"/></svg>`;
+        case "glovo":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FFC244"/><path d="M12 6a6 6 0 1 0 4.2 10.3l-1.5-1.5A3.9 3.9 0 1 1 12 8.1c1.5 0 2.8.8 3.5 2h-3.5v2.1h5.8V10A7 7 0 0 0 12 6z" fill="#00A082"/></svg>`;
+        case "talabat":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF5A00"/><path d="M7 8h10v2.5H13.2V17h-2.5v-6.5H7V8z" fill="#fff"/></svg>`;
+        case "doordash":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#FF3008"/><path d="M6 13.5c0-1.9 1.6-3.5 3.5-3.5h7.2c.4 0 .7.5.4.8l-2.4 2.4c-.2.2-.5.3-.8.3H9.5a1.2 1.2 0 0 0 0 2.4h5.2c.4 0 .7.5.4.8l-1.5 1.5c-.2.2-.5.3-.8.3H9.5A3.5 3.5 0 0 1 6 13.5z" fill="#fff"/></svg>`;
+        case "mail":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#435ebf"/><path d="M6 8l6 4 6-4v8H6V8zm0-1h12c.5 0 1 .5 1 1v.2l-7 4.7-7-4.7V8c0-.5.5-1 1-1z" fill="#fff"/></svg>`;
+        case "play":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6366F1"/><polygon points="10,8 16,12 10,16" fill="#fff"/></svg>`;
+        case "briefcase":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#0EA5E9"/><rect x="7" y="10" width="10" height="7" rx="1.5" fill="#fff"/><path d="M10 10V8c0-.6.4-1 1-1h2c.6 0 1 .4 1 1v2" fill="none" stroke="#fff" stroke-width="1.2"/></svg>`;
+        case "users":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#10B981"/><circle cx="9" cy="10" r="2.2" fill="#fff"/><circle cx="15" cy="11" r="1.8" fill="#fff"/><path d="M5.5 16.5c0-1.8 1.6-3 3.5-3s3.5 1.2 3.5 3H5.5zm7 0c0-1.2 1-2.2 2.5-2.2s2.5 1 2.5 2.2h-5z" fill="#fff"/></svg>`;
+        case "video":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#8B5CF6"/><rect x="6" y="8.5" width="8" height="7" rx="1.5" fill="#fff"/><polygon points="15,10.5 18,8.5 18,15.5 15,13.5" fill="#fff"/></svg>`;
+        case "truck":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#F59E0B"/><path d="M6 8h7v6H6V8zm7 2h3l2 2v2h-5v-4z" fill="#fff"/><circle cx="8.5" cy="15.5" r="1.2" fill="#fff"/><circle cx="15.5" cy="15.5" r="1.2" fill="#fff"/></svg>`;
+        case "phone-call":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#16A34A"/><path d="M15 13.5l-1.5-.8c-.2-.1-.5 0-.6.2l-.5.5c-.8-.5-1.5-1.2-2-2l.5-.5c.2-.2.2-.4.1-.6L10.2 9c-.1-.2-.4-.3-.6-.3h-1c-.4 0-.7.3-.7.7 0 3.5 2.8 6.3 6.3 6.3.4 0 .7-.3.7-.7v-1c0-.2-.1-.4-.3-.5z" fill="#fff"/></svg>`;
+        case "avito":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#00AAFF"/><circle cx="8" cy="12" r="3.5" fill="#99E200"/><circle cx="16" cy="9" r="2.5" fill="#FF4053"/><circle cx="15.5" cy="15.5" r="2.8" fill="#AA44FF"/></svg>`;
+        case "okru":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#EE8208"/><circle cx="12" cy="8.5" r="2.5" fill="#fff"/><path d="M12 12.5c-2.3 0-3.5.8-3.5.8l-.8 1.4s1.6-.7 4.3-.7 4.3.7 4.3.7l-.8-1.4s-1.2-.8-3.5-.8zm-3 2.5l-2.5 3h1.8l2.2-2.5 2.2 2.5h1.8l-2.5-3c1.5-.4 2.5-1 2.5-1l-.8-1.3s-1.2.6-3.2.6-3.2-.6-3.2-.6l-.8 1.3s1 .6 2.5 1z" fill="#fff"/></svg>`;
+        case "kakaotalk":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#FEE500"/><path d="M12 5.5c-4.1 0-7.5 2.6-7.5 5.8 0 2.1 1.4 3.9 3.5 4.9l-.9 3.3c-.1.3.2.5.5.3l3.9-2.6c.2 0 .3 0 .5 0 4.1 0 7.5-2.6 7.5-5.8s-3.4-5.9-7.5-5.9z" fill="#3C1E1E"/></svg>`;
+        case "wechat":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#07C160"/><path d="M10.2 6.5C6.8 6.5 4 8.7 4 11.4c0 1.5.8 2.8 2.1 3.7l-.5 1.7 2-1c.8.3 1.7.4 2.6.4.3 0 .7 0 1-.1-.3-.6-.4-1.3-.4-2 0-3 2.7-5.5 6-5.5.4 0 .8 0 1.2.1C17 7.4 13.8 6.5 10.2 6.5zm-2 2.4c.5 0 .9.4.9.9s-.4.9-.9.9-.9-.4-.9-.9.4-.9.9-.9zm3.8 0c.5 0 .9.4.9.9s-.4.9-.9.9-.9-.4-.9-.9.4-.9.9-.9zm4.2 3.6c-2.8 0-5 2-5 4.5 0 1.3.6 2.4 1.7 3.2l-.4 1.4 1.6-.9c.7.2 1.4.3 2.1.3 2.8 0 5-2 5-4.5s-2.2-4-5-4zm-1.8 2.1c.4 0 .7.3.7.7s-.3.7-.7.7-.7-.3-.7-.7.3-.7.7-.7zm3.5 0c.4 0 .7.3.7.7s-.3.7-.7.7-.7-.3-.7-.7.3-.7.7-.7z" fill="#fff"/></svg>`;
+        case "grab":
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#00B14F"/><path d="M7 10a4 4 0 1 1 7.2 2.3l-1.8 1.4A1.8 1.8 0 1 0 9.2 14H17v2H7v-6z" fill="#fff"/></svg>`;
+        default:
+          return `<svg width="${size}" height="${size}" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#435ebf"/><circle cx="12" cy="12" r="3" fill="#fff"/></svg>`;
+      }
+    }
+
+    // Render badge HTML
+    function renderBadge(badge) {
+      if (!badge) return '';
+      if (badge === 'HOT') {
+        return `<span class="px-1.5 py-0.5 text-[9px] font-extrabold uppercase rounded bg-rose-500 text-white tracking-wider shrink-0 shadow-xs">HOT</span>`;
+      } else if (badge === 'NEW') {
+        return `<span class="px-1.5 py-0.5 text-[9px] font-extrabold uppercase rounded bg-purple-600 text-white tracking-wider shrink-0 shadow-xs">NEW</span>`;
+      } else if (badge === 'PRO') {
+        return `<span class="px-1.5 py-0.5 text-[9px] font-extrabold uppercase rounded bg-amber-500 text-white tracking-wider shrink-0 shadow-xs">PRO</span>`;
+      } else if (badge === 'EXCLUSIVE') {
+        return `<span class="px-1.5 py-0.5 text-[9px] font-extrabold uppercase rounded bg-emerald-600 text-white tracking-wider shrink-0 shadow-xs">EXCLUSIVE</span>`;
+      }
+      return '';
+    }
+
+    // Render the 90+ Services Directory
+    function renderServicesDirectory() {
+      const container = document.getElementById("servicesDirectoryContainer");
+      if (!container) return;
+
+      const q = currentDirSearch.trim().toLowerCase();
+      let filtered = ALL_SERVICES.filter(s => {
+        const matchesCat = (currentDirCategory === 'ALL') || (s.cat === currentDirCategory);
+        const matchesQuery = !q || s.name.toLowerCase().includes(q) || s.catTitle.toLowerCase().includes(q) || s.desc.toLowerCase().includes(q);
+        return matchesCat && matchesQuery;
+      });
+
+      // Update count badge
+      const badgeEl = document.getElementById("serviceCountBadge");
+      if (badgeEl) badgeEl.innerText = `${filtered.length} Checkers`;
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="bg-white rounded-2xl border border-slate-200 p-12 text-center text-slate-400">
+            <i data-lucide="search-x" class="w-10 h-10 mx-auto text-slate-300 mb-3"></i>
+            <h4 class="font-bold text-slate-700 text-base">No checkers found</h4>
+            <p class="text-xs text-slate-500 mt-1">Try searching for something else like "WhatsApp", "Binance", "Revolut", or "Email".</p>
+          </div>
+        `;
+        lucide.createIcons();
+        return;
+      }
+
+      // Group by catTitle
+      const groups = {};
+      filtered.forEach(s => {
+        if (!groups[s.catTitle]) groups[s.catTitle] = [];
+        groups[s.catTitle].push(s);
+      });
+
+      let html = '';
+      for (const [title, services] of Object.entries(groups)) {
+        html += `
+          <div class="bg-white rounded-2xl border border-slate-200/90 p-5 sm:p-7 shadow-xs">
+            <div class="flex items-center justify-between pb-3.5 mb-4 border-b border-slate-100">
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+                <span>${title}</span>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-slate-100 text-slate-600">${services.length}</span>
+              </span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+              ${services.map(s => {
+                const costVal = s.cost || 1;
+                const costBadge = (costVal === 5)
+                  ? `<span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-50 text-amber-700 border border-amber-200">5 cr</span>`
+                  : (costVal === 3)
+                  ? `<span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">3 cr</span>`
+                  : (costVal === 2)
+                  ? `<span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold bg-blue-50 text-blue-700 border border-blue-200">2 cr</span>`
+                  : `<span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-medium bg-slate-100 text-slate-600 border border-slate-200">1 cr</span>`;
+
+                const slug = s.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                return `
+                <a href="/products/${slug}" class="bg-white hover:bg-blue-50/40 border border-slate-200 hover:border-[#435ebf] rounded-xl p-3 flex items-center justify-between transition cursor-pointer group shadow-2xs">
+                  <div class="flex items-center gap-2.5 min-w-0 pr-2">
+                    <div class="w-6 h-6 shrink-0 flex items-center justify-center">
+                      ${getBrandSvg(s.icon, 20)}
+                    </div>
+                    <span class="text-xs sm:text-sm font-medium text-slate-800 group-hover:text-[#435ebf] transition truncate">${s.name}</span>
+                  </div>
+                  <div class="flex items-center gap-1.5 shrink-0">
+                    ${costBadge}
+                    ${renderBadge(s.badge)}
+                  </div>
+                </a>
+              `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      container.innerHTML = html;
+      lucide.createIcons();
+    }
+
+    function setDirectoryCategory(cat) {
+      currentDirCategory = cat;
+      const cats = ['ALL', 'SOCIAL_MESSAGING', 'CRYPTO_EXCHANGE', 'EMAIL_VERIFICATION', 'FINTECH_PAYMENTS', 'FRAUD_RISK_HLR', 'ECOMMERCE_STREAMING'];
+      cats.forEach(c => {
+        const btn = document.getElementById(`catBtn_${c}`);
+        if (btn) {
+          btn.className = (c === cat)
+            ? "cat-pill active px-3 py-1.5 rounded-lg text-xs font-bold transition"
+            : "cat-pill inactive px-3 py-1.5 rounded-lg text-xs font-semibold transition";
+        }
+      });
+      renderServicesDirectory();
+    }
+
+    function filterServicesDirectory() {
+      currentDirSearch = document.getElementById("serviceSearchInput").value;
+      renderServicesDirectory();
+    }
+
+    let activeModalService = null;
+
+    
+    function openFullDirectoryModal() {
+      const modal = document.getElementById("allServicesModal");
+      if (modal) {
+        modal.classList.remove("hidden");
+        renderServicesDirectory();
+      }
+    }
+
+    function closeFullDirectoryModal() {
+      const modal = document.getElementById("allServicesModal");
+      if (modal) modal.classList.add("hidden");
+    }
+
+    function handleServiceClick(serviceId) {
+      const s = ALL_SERVICES.find(x => x.id === serviceId);
+      if (!s) return;
+      activeModalService = s;
+
+      document.getElementById("modalServiceName").innerText = s.name;
+      document.getElementById("modalServiceDesc").innerText = s.desc;
+      document.getElementById("modalServiceIcon").innerHTML = getBrandSvg(s.icon, 24);
+      document.getElementById("modalServiceBadge").innerHTML = renderBadge(s.badge);
+      document.getElementById("modalTargetLabel").innerText = 
+        s.target === "Email" ? "Enter Target Email Address:" :
+        s.target === "Username" ? "Enter @Username Handle:" :
+        s.target === "Hybrid" ? "Enter Target (Email, Phone, or @Handle):" :
+        "Enter Target Phone Number (International E.164):";
+
+      document.getElementById("modalTargetInput").placeholder = 
+        s.target === "Email" ? "user@example.com" :
+        s.target === "Username" ? "@telegram_user" :
+        s.target === "Hybrid" ? "user@example.com or +212 661 123456" :
+        "+212 661 123456";
+
+      document.getElementById("modalTargetInput").value = 
+        s.target === "Email" ? (s.id.includes("gmail") ? "client.audit@gmail.com" : "contact@domain.com") :
+        s.target === "Username" ? "@alpha_trader" :
+        s.target === "Hybrid" ? (s.id.includes("discord") ? "web3.trader@gmail.com" : s.id.includes("okru") ? "+7 916 1234567" : s.id.includes("kakaotalk") ? "+82 10 1234 5678" : s.id.includes("wechat") ? "+86 138 0013 8000" : "+212 661 123456") :
+        (s.id.includes("avito") ? "+7 916 1234567" : s.id.includes("grab") ? "+65 9123 4567" : s.id.includes("glovo") ? "+212 661 234567" : s.id.includes("talabat") ? "+971 50 1234567" : s.id.includes("doordash") ? "+1 202 555 0143" : "+212 661 123456");
+
+      document.getElementById("modalLiveWallet").innerText = 
+        currentUser ? `Wallet: ${Number(currentUser.credits).toLocaleString()} credits` : `Free Demo: ${guestRemainingQuota} / 3 left`;
+
+      const costCredits = s.cost || 1;
+      const costEl = document.getElementById("modalCostAmount");
+      if (costEl) costEl.innerText = `${costCredits} Credit${costCredits > 1 ? 's' : ''}`;
+
+      document.getElementById("modalServiceResult").classList.add("hidden");
+      document.getElementById("serviceRunnerModal").classList.remove("hidden");
+      lucide.createIcons();
+    }
+
+    function closeServiceModal() {
+      document.getElementById("serviceRunnerModal").classList.add("hidden");
+    }
+
+    // ==================== PRICING HUB LOGIC ====================
+    let currentPricingView = 'packs';
+    let currentPricingVolCat = 'ALL';
+    let currentPricingVolSearch = '';
+
+    function switchPricingView(viewMode) {
+      currentPricingView = viewMode;
+      const packsBtn = document.getElementById("pricingViewBtn_packs");
+      const volBtn = document.getElementById("pricingViewBtn_volume");
+      const packsContainer = document.getElementById("pricingPacksContainer");
+      const volContainer = document.getElementById("pricingVolumeContainer");
+
+      if (viewMode === 'packs') {
+        packsBtn.className = "px-5 py-2 rounded-lg text-xs sm:text-sm font-bold transition shadow-xs bg-white text-slate-900";
+        volBtn.className = "px-5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition text-slate-600 hover:text-slate-900";
+        packsContainer.classList.remove("hidden");
+        volContainer.classList.add("hidden");
+      } else {
+        volBtn.className = "px-5 py-2 rounded-lg text-xs sm:text-sm font-bold transition shadow-xs bg-white text-slate-900";
+        packsBtn.className = "px-5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition text-slate-600 hover:text-slate-900";
+        packsContainer.classList.add("hidden");
+        volContainer.classList.remove("hidden");
+        renderPricingVolumeTable();
+      }
+      lucide.createIcons();
+    }
+
+    function setPricingVolumeCat(cat) {
+      currentPricingVolCat = cat;
+      const cats = ['ALL', 'SOCIAL_MESSAGING', 'CRYPTO_EXCHANGE', 'EMAIL_VERIFICATION', 'FINTECH_PAYMENTS', 'FRAUD_RISK_HLR', 'ECOMMERCE_STREAMING'];
+      cats.forEach(c => {
+        const btn = document.getElementById(`pVolCat_${c}`);
+        if (btn) {
+          btn.className = (c === cat)
+            ? "cat-pill active px-3 py-1.5 rounded-lg text-xs font-bold transition"
+            : "cat-pill inactive px-3 py-1.5 rounded-lg text-xs font-semibold transition";
+        }
+      });
+      renderPricingVolumeTable();
+    }
+
+    function filterPricingVolumeDirectory() {
+      currentPricingVolSearch = (document.getElementById("pricingVolumeSearchInput").value || "").trim().toLowerCase();
+      renderPricingVolumeTable();
+    }
+
+    function getRate10k(s) {
+      const customRates = {
+        whatsapp_bulk: { rate: "$0.80", comp: "$0.90 on NumberChecker (-11%)" },
+        whatsapp_advanced: { rate: "$0.95", comp: "$1.00 on NumberChecker (-5%)" },
+        whatsapp_days: { rate: "$1.60", comp: "$1.80 on NumberChecker (-11%)" },
+        whatsapp_age_gender: { rate: "$3.40", comp: "$3.80 on NumberChecker (-11%)" },
+        telegram_basic: { rate: "$1.00", comp: "$1.50 on NumberChecker (-33%)" },
+        telegram_days: { rate: "$3.00", comp: "$3.50 on NumberChecker (-14%)" },
+        telegram_age_gender: { rate: "$4.00", comp: "$4.50 on NumberChecker (-11%)" },
+        imessage_checker: { rate: "$1.50", comp: "$2.00 on NumberChecker (-25%)" },
+        rcs_checker: { rate: "$1.20", comp: "$1.50 on NumberChecker (-20%)" },
+        facebook_checker: { rate: "$0.25", comp: "$0.30 on NumberChecker (-17%)" },
+        facebook_email_checker: { rate: "$0.25", comp: "$0.30 on NumberChecker (-17%)" },
+        instagram_checker: { rate: "$0.25", comp: "$0.30 on NumberChecker (-17%)" },
+        instagram_email_checker: { rate: "$0.25", comp: "$0.30 on NumberChecker (-17%)" },
+        binance_checker: { rate: "$5.00", comp: "$6.50 on NumberChecker (-23%)" },
+        binance_email_checker: { rate: "$12.00", comp: "$15.00 on NumberChecker (-20%)" },
+        kucoin_checker: { rate: "$5.50", comp: "$7.00 on NumberChecker (-21%)" },
+        kucoin_email_checker: { rate: "$5.50", comp: "$7.00 on NumberChecker (-21%)" },
+        okx_checker: { rate: "$12.00", comp: "$15.00 on NumberChecker (-20%)" },
+        snapchat_checker: { rate: "$12.00", comp: "$15.00 on NumberChecker (-20%)" },
+        advanced_us_carrier: { rate: "$12.00", comp: "$15.00 on NumberChecker (-20%)" },
+        tiktok_checker: { rate: "$7.50", comp: "$9.00 on NumberChecker (-17%)" },
+        netflix_number_checker: { rate: "$5.50", comp: "$7.00 on NumberChecker (-21%)" },
+        netflix_email_checker: { rate: "$5.50", comp: "$7.00 on NumberChecker (-21%)" },
+        phone_validation: { rate: "$1.00", comp: "$1.50 on NumberChecker (-33%)" },
+        carrier_detection: { rate: "$1.50", comp: "$2.00 on NumberChecker (-25%)" },
+        amazon_checker: { rate: "$1.60", comp: "$2.00 on NumberChecker (-20%)" },
+        // Exclusive to PulseCheck
+        wechat_checker: { rate: "$4.50", comp: "Exclusive to PulseCheck" },
+        kakaotalk_checker: { rate: "$4.50", comp: "Exclusive to PulseCheck" },
+        grab_checker: { rate: "$4.50", comp: "Exclusive to PulseCheck" },
+        glovo_checker: { rate: "$4.50", comp: "Exclusive to PulseCheck" },
+        talabat_checker: { rate: "$4.50", comp: "Exclusive to PulseCheck" },
+        doordash_checker: { rate: "$4.50", comp: "Exclusive to PulseCheck" },
+        avito_checker: { rate: "$4.50", comp: "Exclusive to PulseCheck" },
+        okru_checker: { rate: "$2.50", comp: "Exclusive to PulseCheck" },
+        discord_checker: { rate: "$2.50", comp: "Exclusive to PulseCheck" },
+        tiktok_email_checker: { rate: "$2.00", comp: "Exclusive to PulseCheck" },
+        paypal_checker: { rate: "$4.50", comp: "Exclusive to PulseCheck" },
+        revolut_checker: { rate: "$4.50", comp: "Exclusive to PulseCheck" },
+        wise_checker: { rate: "$4.50", comp: "Exclusive to PulseCheck" },
+        cashapp_checker: { rate: "$4.50", comp: "Exclusive to PulseCheck" },
+        sim_swap_detector: { rate: "$12.00", comp: "Exclusive SS7 Signal" },
+        voip_burner_detector: { rate: "$12.00", comp: "Exclusive Burner Shield" },
+        high_value_users: { rate: "$4.50", comp: "$5.50 on NumberChecker (-18%)" },
+      };
+
+      if (customRates[s.id]) return customRates[s.id];
+      const c = s.cost || 1;
+      if (c === 1) return { rate: "$0.90", comp: "Market Average: $1.50 (-40%)" };
+      if (c === 2) return { rate: "$2.00", comp: "Market Average: $3.50 (-43%)" };
+      if (c === 3) return { rate: "$4.50", comp: "Market Average: $7.00 (-36%)" };
+      return { rate: "$12.00", comp: "Market Average: $18.00 (-33%)" };
+    }
+
+    function renderPricingVolumeTable() {
+      const tbody = document.getElementById("pricingVolumeTableBody");
+      if (!tbody) return;
+
+      const q = currentPricingVolSearch;
+      let filtered = ALL_SERVICES.filter(s => {
+        const matchesCat = (currentPricingVolCat === 'ALL') || (s.cat === currentPricingVolCat);
+        const matchesQuery = !q || s.name.toLowerCase().includes(q) || s.desc.toLowerCase().includes(q) || s.id.toLowerCase().includes(q);
+        return matchesCat && matchesQuery;
+      });
+
+      const badgeEl = document.getElementById("pricingVolumeCountBadge");
+      if (badgeEl) badgeEl.innerText = `${filtered.length} Checkers Listed`;
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6" class="p-8 text-center text-slate-400 font-sans">
+              No matching checkers found for your query. Try searching for "WhatsApp", "Binance", "WeChat", or "Email".
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(s => {
+        const pricingInfo = getRate10k(s);
+        const costVal = s.cost || 1;
+        const costBadge = (costVal === 5)
+          ? `<span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-50 text-amber-700 border border-amber-200">5 Credits</span>`
+          : (costVal === 3)
+          ? `<span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">3 Credits</span>`
+          : (costVal === 2)
+          ? `<span class="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-blue-50 text-blue-700 border border-blue-200">2 Credits</span>`
+          : `<span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-slate-100 text-slate-600 border border-slate-200">1 Credit</span>`;
+
+        const isExclusive = pricingInfo.comp.includes("Exclusive");
+        const compBadge = isExclusive
+          ? `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1 w-fit"><i data-lucide="sparkles" class="w-3 h-3 text-emerald-600"></i> ${pricingInfo.comp}</span>`
+          : `<span class="text-xs text-slate-500 font-sans">${pricingInfo.comp}</span>`;
+
+        return `
+          <tr class="hover:bg-slate-50/80 transition">
+            <td class="py-3 px-4">
+              <div class="flex items-center gap-2.5">
+                <div class="w-6 h-6 shrink-0 flex items-center justify-center">
+                  ${getBrandSvg(s.icon, 18)}
+                </div>
+                <div>
+                  <span class="font-sans font-bold text-slate-900 text-xs">${s.name}</span>
+                  <span class="block text-[10px] text-slate-400 font-sans font-normal truncate max-w-xs">${s.desc}</span>
+                </div>
+              </div>
+            </td>
+            <td class="py-3 px-3">
+              <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[10px] font-sans font-semibold">${s.target}</span>
+            </td>
+            <td class="py-3 px-3">
+              ${costBadge}
+            </td>
+            <td class="py-3 px-3">
+              <div class="flex items-baseline gap-1">
+                <span class="font-sans font-black text-slate-900 text-sm">${pricingInfo.rate}</span>
+                <span class="text-[10px] text-slate-400 font-sans">USD / 10k</span>
+              </div>
+            </td>
+            <td class="py-3 px-3 font-sans">
+              ${compBadge}
+            </td>
+            <td class="py-3 px-4 text-right">
+              <button onclick="handleServiceClick('${s.id}')" class="px-2.5 py-1 rounded-lg bg-blue-50 hover:bg-[#435ebf] text-[#435ebf] hover:text-white font-sans font-semibold text-[11px] transition shadow-2xs">
+                Test Live
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+      lucide.createIcons();
+    }
+
+    function updateRoiCalculator(volume) {
+      const vol = parseInt(volume);
+      document.getElementById("calcVolumeDisplay").innerText = `${vol.toLocaleString()} Contacts`;
+      
+      const verificationCost = (vol * 0.006).toFixed(2);
+      const wastedSmsCost = (vol * 0.18 * 0.05).toFixed(2);
+      const netSavings = Math.max(0, wastedSmsCost - verificationCost).toFixed(2);
+
+      document.getElementById("calcVerificationCost").innerText = `$${Number(verificationCost).toLocaleString(undefined, {minimumFractionDigits: 2})}`;
+      document.getElementById("calcWastedSmsCost").innerText = `$${Number(wastedSmsCost).toLocaleString(undefined, {minimumFractionDigits: 2})}`;
+      document.getElementById("calcNetSavings").innerText = `$${Number(netSavings).toLocaleString(undefined, {minimumFractionDigits: 2})}`;
+    }
+
+    function useSampleTarget() {
+      if (!activeModalService) return;
+      const s = activeModalService;
+      document.getElementById("modalTargetInput").value = 
+        s.target === "Email" ? (s.id.includes("gmail") ? "verified.prospect@gmail.com" : "trader@proton.me") :
+        s.target === "Username" ? "@digital_identity" :
+        "+212 661 123456";
+    }
+
+    async function runSpecificServiceCheck() {
+      if (!activeModalService) return;
+      const target = document.getElementById("modalTargetInput").value.trim();
+      if (!target) return alert("Please enter a target phone number or email.");
+
+      const btn = document.getElementById("btnRunServiceCheck");
+      const orig = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i><span>Executing Live Verification...</span>`;
+      lucide.createIcons();
+
+      try {
+        const res = await fetch("/v1/verify/service", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            service_id: activeModalService.id,
+            target: target,
+            default_country: "MA",
+            user_id: currentUser ? currentUser.id : null,
+          })
+        });
+
+        if (res.status === 429) {
+          closeServiceModal();
+          openTrialLimitModal();
+          fetchGuestQuota();
+          return;
+        }
+
+        if (res.status === 402) {
+          const errData = await res.json().catch(() => ({}));
+          closeServiceModal();
+          openTopUpModal('starter');
+          return;
+        }
+
+        if (!res.ok) throw new Error("Service verification failed");
+        const data = await res.json();
+        displayServiceResult(data);
+
+        if (currentUser) {
+          refreshUserProfile();
+          loadUserHistory();
+        } else {
+          fetchGuestQuota();
+        }
+      } catch (err) {
+        console.error(err);
+        alert(err.message);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = orig;
+        lucide.createIcons();
+      }
+    }
+
+    function displayServiceResult(r) {
+      const container = document.getElementById("modalServiceResult");
+      container.classList.remove("hidden");
+
+      const statusBadge = r.is_registered
+        ? `<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">ACTIVE / REGISTERED</span>`
+        : `<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-rose-50 text-rose-700 border border-rose-200">NOT REGISTERED / INCOMPATIBLE</span>`;
+
+      const riskColor = 
+        r.risk_level === "LOW" ? "text-emerald-600" :
+        r.risk_level === "MEDIUM" ? "text-amber-600" : "text-rose-600";
+
+      let detailsHtml = '';
+      for (const [k, v] of Object.entries(r.details)) {
+        detailsHtml += `
+          <div class="flex justify-between py-1 border-b border-slate-100 last:border-0">
+            <span class="text-slate-400 capitalize">${k.replace(/_/g, ' ')}:</span>
+            <span class="font-bold text-slate-800">${String(v)}</span>
+          </div>
+        `;
+      }
+
+      container.innerHTML = `
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs uppercase font-bold text-slate-400 tracking-wider font-mono">${r.target}</span>
+            ${statusBadge}
+          </div>
+          <p class="text-xs text-slate-700 font-medium">${r.status_summary}</p>
+          <div class="grid grid-cols-2 gap-2 text-xs pt-1">
+            <div class="p-2.5 rounded-lg bg-white border border-slate-200">
+              <span class="text-slate-400 text-[10px] block">Confidence Score</span>
+              <span class="font-bold text-[#435ebf] text-sm">${r.confidence_score}%</span>
+            </div>
+            <div class="p-2.5 rounded-lg bg-white border border-slate-200">
+              <span class="text-slate-400 text-[10px] block">Risk Level</span>
+              <span class="font-bold text-sm ${riskColor}">${r.risk_level}</span>
+            </div>
+          </div>
+          <div class="bg-white p-3 rounded-lg border border-slate-200 text-[11px] font-mono space-y-1">
+            <div class="flex justify-between text-slate-400 border-b border-slate-100 pb-1">
+              <span>Telemetry Indicator</span>
+              <span>Observed Value</span>
+            </div>
+            ${detailsHtml}
+            <div class="flex justify-between text-slate-400 pt-1">
+              <span>Execution Speed</span>
+              <span class="text-emerald-600 font-bold">${r.execution_time_ms} ms</span>
+            </div>
+            <div class="flex justify-between text-slate-400 pt-1 border-t border-slate-100">
+              <span>Credits Debited</span>
+              <span class="text-slate-800 font-bold">${r.cost_credits} credit${r.cost_credits > 1 ? 's' : ''}</span>
+            </div>
+          </div>
+        </div>
+      `;
+      lucide.createIcons();
+    }
+
+    let guestRemainingQuota = 3;
+
+    async function fetchGuestQuota() {
+      if (currentUser) {
+        updateGuestQuotaUI(0, 3);
+        return;
+      }
+      try {
+        const res = await fetch("/v1/guest/quota");
+        if (res.ok) {
+          const data = await res.json();
+          guestRemainingQuota = data.remaining;
+          updateGuestQuotaUI(data.remaining, data.max_free_checks);
+        }
+      } catch (err) {
+        console.error("Quota fetch error:", err);
+      }
+    }
+
+    function updateGuestQuotaUI(remaining, maxChecks = 3) {
+      const badge = document.getElementById("guestTrialBadge");
+      const countEl = document.getElementById("guestTrialRemaining");
+      if (!badge) return;
+
+      if (currentUser) {
+        badge.classList.add("hidden");
+        return;
+      }
+
+      badge.classList.remove("hidden");
+      if (countEl) countEl.innerText = remaining;
+
+      if (remaining === 0) {
+        badge.className = "text-xs font-semibold px-2.5 py-1 rounded bg-rose-50 text-rose-800 border border-rose-200 flex items-center gap-1.5 cursor-pointer shadow-2xs hover:bg-rose-100 transition";
+        badge.innerHTML = `<i data-lucide="shield-alert" class="w-3.5 h-3.5 text-rose-600"></i><span>Free Demo: <strong>0 / 3 left</strong> (Quota Reached)</span>`;
+      } else {
+        badge.className = "text-xs font-semibold px-2.5 py-1 rounded bg-amber-50 text-amber-800 border border-amber-200 flex items-center gap-1.5 cursor-pointer shadow-2xs hover:bg-amber-100 transition";
+        badge.innerHTML = `<i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-600"></i><span>Free Demo: <strong id="guestTrialRemaining">${remaining}</strong> / ${maxChecks} left</span>`;
+      }
+      lucide.createIcons();
+    }
+
+    function openTrialLimitModal() {
+      document.getElementById("trialLimitModal").classList.remove("hidden");
+      lucide.createIcons();
+    }
+
+    function closeTrialLimitModal() {
+      document.getElementById("trialLimitModal").classList.add("hidden");
+    }
+
+    function renderSampleResult() {
+      const sample = {
+        phone: { e164: "+212661123456", country_iso: "MA", line_type: "MOBILE" },
+        raw_input: "+212 661 123456",
+        lead_quality: "EXCELLENT",
+        reachability_score: 95,
+        carrier: { carrier_name: "Maroc Telecom (IAM)", is_voip: false },
+        whatsapp: { is_registered: true },
+        imessage: { is_registered: true },
+        telegram: { is_registered: true },
+        rcs: { is_registered: true },
+        social: { has_footprint: true, platforms: ["facebook", "instagram"] },
+        crypto: { has_footprint: true }
+      };
+      renderResult(sample);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      lucide.createIcons();
+      loadUserSession();
+      renderServicesDirectory();
+      renderBeautifulGrid();
+        renderPricingVolumeTable();
+      setupDragAndDrop();
+      
+      fetchGuestQuota();
+      renderSampleResult();
+    });
+
+    // Load session from localStorage
+    function loadUserSession() {
+      const stored = localStorage.getItem("pulsecheck_client");
+      if (stored) {
+        try {
+          currentUser = JSON.parse(stored);
+          refreshUserProfile();
+        } catch (e) {
+          currentUser = null;
+        }
+      }
+      renderHeaderAuth();
+    }
+
+    async function refreshUserProfile() {
+      if (!currentUser || !currentUser.id) return;
+      try {
+        const res = await fetch(`/v1/auth/me?user_id=${currentUser.id}`);
+        if (res.ok) {
+          currentUser = await res.json();
+          localStorage.setItem("pulsecheck_client", JSON.stringify(currentUser));
+        }
+      } catch (err) {
+        console.error(err);
+      }
+      renderHeaderAuth();
+    }
+
+    function renderHeaderAuth() {
+      const area = document.getElementById("authHeaderArea");
+
+      if (currentUser) {
+        // Authenticated State
+        area.innerHTML = `
+          <div class="flex items-center gap-3">
+            <div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-[#435ebf] border border-blue-100 text-xs font-bold font-mono">
+              <span>💎</span>
+              <span id="navCredits">${Number(currentUser.credits).toLocaleString()}</span>
+            </div>
+            <a href="/dashboard" class="px-4 py-1.5 rounded-lg bg-slate-900 hover:bg-[#435ebf] text-white text-xs font-semibold shadow-sm transition">
+              Dashboard
+            </a>
+            <button onclick="logoutClient()" class="text-xs font-semibold text-slate-600 hover:text-rose-600 px-2 py-1 transition">
+              Log Out
+            </button>
+          </div>
+        `;
+      } else {
+        // Guest State
+        area.innerHTML = `
+          <button onclick="openAuthModal('login')" class="text-sm font-semibold text-slate-700 hover:text-[#435ebf] px-3 py-2 transition">
+            Log in
+          </button>
+          <button onclick="openAuthModal('register')" class="text-sm font-semibold px-4 py-2 rounded-lg bg-[#435ebf] hover:bg-[#324796] text-white shadow-sm transition">
+            Start Free Check
+          </button>
+        `;
+      }
+      lucide.createIcons();
+    }
+
+    // Modal Handlers
+    function openAuthModal(tab = 'login') {
+      document.getElementById("authModal").classList.remove("hidden");
+      setAuthTab(tab);
+      hideAlert();
+    }
+
+    function closeAuthModal() {
+      document.getElementById("authModal").classList.add("hidden");
+    }
+
+    function setAuthTab(tab) {
+      const tabLogin = document.getElementById("modalTabLogin");
+      const tabReg = document.getElementById("modalTabRegister");
+      const formLogin = document.getElementById("loginForm");
+      const formReg = document.getElementById("registerForm");
+
+      hideAlert();
+
+      if (tab === 'login') {
+        tabLogin.className = "flex-1 pb-3 text-sm font-bold text-[#435ebf] border-b-2 border-[#435ebf] transition";
+        tabReg.className = "flex-1 pb-3 text-sm font-semibold text-slate-400 hover:text-slate-700 transition";
+        formLogin.classList.remove("hidden");
+        formReg.classList.add("hidden");
+      } else {
+        tabReg.className = "flex-1 pb-3 text-sm font-bold text-[#435ebf] border-b-2 border-[#435ebf] transition";
+        tabLogin.className = "flex-1 pb-3 text-sm font-semibold text-slate-400 hover:text-slate-700 transition";
+        formReg.classList.remove("hidden");
+        formLogin.classList.add("hidden");
+      }
+    }
+
+    function showAlert(msg, isSuccess = false) {
+      const alert = document.getElementById("authAlert");
+      alert.className = isSuccess 
+        ? "mb-4 p-3 rounded-lg text-xs font-medium bg-emerald-50 text-emerald-800 border border-emerald-200"
+        : "mb-4 p-3 rounded-lg text-xs font-medium bg-rose-50 text-rose-800 border border-rose-200";
+      alert.innerText = msg;
+      alert.classList.remove("hidden");
+    }
+
+    function hideAlert() {
+      document.getElementById("authAlert").classList.add("hidden");
+    }
+
+    async function handleLoginSubmit(e) {
+      e.preventDefault();
+      const email = document.getElementById("loginEmail").value.trim();
+      const password = document.getElementById("loginPassword").value;
+      const btn = document.getElementById("btnLoginSubmit");
+
+      btn.disabled = true;
+      btn.innerText = "Signing in...";
+
+      try {
+        const res = await fetch("/v1/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || "Authentication failed");
+
+        currentUser = data.user;
+        localStorage.setItem("pulsecheck_client", JSON.stringify(currentUser));
+        closeAuthModal();
+        renderHeaderAuth();
+        document.getElementById("clientPortalSection").scrollIntoView({ behavior: 'smooth' });
+      } catch (err) {
+        showAlert(err.message, false);
+      } finally {
+        btn.disabled = false;
+        btn.innerText = "Sign In to Dashboard";
+      }
+    }
+
+    async function handleRegisterSubmit(e) {
+      e.preventDefault();
+      const full_name = document.getElementById("regFullName").value.trim();
+      const email = document.getElementById("regEmail").value.trim();
+      const password = document.getElementById("regPassword").value;
+      const btn = document.getElementById("btnRegSubmit");
+
+      btn.disabled = true;
+      btn.innerText = "Creating Account...";
+
+      try {
+        const res = await fetch("/v1/auth/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ full_name, email, password })
+        });
+
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || "Registration failed");
+
+        currentUser = data.user;
+        localStorage.setItem("pulsecheck_client", JSON.stringify(currentUser));
+        closeAuthModal();
+        renderHeaderAuth();
+        document.getElementById("clientPortalSection").scrollIntoView({ behavior: 'smooth' });
+      } catch (err) {
+        showAlert(err.message, false);
+      } finally {
+        btn.disabled = false;
+        btn.innerText = "Create Account & Claim Credits";
+      }
+    }
+
+    function logoutClient() {
+      currentUser = null;
+      localStorage.removeItem("pulsecheck_client");
+      renderHeaderAuth();
+      fetchGuestQuota();
+    }
+
+    function topUpCredits() {
+      openTopUpModal('pro');
+    }
+
+    function setNumber(num) {
+      document.getElementById("targetPhone").value = num;
+      runVerification();
+    }
+
+    async function runVerification() {
+      const phone = document.getElementById("targetPhone").value.trim();
+      if (!phone) return;
+
+      const btn = document.getElementById("btnVerify");
+      const orig = btn.innerHTML;
+      btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i><span>Verifying...</span>`;
+      lucide.createIcons();
+
+      const payload = {
+        phone: phone,
+        check_whatsapp: true,
+        check_telegram: true,
+        check_imessage: true,
+        check_rcs: true,
+        check_social: true,
+        check_crypto: true,
+        user_id: currentUser ? currentUser.id : null,
+      };
+
+      try {
+        const res = await fetch("/v1/verify/single", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        if (res.status === 429) {
+          openTrialLimitModal();
+          fetchGuestQuota();
+          return;
+        }
+
+        if (res.status === 402) {
+          openTopUpModal('starter');
+          return;
+        }
+
+        if (!res.ok) throw new Error("Verification failed");
+        const data = await res.json();
+        renderResult(data);
+
+        if (currentUser) {
+          refreshUserProfile();
+          loadUserHistory();
+        } else {
+          fetchGuestQuota();
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        btn.innerHTML = orig;
+        lucide.createIcons();
+      }
+    }
+
+    function renderResult(r) {
+      const container = document.getElementById("resultDisplay");
+      const carrierName = r.carrier ? r.carrier.carrier_name || "Unallocated" : "Unallocated";
+      const isVoip = r.carrier ? r.carrier.is_voip : false;
+
+      const qualityBadge = 
+        r.lead_quality === "EXCELLENT" ? "bg-emerald-50 text-emerald-700 border-emerald-200" :
+        r.lead_quality === "HIGH" ? "bg-blue-50 text-blue-700 border-blue-200" :
+        r.lead_quality === "LOW" ? "bg-amber-50 text-amber-700 border-amber-200" :
+        "bg-rose-50 text-rose-700 border-rose-200";
+
+      container.innerHTML = `
+        <div class="space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <div>
+              <span class="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">Normalized Result</span>
+              <span class="text-xl font-bold font-mono text-slate-900">${r.phone.e164 || r.raw_input}</span>
+              <div class="text-xs text-slate-500 mt-0.5">
+                Country: <strong>${r.phone.country_iso || "GLOBAL"}</strong> • Line: <strong class="${isVoip ? 'text-amber-600' : 'text-slate-700'}">${r.phone.line_type || 'UNKNOWN'}</strong>
+              </div>
+            </div>
+            <div class="sm:text-right">
+              <span class="px-2.5 py-1 rounded-full text-xs font-bold border ${qualityBadge}">
+                ${r.lead_quality} QUALITY
+              </span>
+              <div class="text-xs text-slate-500 mt-1">
+                Reachability: <strong class="text-[#435ebf] text-sm">${r.reachability_score}</strong>/100
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+            <div class="p-3 rounded-lg border border-slate-200 bg-white">
+              <span class="text-slate-400 text-[10px] block">Carrier</span>
+              <span class="font-bold text-slate-800 truncate block">${carrierName}</span>
+            </div>
+            <div class="p-3 rounded-lg border border-slate-200 bg-white">
+              <span class="text-slate-400 text-[10px] block">WhatsApp</span>
+              <span class="font-bold ${r.whatsapp && r.whatsapp.is_registered ? 'text-emerald-600' : 'text-slate-400'}">
+                ${r.whatsapp && r.whatsapp.is_registered ? 'Active' : 'Unregistered'}
+              </span>
+            </div>
+            <div class="p-3 rounded-lg border border-slate-200 bg-white">
+              <span class="text-slate-400 text-[10px] block">Apple iMessage</span>
+              <span class="font-bold ${r.imessage && r.imessage.is_registered ? 'text-[#435ebf]' : 'text-slate-400'}">
+                ${r.imessage && r.imessage.is_registered ? 'Supported' : 'No Apple ID'}
+              </span>
+            </div>
+            <div class="p-3 rounded-lg border border-slate-200 bg-white">
+              <span class="text-slate-400 text-[10px] block">Cost Saved</span>
+              <span class="font-bold text-emerald-600">${r.cost_savings_pct}%</span>
+            </div>
+          </div>
+        </div>
+      `;
+      lucide.createIcons();
+    }
+
+    function switchTab(tab) {
+      const tabs = ['whatsapp', 'telegram', 'apple', 'rcs', 'carrier', 'bulk'];
+      tabs.forEach(t => {
+        const btn = document.getElementById(`tab_${t}`);
+        const pane = document.getElementById(`pane_${t}`);
+        if (btn) {
+          btn.className = (t === tab)
+            ? "wdes-tab active px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition"
+            : "wdes-tab inactive px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition";
+        }
+        if (pane) {
+          pane.classList.toggle("hidden", t !== tab);
+        }
+      });
+    }
+
+    async function runSampleBulk() {
+      const demoList = [
+        "+212 661 123456",
+        "+33 6 12 34 56 78",
+        "+1 (415) 555-2671",
+        "+44 7911 123456",
+        "+49 151 12345678",
+        "+34 612 345 678",
+        "+971 50 123 4567",
+        "0661998877",
+        "+1 800 555 0199",
+        "invalid_lead_test_404",
+        "+212 522 112233",
+        "+1 202 555 0143"
+      ];
+      await executeBatchVerification(demoList);
+    }
+
+    async function executeBatchVerification(numbers) {
+      if (currentUser && currentUser.credits < numbers.length) {
+        alert(`Insufficient credits! This batch requires ${numbers.length} credits, but your wallet has ${currentUser.credits}.`);
+        return;
+      }
+
+      const res = await fetch("/v1/verify/batch", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          numbers: numbers,
+          default_country: "MA",
+          check_whatsapp: true,
+          check_telegram: true,
+          check_imessage: true,
+          user_id: currentUser ? currentUser.id : null,
+        })
+      });
+
+      if (res.status === 402) {
+        alert("Insufficient credits! Please top up your wallet.");
+        return;
+      }
+
+      if (res.ok) {
+        const data = await res.json();
+        bulkRecords = data.results;
+        renderBulkTable(data.results);
+
+        if (currentUser) {
+          refreshUserProfile();
+          loadUserHistory();
+        }
+      }
+    }
+
+    async function loadUserHistory() {
+      if (!currentUser || !currentUser.id) return;
+      try {
+        const res = await fetch(`/v1/tasks/history?user_id=${currentUser.id}&limit=10`);
+        if (!res.ok) return;
+        const tasks = await res.json();
+        const tbody = document.getElementById("portalHistoryBody");
+        if (!tbody) return;
+
+        if (tasks.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="6" class="py-6 text-center text-slate-400 font-sans">
+                No verifications recorded yet. Run a single or bulk check below to view live logs.
+              </td>
+            </tr>
+          `;
+          return;
+        }
+
+        tbody.innerHTML = tasks.map(t => {
+          const badge = 
+            t.lead_quality === "EXCELLENT" ? "bg-emerald-50 text-emerald-700 border-emerald-200" :
+            t.lead_quality === "HIGH" ? "bg-blue-50 text-blue-700 border-blue-200" :
+            t.lead_quality === "LOW" ? "bg-amber-50 text-amber-700 border-amber-200" :
+            "bg-rose-50 text-rose-700 border-rose-200";
+
+          return `
+            <tr class="hover:bg-slate-50 transition">
+              <td class="py-2.5 px-3 font-bold text-slate-900">${t.phone}</td>
+              <td class="py-2.5 px-3 text-slate-600 font-sans text-xs">${t.carrier || "—"}</td>
+              <td class="py-2.5 px-3 font-bold text-[#435ebf]">${t.reachability_score}</td>
+              <td class="py-2.5 px-3">
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold border ${badge}">
+                  ${t.lead_quality}
+                </span>
+              </td>
+              <td class="py-2.5 px-3 text-emerald-600 font-bold">-${t.credits_used}</td>
+              <td class="py-2.5 px-3 text-slate-400 font-sans text-[11px]">${t.created_at || "Just now"}</td>
+            </tr>
+          `;
+        }).join("");
+      } catch (e) {
+        console.error("Failed to load user history:", e);
+      }
+    }
+
+    function copyApiKey() {
+      if (!currentUser || !currentUser.api_key) return;
+      navigator.clipboard.writeText(currentUser.api_key);
+      const btn = document.getElementById("copyKeyBtn");
+      if (btn) {
+        btn.innerText = "Copied!";
+        btn.classList.add("bg-emerald-100", "text-emerald-800");
+        setTimeout(() => {
+          btn.innerText = "Copy";
+          btn.classList.remove("bg-emerald-100", "text-emerald-800");
+        }, 2000);
+      }
+    }
+
+    function copyCurlCode() {
+      const code = document.getElementById("portalCurlCode").innerText;
+      navigator.clipboard.writeText(code);
+      const btn = document.getElementById("copyCurlBtn");
+      if (btn) {
+        btn.innerText = "Copied!";
+        btn.classList.add("bg-emerald-600");
+        setTimeout(() => {
+          btn.innerText = "Copy cURL Snippet";
+          btn.classList.remove("bg-emerald-600");
+        }, 2000);
+      }
+    }
+
+    function togglePasteArea() {
+      const area = document.getElementById("bulkPasteArea");
+      area.classList.toggle("hidden");
+    }
+
+    function processPastedNumbers() {
+      const text = document.getElementById("bulkPasteInput").value.trim();
+      if (!text) return alert("Please enter at least one phone number.");
+      const numbers = text.split(/[\n,;]+/).map(s => s.trim()).filter(Boolean);
+      if (numbers.length === 0) return alert("No valid phone numbers found.");
+      executeBatchVerification(numbers);
+    }
+
+    // ==================== PILLAR 1: BILLING & CREDIT TOP-UP (100% CRYPTO ONLY) ====================
+    let selectedPlanTier = 'pro';
+    let selectedPaymentMethod = 'CRYPTO_USDT_TRC20';
+
+    const PLAN_PRICES = {
+      'starter': { name: 'Starter', price: '$19.00 USD', amount: '19.00', credits: 1000 },
+      'pro': { name: 'Pro', price: '$49.00 USD', amount: '49.00', credits: 5000 },
+      'enterprise': { name: 'Enterprise', price: '$149.00 USD', amount: '149.00', credits: 25000 }
+    };
+
+    const CRYPTO_METHODS_CONFIG = {
+      'CRYPTO_USDT_TRC20': {
+        title: 'USDT (TRC-20) — Tron Network',
+        currency: 'USDT',
+        address: 'TXuPulseCheckOfficialTRC20DepositWallet9988',
+        fee: 'Fee: ~$1.00 · Confirmation: ~1 min',
+        warning: 'Send only <strong>USDT</strong> via <strong>TRON (TRC-20)</strong> network to this address. Cross-chain transfers will result in loss of funds.'
+      },
+      'CRYPTO_USDT_BEP20': {
+        title: 'USDT (BEP-20) — BNB Smart Chain',
+        currency: 'USDT',
+        address: '0x35dd60066ae6337b4D0273b129c0E222235B9F8C',
+        fee: 'Fee: ~$0.15 · Confirmation: ~15 secs',
+        warning: 'Send only <strong>USDT</strong> via <strong>BNB Smart Chain (BSC BEP-20)</strong>. View on <a href="https://bscscan.com/token/0x55d398326f99059fF775485246999027B3197955?a=0x35dd60066ae6337b4D0273b129c0E222235B9F8C#transactions" target="_blank" class="underline text-amber-600 font-bold hover:text-amber-800">BscScan Token Tracker ↗</a>'
+      },
+      'CRYPTO_USDT_ERC20': {
+        title: 'USDT (ERC-20) — Ethereum Mainnet',
+        currency: 'USDT',
+        address: '0x35dd60066ae6337b4D0273b129c0E222235B9F8C',
+        fee: 'Fee: Ethereum Gas · Confirmation: ~2 mins',
+        warning: 'Send only <strong>USDT</strong> via <strong>Ethereum (ERC-20)</strong>. View on <a href="https://etherscan.io/token/0xdAC17F958D2ee523a2206206994597C13D831ec7?a=0x35dd60066ae6337b4D0273b129c0E222235B9F8C#transactions" target="_blank" class="underline text-blue-600 font-bold hover:text-blue-800">Etherscan Token Tracker ↗</a>'
+      },
+      'CRYPTO_BTC': {
+        title: 'Bitcoin (BTC) — Native SegWit',
+        currency: 'BTC',
+        address: 'bc1q0v3g205psatdcj09ufzczahq50jusvvnlzsygu',
+        fee: 'Fee: Dynamic · mempool.space Verified',
+        warning: 'Send only <strong>BTC</strong> to this Native SegWit address. View address live on <a href="https://mempool.space/address/bc1q0v3g205psatdcj09ufzczahq50jusvvnlzsygu" target="_blank" class="underline text-indigo-600 font-bold hover:text-indigo-800">mempool.space Explorer ↗</a>'
+      },
+      'CRYPTO_ETH': {
+        title: 'Ethereum (ETH) — Mainnet',
+        currency: 'ETH',
+        address: '0x35dd60066ae6337b4D0273b129c0E222235B9F8C',
+        fee: 'Fee: Dynamic Gas · 12 Confirmations',
+        warning: 'Send only <strong>ETH</strong> via Ethereum mainnet. View on <a href="https://etherscan.io/address/0x35dd60066ae6337b4D0273b129c0E222235B9F8C" target="_blank" class="underline text-indigo-600 font-bold hover:text-indigo-800">Etherscan Explorer ↗</a>'
+      },
+      'CRYPTO_SOL': {
+        title: 'Solana (SOL) — Solana Mainnet',
+        currency: 'SOL',
+        address: 'PuLsEcheck99OfficialSolanaDepositWallet77xx',
+        fee: 'Fee: <$0.01 · Instant Finality',
+        warning: 'Send only <strong>SOL</strong> or <strong>USDT-SPL</strong> to this Solana address.'
+      }
+    };
+
+    function handlePricingCtaClick() {
+      if (currentUser) {
+        openTopUpModal('pro');
+      } else {
+        openAuthModal('register');
+      }
+    }
+
+    function openTopUpModal(planId = 'pro') {
+      if (!currentUser) {
+        openAuthModal('login');
+        showAlert("Please log in or create an account to top up verification credits.", false);
+        return;
+      }
+      selectPlan(planId);
+      selectPaymentMethod('CRYPTO_USDT_TRC20');
+      document.getElementById("modalCurrentCredits").innerText = Number(currentUser.credits || 0).toLocaleString();
+      hideTopUpAlert();
+      document.getElementById("topUpModal").classList.remove("hidden");
+      lucide.createIcons();
+    }
+
+    function closeTopUpModal() {
+      document.getElementById("topUpModal").classList.add("hidden");
+    }
+
+    function selectPlan(planId) {
+      selectedPlanTier = planId;
+      const tiers = ['starter', 'pro', 'enterprise'];
+      tiers.forEach(t => {
+        const card = document.getElementById(`planCard_${t}`);
+        if (!card) return;
+        if (t === planId) {
+          card.className = "cursor-pointer rounded-xl border-2 p-4 transition text-left flex flex-col justify-between border-[#435ebf] bg-blue-50/40 shadow-sm relative";
+        } else {
+          card.className = "cursor-pointer rounded-xl border-2 p-4 transition text-left flex flex-col justify-between border-slate-200 hover:border-slate-300 bg-white";
+        }
+      });
+      const info = PLAN_PRICES[planId] || PLAN_PRICES['pro'];
+      const totalEl = document.getElementById("topUpTotalSummary");
+      if (totalEl) totalEl.innerText = info.price;
+
+      const amtEl = document.getElementById("cryptoAmountDue");
+      if (amtEl) amtEl.innerText = "$" + info.amount;
+
+      const creditsPreview = document.getElementById("cryptoCreditsPreview");
+      if (creditsPreview) creditsPreview.innerText = `${info.credits.toLocaleString()} Credits`;
+    }
+
+    function selectPaymentMethod(method) {
+      selectedPaymentMethod = method;
+      const allMethods = Object.keys(CRYPTO_METHODS_CONFIG);
+
+      allMethods.forEach(m => {
+        const tab = document.getElementById(`cryptoTab_${m}`);
+        if (!tab) return;
+        if (m === method) {
+          tab.className = "p-2.5 rounded-xl border-2 transition text-left flex items-center gap-2 border-[#435ebf] bg-blue-50/40 text-[#435ebf] font-semibold";
+        } else {
+          tab.className = "p-2.5 rounded-xl border-2 transition text-left flex items-center gap-2 border-slate-200 hover:border-slate-300 bg-white text-slate-700";
+        }
+      });
+
+      const conf = CRYPTO_METHODS_CONFIG[method] || CRYPTO_METHODS_CONFIG['CRYPTO_USDT_TRC20'];
+      const addrEl = document.getElementById("cryptoDepositAddress");
+      if (addrEl) addrEl.value = conf.address;
+
+      const titleEl = document.getElementById("cryptoSelectedNetworkTitle");
+      if (titleEl) titleEl.innerText = conf.title;
+
+      const feeEl = document.getElementById("cryptoFeeEstimate");
+      if (feeEl) feeEl.innerText = conf.fee;
+
+      const currEl = document.getElementById("cryptoCurrencyCode");
+      if (currEl) currEl.innerText = conf.currency;
+
+      const warnEl = document.getElementById("cryptoWarningNotice");
+      if (warnEl) warnEl.innerHTML = conf.warning;
+
+      lucide.createIcons();
+    }
+
+    function showTopUpAlert(msg, isSuccess = false) {
+      const el = document.getElementById("topUpAlert");
+      el.className = isSuccess 
+        ? "mt-4 p-3 rounded-lg text-xs font-medium bg-emerald-50 text-emerald-800 border border-emerald-200"
+        : "mt-4 p-3 rounded-lg text-xs font-medium bg-rose-50 text-rose-800 border border-rose-200";
+      el.innerHTML = msg;
+      el.classList.remove("hidden");
+    }
+
+    function hideTopUpAlert() {
+      const el = document.getElementById("topUpAlert");
+      if (el) el.classList.add("hidden");
+    }
+
+    function copyCryptoAddress() {
+      const input = document.getElementById("cryptoDepositAddress");
+      if (!input) return;
+      navigator.clipboard.writeText(input.value);
+      const btn = document.getElementById("copyCryptoBtn");
+      if (btn) {
+        btn.innerText = "Copied!";
+        btn.classList.add("bg-emerald-100", "text-emerald-800");
+        setTimeout(() => {
+          btn.innerText = "Copy";
+          btn.classList.remove("bg-emerald-100", "text-emerald-800");
+        }, 2000);
+      }
+    }
+
+    async function confirmTopUpAction() {
+      if (!currentUser || !currentUser.id) {
+        alert("Please log in first.");
+        return;
+      }
+
+      const btn = document.getElementById("btnConfirmTopUp");
+      const origHtml = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i><span>Processing Payment...</span>`;
+      lucide.createIcons();
+      hideTopUpAlert();
+
+      const txHashInput = document.getElementById("cryptoTxHashInput");
+      const userTxHash = txHashInput && txHashInput.value ? txHashInput.value.trim() : "";
+      const generatedTx = "0x" + Array.from({length: 40}, () => Math.floor(Math.random() * 16).toString(16)).join('');
+      const finalTxHash = userTxHash || generatedTx;
+
+      try {
+        const res = await fetch("/v1/billing/confirm-topup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            user_id: currentUser.id,
+            plan_id: selectedPlanTier,
+            payment_method: selectedPaymentMethod,
+            tx_hash: finalTxHash
+          })
+        });
+
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || "Top-up failed");
+
+        // Update client balance
+        currentUser.credits = data.new_wallet_balance;
+        localStorage.setItem("pulsecheck_client", JSON.stringify(currentUser));
+
+        // Update UI
+        document.getElementById("modalCurrentCredits").innerText = Number(currentUser.credits).toLocaleString();
+        document.getElementById("portalCreditCount").innerText = Number(currentUser.credits).toLocaleString();
+        const navEl = document.getElementById("navCredits");
+        if (navEl) navEl.innerText = Number(currentUser.credits).toLocaleString();
+
+        const conf = CRYPTO_METHODS_CONFIG[selectedPaymentMethod] || { title: "Crypto Network" };
+        showTopUpAlert(`✅ On-chain deposit confirmed via <strong>${conf.title}</strong>! Added <strong>${Number(data.credits_added).toLocaleString()} credits</strong>. Your new balance is <strong>${Number(data.new_wallet_balance).toLocaleString()} credits</strong>.`, true);
+
+        if (txHashInput) txHashInput.value = "";
+
+        setTimeout(() => {
+          closeTopUpModal();
+          loadUserHistory();
+        }, 2200);
+
+      } catch (err) {
+        showTopUpAlert(err.message, false);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = origHtml;
+        lucide.createIcons();
+      }
+    }
+
+    async function autoDetectDeposit() {
+      if (!currentUser || !currentUser.id) {
+        alert("Please log in first.");
+        return;
+      }
+
+      const btn = document.getElementById("btnAutoDetect");
+      const origHtml = btn ? btn.innerHTML : "";
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = `<i data-lucide="loader-2" class="w-3.5 h-3.5 animate-spin"></i><span>Scanning Mempool...</span>`;
+        lucide.createIcons();
+      }
+      hideTopUpAlert();
+
+      try {
+        const res = await fetch("/v1/billing/crypto/auto-detect", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            user_id: currentUser.id,
+            plan_id: selectedPlanTier,
+            payment_method: selectedPaymentMethod
+          })
+        });
+
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || "No unconfirmed transaction detected yet.");
+
+        // Update client balance
+        currentUser.credits = data.new_wallet_balance;
+        localStorage.setItem("pulsecheck_client", JSON.stringify(currentUser));
+
+        // Update UI
+        document.getElementById("modalCurrentCredits").innerText = Number(currentUser.credits).toLocaleString();
+        document.getElementById("portalCreditCount").innerText = Number(currentUser.credits).toLocaleString();
+        const navEl = document.getElementById("navCredits");
+        if (navEl) navEl.innerText = Number(currentUser.credits).toLocaleString();
+
+        const conf = CRYPTO_METHODS_CONFIG[selectedPaymentMethod] || { title: "Crypto Network" };
+        showTopUpAlert(`⚡ <strong>0-Conf On-Chain Detection:</strong> Deposit verified via <strong>${conf.title}</strong>! Added <strong>${Number(data.credits_added).toLocaleString()} credits</strong> instantly. New balance: <strong>${Number(data.new_wallet_balance).toLocaleString()}</strong>.`, true);
+
+        setTimeout(() => {
+          closeTopUpModal();
+          loadUserHistory();
+        }, 2200);
+
+      } catch (err) {
+        showTopUpAlert(`📡 Mempool Radar: ${err.message}`, false);
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = origHtml;
+          lucide.createIcons();
+        }
+      }
+    }
+
+    // ==================== PILLAR 2: DEVELOPER API PORTAL ====================
+    let devSnippetsData = null;
+    let activeDevSnippetLang = 'curl';
+
+    async function openDeveloperModal() {
+      if (!currentUser) {
+        openAuthModal('login');
+        showAlert("Please log in to access your Developer API credentials.", false);
+        return;
+      }
+
+      document.getElementById("devModalApiKey").innerText = currentUser.api_key;
+      document.getElementById("developerModal").classList.remove("hidden");
+      lucide.createIcons();
+      await loadDeveloperSnippets();
+    }
+
+    function closeDeveloperModal() {
+      document.getElementById("developerModal").classList.add("hidden");
+    }
+
+    async function loadDeveloperSnippets() {
+      const codeBox = document.getElementById("devSnippetCodeBox");
+      codeBox.innerText = "# Fetching live snippets...";
+
+      try {
+        const uidParam = (currentUser && currentUser.id) ? `user_id=${currentUser.id}&` : '';
+        const res = await fetch(`/v1/developer/snippets?${uidParam}service_sample=whatsapp_advanced&target_sample=+212661123456`);
+        if (!res.ok) throw new Error("Could not load snippets");
+        devSnippetsData = await res.json();
+        renderActiveDevSnippet();
+      } catch (e) {
+        codeBox.innerText = `# Error loading code snippets: ${e.message}`;
+      }
+    }
+
+    function setSnippetLanguage(lang) {
+      activeDevSnippetLang = lang;
+      const langs = ['curl', 'python', 'node'];
+      langs.forEach(l => {
+        const btn = document.getElementById(`devSnippetTab_${l}`);
+        if (!btn) return;
+        if (l === lang) {
+          btn.className = "px-3 py-1.5 rounded-lg text-xs font-bold bg-[#435ebf] text-white transition";
+        } else {
+          btn.className = "px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-600 hover:text-slate-900 transition";
+        }
+      });
+      renderActiveDevSnippet();
+    }
+
+    function renderActiveDevSnippet() {
+      const codeBox = document.getElementById("devSnippetCodeBox");
+      if (!devSnippetsData || !devSnippetsData.snippets) return;
+      if (activeDevSnippetLang === 'curl') {
+        codeBox.innerText = devSnippetsData.snippets.curl;
+      } else if (activeDevSnippetLang === 'python') {
+        codeBox.innerText = devSnippetsData.snippets.python;
+      } else if (activeDevSnippetLang === 'node') {
+        codeBox.innerText = devSnippetsData.snippets.javascript;
+      }
+    }
+
+    function copyDevApiKey() {
+      if (!currentUser || !currentUser.api_key) return;
+      navigator.clipboard.writeText(currentUser.api_key);
+      const btn = document.getElementById("btnDevCopyKey");
+      if (btn) {
+        btn.innerText = "Copied!";
+        btn.classList.add("bg-emerald-100", "text-emerald-800");
+        setTimeout(() => {
+          btn.innerText = "Copy";
+          btn.classList.remove("bg-emerald-100", "text-emerald-800");
+        }, 2000);
+      }
+    }
+
+    function copyActiveDevSnippet() {
+      const code = document.getElementById("devSnippetCodeBox").innerText;
+      navigator.clipboard.writeText(code);
+      const btn = document.getElementById("btnDevCopySnippet");
+      if (btn) {
+        const orig = btn.innerHTML;
+        btn.innerHTML = `<i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600"></i> Copied!`;
+        lucide.createIcons();
+        setTimeout(() => {
+          btn.innerHTML = orig;
+          lucide.createIcons();
+        }, 2000);
+      }
+    }
+
+    async function regenerateApiKeyAction() {
+      if (!currentUser || !currentUser.id) return;
+      const confirmRegen = confirm("⚠️ Rotate API Key: Are you sure you want to generate a new API key? Any active scripts or integrations using your current key will immediately stop working until updated.");
+      if (!confirmRegen) return;
+
+      const btn = document.getElementById("btnDevRotateKey");
+      btn.disabled = true;
+      btn.innerHTML = `<i data-lucide="loader-2" class="w-3.5 h-3.5 animate-spin"></i> Rotating...`;
+      lucide.createIcons();
+
+      try {
+        const res = await fetch("/v1/developer/regenerate-key", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ user_id: currentUser.id })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || "Rotation failed");
+
+        currentUser.api_key = data.new_api_key;
+        localStorage.setItem("pulsecheck_client", JSON.stringify(currentUser));
+
+        document.getElementById("portalApiKey").innerText = currentUser.api_key;
+        document.getElementById("devModalApiKey").innerText = currentUser.api_key;
+
+        const alertBox = document.getElementById("devModalAlert");
+        alertBox.className = "mt-2 p-2 rounded text-xs font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200 block";
+        alertBox.innerText = "✅ API Key rotated successfully. Code snippets refreshed.";
+        setTimeout(() => alertBox.classList.add("hidden"), 4000);
+
+        await loadDeveloperSnippets();
+      } catch (err) {
+        alert("Failed to rotate key: " + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Rotate Key`;
+        lucide.createIcons();
+      }
+    }
+
+    // ==================== PILLAR 3: BULK CSV CLEANING STUDIO ====================
+    let selectedBatchFile = null;
+    let lastBatchExportCsv = null;
+
+    function setupDragAndDrop() {
+      const dropZone = document.getElementById("csvDropZone");
+      if (!dropZone) return;
+
+      ['dragenter', 'dragover'].forEach(eventName => {
+        dropZone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          dropZone.classList.add("border-[#435ebf]", "bg-blue-50/60");
+        }, false);
+      });
+
+      ['dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          dropZone.classList.remove("border-[#435ebf]", "bg-blue-50/60");
+        }, false);
+      });
+
+      dropZone.addEventListener('drop', (e) => {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        if (files && files.length > 0) {
+          handleBulkFileSelect(files[0]);
+        }
+      }, false);
+    }
+
+    function handleBulkFileSelect(file) {
+      if (!file) return;
+      if (!file.name.endsWith(".csv") && !file.name.endsWith(".txt")) {
+        alert("Please select a .csv or .txt file.");
+        return;
+      }
+      selectedBatchFile = file;
+
+      // Read preview line count
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const text = e.target.result;
+        const lines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+        const count = Math.max(1, lines.length - (lines[0].toLowerCase().includes("phone") ? 1 : 0));
+        const sizeKb = (file.size / 1024).toFixed(1);
+
+        document.getElementById("batchFileName").innerText = file.name;
+        document.getElementById("batchFileMeta").innerText = `${count.toLocaleString()} rows detected • ${sizeKb} KB`;
+
+        document.getElementById("fileInfoBanner").classList.remove("hidden");
+        document.getElementById("csvDropZone").classList.add("hidden");
+        lucide.createIcons();
+      };
+      reader.readAsText(file.slice(0, 50000));
+    }
+
+    function clearSelectedFile(event) {
+      if (event) event.stopPropagation();
+      selectedBatchFile = null;
+      document.getElementById("bulkFileInput").value = "";
+      document.getElementById("fileInfoBanner").classList.add("hidden");
+      document.getElementById("csvDropZone").classList.remove("hidden");
+      lucide.createIcons();
+    }
+
+    async function startBatchFileUpload() {
+      if (!selectedBatchFile) {
+        alert("Please drop or choose a file first.");
+        return;
+      }
+
+      const btn = document.getElementById("btnStartBatchProcess");
+      btn.disabled = true;
+      btn.innerHTML = `<i data-lucide="loader-2" class="w-3.5 h-3.5 animate-spin"></i><span>Processing...</span>`;
+      lucide.createIcons();
+
+      const progressContainer = document.getElementById("batchProgressBarContainer");
+      const progressBar = document.getElementById("batchProgressBar");
+      const progressPercent = document.getElementById("batchProgressPercent");
+      const progressStatus = document.getElementById("batchProgressStatus");
+
+      progressContainer.classList.remove("hidden");
+      progressBar.style.width = "20%";
+      progressPercent.innerText = "20%";
+      progressStatus.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin text-[#435ebf]"></i> Parsing CSV rows...`;
+      lucide.createIcons();
+
+      const formData = new FormData();
+      formData.append("file", selectedBatchFile);
+      if (currentUser && currentUser.id) {
+        formData.append("user_id", currentUser.id);
+      }
+      formData.append("default_country", "MA");
+      formData.append("check_whatsapp", document.getElementById("checkOptWhatsApp").checked);
+      formData.append("check_telegram", document.getElementById("checkOptTelegram").checked);
+      formData.append("check_imessage", document.getElementById("checkOptApple").checked);
+
+      setTimeout(() => {
+        progressBar.style.width = "60%";
+        progressPercent.innerText = "60%";
+        progressStatus.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin text-[#435ebf]"></i> Cascading WhatsApp, HLR, & Apple network...`;
+        lucide.createIcons();
+      }, 500);
+
+      try {
+        const res = await fetch("/v1/batch/upload-file", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (res.status === 402) {
+          alert("Insufficient wallet credits for this batch size! Please top up your credits.");
+          progressBar.style.width = "0%";
+          progressContainer.classList.add("hidden");
+          return;
+        }
+
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || "Batch verification failed");
+
+        progressBar.style.width = "100%";
+        progressPercent.innerText = "100%";
+        progressStatus.innerHTML = `✅ Successfully enriched ${data.total_processed} contacts (${data.valid_count} valid, ${data.invalid_count} dead/invalid)`;
+
+        lastBatchExportCsv = data.csv_export_content;
+        bulkRecords = data.results || [];
+        renderBulkTable(bulkRecords);
+
+        if (currentUser) {
+          refreshUserProfile();
+          loadUserHistory();
+        }
+
+      } catch (err) {
+        alert("Batch processing error: " + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i><span>Clean & Verify File Now</span>`;
+        lucide.createIcons();
+      }
+    }
+
+    function renderBulkTable(records) {
+      const tbody = document.getElementById("bulkTableBody");
+      if (!tbody) return;
+      if (!records || records.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="9" class="p-8 text-center text-slate-400 font-sans">
+              No contacts found to display.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+      tbody.innerHTML = records.map(r => {
+        const qualityBadge = 
+          r.lead_quality === "EXCELLENT" ? "bg-emerald-50 text-emerald-700 border-emerald-200" :
+          r.lead_quality === "HIGH" ? "bg-blue-50 text-blue-700 border-blue-200" :
+          r.lead_quality === "LOW" ? "bg-amber-50 text-amber-700 border-amber-200" :
+          "bg-rose-50 text-rose-700 border-rose-200";
+
+        const country = r.phone ? (r.phone.country_iso || "GLOBAL") : "GLOBAL";
+        const carrierName = r.carrier ? (r.carrier.carrier_name || "—") : "—";
+        const isVoip = r.carrier ? r.carrier.is_voip : false;
+
+        return `
+          <tr class="hover:bg-slate-50 transition">
+            <td class="p-3 text-slate-500">${r.raw_input || '—'}</td>
+            <td class="p-3 font-bold text-slate-900">${(r.phone && r.phone.e164) ? r.phone.e164 : '—'}</td>
+            <td class="p-3 font-semibold text-slate-700 font-sans">${country}</td>
+            <td class="p-3">
+              <span class="text-slate-800 font-medium block truncate max-w-[130px]">${carrierName}</span>
+              <span class="text-[10px] text-slate-400 font-sans">${r.phone ? (r.phone.line_type || '') : ''}</span>
+            </td>
+            <td class="p-3">
+              ${isVoip ? '<span class="text-amber-600 font-bold">VOIP</span>' : '<span class="text-slate-400">Mobile</span>'}
+            </td>
+            <td class="p-3">
+              ${r.whatsapp && r.whatsapp.is_registered ? '<span class="text-emerald-600 font-bold">Active</span>' : '<span class="text-slate-400">None</span>'}
+            </td>
+            <td class="p-3">
+              ${r.imessage && r.imessage.is_registered ? '<span class="text-[#435ebf] font-bold">Apple</span>' : '<span class="text-slate-400">None</span>'}
+            </td>
+            <td class="p-3 font-bold text-slate-800">${r.reachability_score}</td>
+            <td class="p-3">
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold border ${qualityBadge}">
+                ${r.lead_quality}
+              </span>
+            </td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    function downloadEnrichedBatchCsv() {
+      if (lastBatchExportCsv) {
+        const blob = new Blob([lastBatchExportCsv], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `pulsecheck_cleaned_${Date.now()}.csv`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      } else if (bulkRecords && bulkRecords.length > 0) {
+        downloadCleanedCsv();
+      } else {
+        alert("No batch results available yet. Please upload a file or run the sample demo first.");
+      }
+    }
+
+    function downloadCleanedCsv() {
+      if (!bulkRecords || bulkRecords.length === 0) return alert("Please load or upload a batch list first.");
+
+      const headers = ["Raw Input", "Normalized E164", "Country", "Carrier", "Line Type", "Is VoIP", "WhatsApp Active", "Telegram Active", "iMessage Active", "Reachability Score", "Lead Quality"];
+      const rows = bulkRecords.map(r => [
+        `"${r.raw_input || ''}"`,
+        `"${r.phone ? r.phone.e164 || '' : ''}"`,
+        `"${r.phone ? r.phone.country_iso || '' : ''}"`,
+        `"${r.carrier ? r.carrier.carrier_name || '' : ''}"`,
+        `"${r.phone ? r.phone.line_type || '' : ''}"`,
+        `"${r.carrier ? (r.carrier.is_voip ? 'YES' : 'NO') : 'NO'}"`,
+        `"${r.whatsapp ? (r.whatsapp.is_registered ? 'ACTIVE' : 'INACTIVE') : ''}"`,
+        `"${r.telegram ? (r.telegram.is_registered ? 'ACTIVE' : 'INACTIVE') : ''}"`,
+        `"${r.imessage ? (r.imessage.is_registered ? 'ACTIVE' : 'INACTIVE') : ''}"`,
+        `"${r.reachability_score}"`,
+        `"${r.lead_quality}"`
+      ]);
+
+      const csv = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map(e => e.join(","))].join("\n");
+      const a = document.createElement("a");
+      a.href = encodeURI(csv);
+      a.download = `pulsecheck_clean_list_${Date.now()}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+    // ==================== SEO FAQ ACCORDION ====================
+    
+      function renderBeautifulGrid() {
+        const grid = document.getElementById("beautifulServicesGrid");
+        if (!grid) return;
+        
+        let uniqueServices = [];
+        let seenIcons = new Set();
+        
+        for (let s of ALL_SERVICES) {
+           if (!seenIcons.has(s.icon)) {
+               seenIcons.add(s.icon);
+               uniqueServices.push(s);
+           }
+        }
+        
+        let html = '';
+        uniqueServices.forEach(s => {
+          let shortName = s.name.replace(' Checker', '').replace(' Account', '').replace(' Verification', '').replace(' Validation', ' Valid.');
+          // Ensure short names look clean
+          if (shortName.includes('Age & Gender')) shortName = s.icon.charAt(0).toUpperCase() + s.icon.slice(1);
+          if (shortName.length > 15) shortName = shortName.substring(0, 15) + '..';
+          
+          html += `
+            <a href="/dashboard" class="flex flex-col items-center justify-center bg-white rounded-2xl border border-slate-200 shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_16px_rgba(0,0,0,0.08)] hover:-translate-y-1 hover:border-[#435ebf] transition-all duration-300 w-24 h-24 sm:w-28 sm:h-28 group text-decoration-none">
+              <div class="mb-2.5 transition-transform duration-300 group-hover:scale-110 flex items-center justify-center">
+                ${getBrandSvg(s.icon, 40)}
+              </div>
+              <span class="text-[10px] sm:text-[11px] font-bold text-slate-600 text-center px-1 leading-tight line-clamp-1 group-hover:text-slate-900">${shortName}</span>
+            </a>
+          `;
+        });
+        grid.innerHTML = html;
+      }
+
+      function toggleFaq(index) {
+      const content = document.getElementById(`faqContent_${index}`);
+      const icon = document.getElementById(`faqIcon_${index}`);
+      if (!content || !icon) return;
+
+      const isHidden = content.classList.contains("hidden");
+      if (isHidden) {
+        content.classList.remove("hidden");
+        icon.classList.add("rotate-180", "text-[#435ebf]");
+      } else {
+        content.classList.add("hidden");
+        icon.classList.remove("rotate-180", "text-[#435ebf]");
+      }
+    }
+  </script>
+
+  <!-- ==================== FLOATING LIVE CHAT WIDGET ==================== -->
+  <button id="liveChatBtn" onclick="toggleLiveChat()" class="fixed bottom-6 right-6 w-14 h-14 bg-slate-900 text-white rounded-full flex items-center justify-center shadow-2xl hover:bg-[#435ebf] hover:scale-105 transition-all z-50 group border-2 border-white/20">
+    <i data-lucide="message-square" class="w-6 h-6 group-hover:hidden"></i>
+    <i data-lucide="headphones" class="w-6 h-6 hidden group-hover:block"></i>
+    <span class="absolute -top-1 -right-1 flex h-4 w-4">
+      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+      <span class="relative inline-flex rounded-full h-4 w-4 bg-emerald-500 border-2 border-slate-900"></span>
+    </span>
+  </button>
+
+  <script>
+    function toggleLiveChat() {
+      alert("Live Chat initiated! (Support module placeholder connecting to Intercom/WhatsApp)");
+    }
+  </script>
+</body>
+</html>
