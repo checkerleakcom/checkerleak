@@ -64,6 +64,27 @@ def build_sitemap():
     lines.append('    <priority>0.75</priority>')
     lines.append('  </url>')
     lines.append('')
+    lines.append('  <!-- Technical Blog Guides -->')
+    lines.append('  <url>')
+    lines.append('    <loc>https://checkerleak.com/blog</loc>')
+    lines.append(f'    <lastmod>{today}</lastmod>')
+    lines.append('    <changefreq>daily</changefreq>')
+    lines.append('    <priority>0.90</priority>')
+    lines.append('  </url>')
+    blog_slugs = [
+        'how-to-check-if-phone-number-is-active-without-calling',
+        'voip-vs-mobile-number-how-to-detect-virtual-burners',
+        'how-to-check-apple-imessage-blue-bubble-status-api',
+        'phone-number-osint-investigation-footprint-guide'
+    ]
+    for b_slug in blog_slugs:
+        lines.append('  <url>')
+        lines.append(f'    <loc>https://checkerleak.com/blog/{b_slug}</loc>')
+        lines.append(f'    <lastmod>{today}</lastmod>')
+        lines.append('    <changefreq>weekly</changefreq>')
+        lines.append('    <priority>0.85</priority>')
+        lines.append('  </url>')
+    lines.append('')
     lines.append('  <!-- Geo Telecom Hubs -->')
     for geo in ['MA', 'FR', 'US', 'AE', 'GB', 'SA', 'DE', 'BR', 'ID']:
         lines.append('  <url>')

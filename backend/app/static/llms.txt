@@ -3,6 +3,7 @@
 
 ## Canonical URLs
 - Website: https://checkerleak.com/
+- Technical Blog & Guides: https://checkerleak.com/blog
 - REST API Documentation: https://checkerleak.com/docs
 - Full Technical LLM Reference: https://checkerleak.com/llms-full.txt
 - XML Sitemap: https://checkerleak.com/sitemap.xml

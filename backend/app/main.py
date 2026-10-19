@@ -14,6 +14,7 @@ from app.api.developer_router import router as developer_router
 from app.api.batch_upload_router import router as batch_upload_router
 from app.api.geo_router import geo_router
 from app.api.seo_router import router as seo_router
+from app.api.blog_router import blog_router
 
 app = FastAPI(
     title="Next-Gen Contact Intelligence API",
@@ -56,6 +57,7 @@ app.include_router(developer_router)
 app.include_router(batch_upload_router)
 app.include_router(geo_router)
 app.include_router(seo_router)
+app.include_router(blog_router)
 
 # Mount static folder for assets like logos, css, images
 app.mount("/static", StaticFiles(directory=os.path.join(os.path.dirname(__file__), "static")), name="static")
