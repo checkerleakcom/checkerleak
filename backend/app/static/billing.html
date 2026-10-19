@@ -199,6 +199,11 @@
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <script>
+    // Enforce Authentication - Only registered and logged in users can view billing and wallets
+    if (!localStorage.getItem("checkerleak_client")) {
+        window.location.href = "/?login=1";
+    }
+
     tailwind.config = {
       theme: {
         extend: {

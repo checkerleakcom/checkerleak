@@ -7,7 +7,8 @@ CheckerLeak.com is a carrier-grade contact intelligence and identity footprint v
 ### Core Architecture Principles:
 - **Zero-Retention (Privacy-First)**: CheckerLeak never persists raw phone numbers or query payloads. All memory buffers are wiped immediately after the verification pipeline returns.
 - **Cascading Execution**: Local offline ITU E.164 normalization runs first (sub-millisecond), screening out invalid prefixes before invoking higher-level telecom HLR or OTT messaging probes. This reduces API spend by up to 90%.
-- **Zero-KYC Crypto Settlement**: Customers can fund balance accounts anonymously via Bitcoin (BTC) or Tether (USDT ERC-20 / TRC-20) using a real-time mempool transaction scanner with instant credit allocation.
+- **Enterprise Privacy & Zero-Retention**: All memory buffers are wiped immediately after the verification pipeline returns with zero logging of sensitive customer contacts.
+- **Automated Pay-as-you-go Credit Activation**: Customers can fund balance accounts with instant automated credit allocation without recurring monthly locks.
 
 ---
 
