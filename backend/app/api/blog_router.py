@@ -275,9 +275,9 @@ curl -X POST "https://www.checkerleak.com/v1/verify/single" \\<br>
 async def blog_index(request: Request):
     """Renders the official CheckerLeak engineering & SEO blog index."""
     return templates.TemplateResponse(
+        request,
         "blog_index.html",
         {
-            "request": request,
             "articles": ARTICLES,
             "canonical_url": "https://checkerleak.com/blog"
         }
@@ -293,9 +293,9 @@ async def blog_article(request: Request, slug: str):
 
     canonical_url = f"https://checkerleak.com/blog/{slug}"
     return templates.TemplateResponse(
+        request,
         "blog_article.html",
         {
-            "request": request,
             "article": article,
             "recent_articles": [a for a in ARTICLES if a["slug"] != slug],
             "canonical_url": canonical_url
