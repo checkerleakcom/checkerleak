@@ -263,26 +263,39 @@ class PhoneResult:
 class Client:
     \"\"\"
     CheckerLeak Python SDK Client.
-    Get your API key at https://www.checkerleak.com/dashboard
+    Commercial API - Paid credits strictly required.
+    Get your API key and deposit at https://www.checkerleak.com/dashboard
     \"\"\"
     def __init__(self, api_key: Optional[str] = None, base_url: str = DEFAULT_BASE_URL):
         self.api_key = api_key or os.getenv("CHECKERLEAK_API_KEY")
+        if not self.api_key:
+            raise ValueError(
+                "CheckerLeak API Key is required. Unpaid access is strictly disabled. "
+                "Please register and purchase verification credits at https://www.checkerleak.com/dashboard "
+                "and top up your balance at https://www.checkerleak.com/billing"
+            )
         self.base_url = base_url.rstrip("/")
 
     def verify(self, phone: str) -> PhoneResult:
         url = f"{{self.base_url}}/v1/verify"
-        headers = {{"Content-Type": "application/json"}}
-        if self.api_key:
-            headers["X-API-Key"] = self.api_key
+        headers = {{
+            "Content-Type": "application/json",
+            "X-API-Key": self.api_key,
+            "User-Agent": "checkerleak-python-sdk/{pkg['version']}"
+        }}
 
         payload = {{"phone": phone}}
         res = requests.post(url, json=payload, headers=headers, timeout=12.0)
+        if res.status_code == 401:
+            raise PermissionError("Invalid CheckerLeak API Key. Please verify your credentials at https://www.checkerleak.com/dashboard")
+        elif res.status_code == 402:
+            raise PermissionError("Payment Required: Insufficient credit balance. Top up with BTC, USDT, SOL, or LTC at https://www.checkerleak.com/billing")
         res.raise_for_status()
         return PhoneResult(res.json())
 
 
 def check_phone(phone: str, api_key: Optional[str] = None) -> PhoneResult:
-    \"\"\"Quick helper to check any international phone number.\"\"\"
+    \"\"\"Quick helper to check any international phone number (requires paid API key).\"\"\"
     return Client(api_key=api_key).verify(phone)
 """
     with open(os.path.join(src_dir, "client.py"), "w", encoding="utf-8") as f:
@@ -290,6 +303,7 @@ def check_phone(phone: str, api_key: Optional[str] = None) -> PhoneResult:
 
     # 5. Source Code: cli.py
     cli_code = f"""import sys
+import os
 import argparse
 import json
 from .client import Client
@@ -302,8 +316,27 @@ def main():
 
     args = parser.parse_args()
 
+    api_key = args.api_key or os.getenv("CHECKERLEAK_API_KEY")
+    if not api_key:
+        sys.stderr.write(
+            "\\n" + "=" * 65 + "\\n"
+            "[!] ACCESS DENIED: CheckerLeak API Key & Payment Required\\n"
+            "=" * 65 + "\\n"
+            "All verification engines require an active account with paid credits.\\n"
+            "Free / unpaid API usage is strictly disabled.\\n\\n"
+            "To use this tool:\\n"
+            "1. Register at: https://www.checkerleak.com/dashboard\\n"
+            "2. Top up credits with Bitcoin, USDT, Solana, or Litecoin at:\\n"
+            "   https://www.checkerleak.com/billing\\n"
+            "3. Run with:\\n"
+            "   {pkg['cli_cmd']} " + args.phone + " --api-key pk_live_your_key\\n"
+            "   or: export CHECKERLEAK_API_KEY=pk_live_your_key\\n"
+            "=" * 65 + "\\n\\n"
+        )
+        sys.exit(1)
+
     try:
-        client = Client(api_key=args.api_key)
+        client = Client(api_key=api_key)
         res = client.verify(args.phone)
 
         if args.json:
@@ -315,7 +348,7 @@ def main():
             print(f"Line Type:    {{res.line_type}}")
             print(f"Reachability: {{res.reachability_score}}/100")
             print(f"Status:       {{'VALID' if res.is_valid else 'INVALID'}}")
-            print(f"\\nFor bulk checks & full 102 engines, visit: https://www.checkerleak.com\\n")
+            print(f"\\nAccount Balance deducted. Manage credits at: https://www.checkerleak.com\\n")
     except Exception as e:
         sys.stderr.write(f"Error: {{e}}\\n")
         sys.exit(1)
@@ -373,6 +406,11 @@ const https = require('https');
 class CheckerLeakClient {{
   constructor(apiKey = null, baseUrl = 'https://www.checkerleak.com') {{
     this.apiKey = apiKey || process.env.CHECKERLEAK_API_KEY;
+    if (!this.apiKey) {{
+      throw new Error(
+        "CheckerLeak API Key is required. Unpaid access is strictly disabled. Please register and purchase credits with Bitcoin, USDT, Solana, or Litecoin at https://www.checkerleak.com/dashboard"
+      );
+    }}
     this.baseUrl = baseUrl.replace(/\\/$/, '');
   }}
 
@@ -389,7 +427,8 @@ class CheckerLeakClient {{
         headers: {{
           'Content-Type': 'application/json',
           'Content-Length': Buffer.byteLength(data),
-          ...(this.apiKey ? {{ 'X-API-Key': this.apiKey }} : {{}})
+          'X-API-Key': this.apiKey,
+          'User-Agent': 'checkerleak-node-sdk/{pkg['version']}'
         }}
       }};
 
@@ -398,6 +437,12 @@ class CheckerLeakClient {{
         res.on('data', chunk => body += chunk);
         res.on('end', () => {{
           try {{
+            if (res.statusCode === 401) {{
+              return reject(new Error("Invalid CheckerLeak API Key. Check dashboard at https://www.checkerleak.com"));
+            }}
+            if (res.statusCode === 402) {{
+              return reject(new Error("Payment Required: Insufficient credits. Top up with crypto at https://www.checkerleak.com/billing"));
+            }}
             resolve(JSON.parse(body));
           }} catch (err) {{
             reject(new Error(`Failed to parse response: ${{body}}`));
@@ -453,20 +498,28 @@ export function checkPhone(phone: string, apiKey?: string): Promise<PhoneVerific
 const { checkPhone } = require('../index.js');
 
 const phone = process.argv[2];
-if (!phone) {
-  console.log("Usage: npx checkerleak <phone_number> (e.g. +12025550199)");
-  console.log("For full 102 engines API keys, visit: https://www.checkerleak.com");
+const apiKey = process.env.CHECKERLEAK_API_KEY || (process.argv.indexOf('--api-key') !== -1 ? process.argv[process.argv.indexOf('--api-key') + 1] : null);
+
+if (!phone || !apiKey) {
+  console.error("\\n==============================================================");
+  console.error("[!] ACCESS DENIED: CheckerLeak API Key & Payment Required");
+  console.error("==============================================================");
+  console.error("Commercial API access requires an active account with paid credits.");
+  console.error("1. Register at: https://www.checkerleak.com/dashboard");
+  console.error("2. Purchase credits with BTC/USDT/SOL/LTC: https://www.checkerleak.com/billing");
+  console.error("3. Usage: npx checkerleak <phone> --api-key pk_live_your_key");
+  console.error("==============================================================\\n");
   process.exit(1);
 }
 
-checkPhone(phone)
+checkPhone(phone, apiKey)
   .then(res => {
     console.log("\\n=== CheckerLeak Node Intelligence ===");
     console.log("Phone:       ", res.phone);
     console.log("Carrier:     ", res.carrier);
     console.log("Line Type:   ", res.lead_quality || res.line_type || "Mobile");
     console.log("Reachability:", (res.reachability_score || 90) + "/100");
-    console.log("\\nVisit https://www.checkerleak.com for bulk API access.\\n");
+    console.log("\\nAccount balance deducted. Visit https://www.checkerleak.com/billing for more credits.\\n");
   })
   .catch(err => {
     console.error("Verification error:", err.message);

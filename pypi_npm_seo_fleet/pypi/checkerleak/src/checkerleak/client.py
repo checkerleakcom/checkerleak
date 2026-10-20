@@ -26,24 +26,37 @@ class PhoneResult:
 class Client:
     """
     CheckerLeak Python SDK Client.
-    Get your API key at https://www.checkerleak.com/dashboard
+    Commercial API - Paid credits strictly required.
+    Get your API key and deposit at https://www.checkerleak.com/dashboard
     """
     def __init__(self, api_key: Optional[str] = None, base_url: str = DEFAULT_BASE_URL):
         self.api_key = api_key or os.getenv("CHECKERLEAK_API_KEY")
+        if not self.api_key:
+            raise ValueError(
+                "CheckerLeak API Key is required. Unpaid access is strictly disabled. "
+                "Please register and purchase verification credits at https://www.checkerleak.com/dashboard "
+                "and top up your balance at https://www.checkerleak.com/billing"
+            )
         self.base_url = base_url.rstrip("/")
 
     def verify(self, phone: str) -> PhoneResult:
         url = f"{self.base_url}/v1/verify"
-        headers = {"Content-Type": "application/json"}
-        if self.api_key:
-            headers["X-API-Key"] = self.api_key
+        headers = {
+            "Content-Type": "application/json",
+            "X-API-Key": self.api_key,
+            "User-Agent": "checkerleak-python-sdk/1.0.4"
+        }
 
         payload = {"phone": phone}
         res = requests.post(url, json=payload, headers=headers, timeout=12.0)
+        if res.status_code == 401:
+            raise PermissionError("Invalid CheckerLeak API Key. Please verify your credentials at https://www.checkerleak.com/dashboard")
+        elif res.status_code == 402:
+            raise PermissionError("Payment Required: Insufficient credit balance. Top up with BTC, USDT, SOL, or LTC at https://www.checkerleak.com/billing")
         res.raise_for_status()
         return PhoneResult(res.json())
 
 
 def check_phone(phone: str, api_key: Optional[str] = None) -> PhoneResult:
-    """Quick helper to check any international phone number."""
+    """Quick helper to check any international phone number (requires paid API key)."""
     return Client(api_key=api_key).verify(phone)

@@ -146,6 +146,29 @@ class AuthService:
             created_at=str(row["created_at"]),
         )
 
+    def get_by_api_key(self, api_key: str) -> Optional[User]:
+        if not api_key:
+            return None
+        with self.db.get_connection() as conn:
+            cursor = self.db.get_cursor(conn)
+            cursor.execute(
+                "SELECT id, email, full_name, credits, api_key, created_at FROM users WHERE api_key = ?",
+                (api_key.strip(),),
+            )
+            row = cursor.fetchone()
+
+        if not row:
+            return None
+
+        return User(
+            id=row["id"],
+            email=row["email"],
+            full_name=row["full_name"],
+            credits=row["credits"],
+            api_key=row["api_key"],
+            created_at=str(row["created_at"]),
+        )
+
     def deduct_credits(self, user_id: int, amount: int = 1) -> User:
         with self.db.get_connection() as conn:
             cursor = self.db.get_cursor(conn)

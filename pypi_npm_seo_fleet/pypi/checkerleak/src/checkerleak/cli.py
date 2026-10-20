@@ -1,4 +1,5 @@
 import sys
+import os
 import argparse
 import json
 from .client import Client
@@ -11,8 +12,27 @@ def main():
 
     args = parser.parse_args()
 
+    api_key = args.api_key or os.getenv("CHECKERLEAK_API_KEY")
+    if not api_key:
+        sys.stderr.write(
+            "\n" + "=" * 65 + "\n"
+            "[!] ACCESS DENIED: CheckerLeak API Key & Payment Required\n"
+            "=" * 65 + "\n"
+            "All verification engines require an active account with paid credits.\n"
+            "Free / unpaid API usage is strictly disabled.\n\n"
+            "To use this tool:\n"
+            "1. Register at: https://www.checkerleak.com/dashboard\n"
+            "2. Top up credits with Bitcoin, USDT, Solana, or Litecoin at:\n"
+            "   https://www.checkerleak.com/billing\n"
+            "3. Run with:\n"
+            "   checkerleak " + args.phone + " --api-key pk_live_your_key\n"
+            "   or: export CHECKERLEAK_API_KEY=pk_live_your_key\n"
+            "=" * 65 + "\n\n"
+        )
+        sys.exit(1)
+
     try:
-        client = Client(api_key=args.api_key)
+        client = Client(api_key=api_key)
         res = client.verify(args.phone)
 
         if args.json:
@@ -24,7 +44,7 @@ def main():
             print(f"Line Type:    {res.line_type}")
             print(f"Reachability: {res.reachability_score}/100")
             print(f"Status:       {'VALID' if res.is_valid else 'INVALID'}")
-            print(f"\nFor bulk checks & full 102 engines, visit: https://www.checkerleak.com\n")
+            print(f"\nAccount Balance deducted. Manage credits at: https://www.checkerleak.com\n")
     except Exception as e:
         sys.stderr.write(f"Error: {e}\n")
         sys.exit(1)
