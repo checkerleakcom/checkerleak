@@ -1,0 +1,47 @@
+[
+  {
+    "country_code": "US",
+    "country_prefix": "+1",
+    "prefix": "415",
+    "carrier_name": "Verizon Wireless",
+    "mcc": "311",
+    "mnc": "480",
+    "line_type": "mobile"
+  },
+  {
+    "country_code": "MA",
+    "country_prefix": "+212",
+    "prefix": "661",
+    "carrier_name": "Maroc Telecom (IAM)",
+    "mcc": "604",
+    "mnc": "01",
+    "line_type": "mobile"
+  },
+  {
+    "country_code": "MA",
+    "country_prefix": "+212",
+    "prefix": "662",
+    "carrier_name": "Orange Maroc",
+    "mcc": "604",
+    "mnc": "00",
+    "line_type": "mobile"
+  },
+  {
+    "country_code": "FR",
+    "country_prefix": "+33",
+    "prefix": "6",
+    "carrier_name": "Orange France",
+    "mcc": "208",
+    "mnc": "01",
+    "line_type": "mobile"
+  },
+  {
+    "country_code": "GB",
+    "country_prefix": "+44",
+    "prefix": "7911",
+    "carrier_name": "Vodafone UK",
+    "mcc": "234",
+    "mnc": "15",
+    "line_type": "mobile"
+  }
+]

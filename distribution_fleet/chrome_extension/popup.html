@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>CheckerLeak Extension</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      margin: 0;
+      padding: 16px;
+      width: 320px;
+      background: #0f172a;
+      color: #f8fafc;
+      box-sizing: border-box;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #334155;
+      padding-bottom: 12px;
+      margin-bottom: 12px;
+    }
+    .logo {
+      font-size: 14px;
+      font-weight: 700;
+      color: #38bdf8;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .link-site {
+      font-size: 11px;
+      color: #94a3b8;
+      text-decoration: none;
+    }
+    .link-site:hover {
+      color: #38bdf8;
+    }
+    .form-group {
+      margin-bottom: 10px;
+    }
+    label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #94a3b8;
+      display: block;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    input {
+      width: 100%;
+      background: #1e293b;
+      border: 1px solid #475569;
+      color: #f8fafc;
+      padding: 8px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      box-sizing: border-box;
+      outline: none;
+    }
+    input:focus {
+      border-color: #38bdf8;
+    }
+    button {
+      width: 100%;
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 9px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 4px;
+    }
+    button:hover {
+      background: #1d4ed8;
+    }
+    .result-card {
+      margin-top: 14px;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 10px;
+      display: none;
+      font-size: 12px;
+    }
+    .row {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0;
+      border-bottom: 1px solid #334155/50;
+    }
+    .row:last-child {
+      border-bottom: none;
+    }
+    .label-col {
+      color: #94a3b8;
+    }
+    .val-col {
+      font-weight: 600;
+      color: #f1f5f9;
+      text-align: right;
+    }
+    .footer {
+      margin-top: 14px;
+      font-size: 11px;
+      text-align: center;
+      color: #64748b;
+    }
+    .footer a {
+      color: #38bdf8;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">⚡ CheckerLeak</div>
+    <a href="https://checkerleak.com" target="_blank" class="link-site">Open Web App ↗</a>
+  </div>
+
+  <div class="form-group">
+    <label>Phone Number</label>
+    <input type="text" id="phoneInput" placeholder="+1 415 555 2671" value="+14155552671" />
+  </div>
+
+  <div class="form-group">
+    <label>CheckerLeak API Key</label>
+    <input type="password" id="keyInput" placeholder="clk_live_..." />
+  </div>
+
+  <button id="verifyBtn">🔍 Verify Phone Line</button>
+
+  <div id="resultCard" class="result-card">
+    <div class="row">
+      <span class="label-col">Carrier:</span>
+      <span class="val-col" id="resCarrier">-</span>
+    </div>
+    <div class="row">
+      <span class="label-col">Line Type:</span>
+      <span class="val-col" id="resLineType">-</span>
+    </div>
+    <div class="row">
+      <span class="label-col">VoIP / Burner:</span>
+      <span class="val-col" id="resVoip">-</span>
+    </div>
+    <div class="row">
+      <span class="label-col">Country:</span>
+      <span class="val-col" id="resCountry">-</span>
+    </div>
+    <div class="row">
+      <span class="label-col">Speed:</span>
+      <span class="val-col" id="resLatency">-</span>
+    </div>
+  </div>
+
+  <div class="footer">
+    No key? <a href="https://checkerleak.com" target="_blank">Get instant key from $0.90/10k</a>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

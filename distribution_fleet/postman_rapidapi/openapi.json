@@ -1,0 +1,107 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "CheckerLeak Phone Intelligence & Carrier HLR API",
+    "version": "1.0.0",
+    "description": "Enterprise-grade bulk phone number checker, carrier HLR lookup, VoIP fraud detection, and 102+ platform footprint verification.\n\nWebsite: https://checkerleak.com",
+    "contact": {
+      "name": "CheckerLeak API Support",
+      "url": "https://checkerleak.com",
+      "email": "support@checkerleak.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://checkerleak.com",
+      "description": "Production Server"
+    }
+  ],
+  "security": [
+    {
+      "ApiKeyAuth": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key"
+      }
+    }
+  },
+  "paths": {
+    "/v1/verify": {
+      "post": {
+        "summary": "Verify Phone Number",
+        "description": "Executes real-time carrier HLR lookup, VoIP fraud check, and multi-platform footprint probe.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["phone"],
+                "properties": {
+                  "phone": {
+                    "type": "string",
+                    "example": "+14155552671"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": ["full", "carrier", "voip"],
+                    "default": "full"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Verification results"
+          },
+          "401": {
+            "description": "Unauthorized - Missing or invalid API key"
+          },
+          "402": {
+            "description": "Payment Required - Insufficient credit balance"
+          }
+        }
+      }
+    },
+    "/v1/bulk": {
+      "post": {
+        "summary": "Submit Bulk Batch",
+        "description": "Batch verification of up to 100,000 international phone numbers.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["numbers"],
+                "properties": {
+                  "numbers": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "example": ["+14155552671", "+212661123456"]
+                  },
+                  "type": {
+                    "type": "string",
+                    "default": "full"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Batch accepted"
+          }
+        }
+      }
+    }
+  }
+}

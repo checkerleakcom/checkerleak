@@ -1,0 +1,157 @@
+{
+  "info": {
+    "_postman_id": "c1f7b8e2-4821-4f10-9b38-927429188201",
+    "name": "CheckerLeak API — Phone Intelligence & Carrier HLR Lookup",
+    "description": "Official Postman Collection for CheckerLeak.com — All-in-one phone number intelligence, carrier HLR lookup, VoIP fraud detection, and 102+ platform footprint verification.\n\nWebsite: https://checkerleak.com\nDocs: https://checkerleak.com/docs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-Key",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{checkerleak_api_key}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "Verify Phone (Full Footprint & HLR)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"phone\": \"+14155552671\",\n  \"type\": \"full\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/v1/verify",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "verify"
+          ]
+        },
+        "description": "Performs comprehensive carrier HLR lookup, VoIP fraud check, and multi-platform footprint probe across 102+ services."
+      }
+    },
+    {
+      "name": "Carrier & HLR Lookup Only",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"phone\": \"+212661123456\",\n  \"type\": \"carrier\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/v1/verify",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "verify"
+          ]
+        },
+        "description": "High-speed carrier lookup returning mobile network name, MCC, MNC, and number porting status."
+      }
+    },
+    {
+      "name": "VoIP & Fraud Detector",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"phone\": \"+14155552671\",\n  \"type\": \"voip\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/v1/verify",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "verify"
+          ]
+        },
+        "description": "Evaluates virtual phone numbers, VoIP fraud risks, burner providers (Twilio, TextNow, Google Voice)."
+      }
+    },
+    {
+      "name": "Submit Bulk Verification Batch",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"numbers\": [\n    \"+14155552671\",\n    \"+212661123456\",\n    \"+33612345678\"\n  ],\n  \"type\": \"full\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/v1/bulk",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "bulk"
+          ]
+        },
+        "description": "Queue up to 100,000 phone numbers in a single batch job."
+      }
+    },
+    {
+      "name": "Check Account Credit Balance",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/v1/auth/me",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "v1",
+            "auth",
+            "me"
+          ]
+        },
+        "description": "Inspect authenticated user details and active credit balance."
+      }
+    }
+  ]
+}
