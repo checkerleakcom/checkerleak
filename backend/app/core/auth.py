@@ -1,6 +1,7 @@
 """
 AuthService: User registration, secure PBKDF2 authentication, and credit accounting.
 Complies with ECC Security & Immutability standards.
+Supports both SQLite and PostgreSQL backends via DatabaseService.
 """
 import hashlib
 import secrets
@@ -60,22 +61,33 @@ class AuthService:
         salt = secrets.token_hex(16)
         pwd_hash = self._hash_password(password, salt)
         api_key = f"pk_live_{secrets.token_urlsafe(24)}"
-        initial_credits = 0  # Strict pay-as-you-go: users must top up to verify lists (prevents 1,000 credit free scraping abuse)
+        initial_credits = 0
 
         with self.db.get_connection() as conn:
-            cursor = conn.cursor()
+            cursor = self.db.get_cursor(conn)
             try:
-                cursor.execute(
-                    """
-                    INSERT INTO users (email, password_hash, salt, full_name, credits, api_key)
-                    VALUES (?, ?, ?, ?, ?, ?)
-                    """,
-                    (clean_email, pwd_hash, salt, full_name.strip(), initial_credits, api_key),
-                )
-                user_id = cursor.lastrowid
-                conn.commit()
+                if self.db.is_pg:
+                    cursor.execute(
+                        """
+                        INSERT INTO users (email, password_hash, salt, full_name, credits, api_key)
+                        VALUES (?, ?, ?, ?, ?, ?)
+                        RETURNING id
+                        """,
+                        (clean_email, pwd_hash, salt, full_name.strip(), initial_credits, api_key),
+                    )
+                    user_id = cursor.fetchone()["id"]
+                else:
+                    cursor.execute(
+                        """
+                        INSERT INTO users (email, password_hash, salt, full_name, credits, api_key)
+                        VALUES (?, ?, ?, ?, ?, ?)
+                        """,
+                        (clean_email, pwd_hash, salt, full_name.strip(), initial_credits, api_key),
+                    )
+                    user_id = cursor.lastrowid
             except Exception as e:
-                if "UNIQUE constraint failed: users.email" in str(e):
+                err_str = str(e).lower()
+                if "unique" in err_str or "duplicate" in err_str:
                     raise ValueError("EMAIL_ALREADY_EXISTS")
                 raise e
 
@@ -90,7 +102,7 @@ class AuthService:
     def authenticate(self, email: str, password: str) -> User:
         clean_email = email.strip().lower()
         with self.db.get_connection() as conn:
-            cursor = conn.cursor()
+            cursor = self.db.get_cursor(conn)
             cursor.execute(
                 "SELECT id, email, password_hash, salt, full_name, credits, api_key, created_at FROM users WHERE email = ?",
                 (clean_email,),
@@ -115,7 +127,7 @@ class AuthService:
 
     def get_by_id(self, user_id: int) -> Optional[User]:
         with self.db.get_connection() as conn:
-            cursor = conn.cursor()
+            cursor = self.db.get_cursor(conn)
             cursor.execute(
                 "SELECT id, email, full_name, credits, api_key, created_at FROM users WHERE id = ?",
                 (user_id,),
@@ -136,7 +148,7 @@ class AuthService:
 
     def deduct_credits(self, user_id: int, amount: int = 1) -> User:
         with self.db.get_connection() as conn:
-            cursor = conn.cursor()
+            cursor = self.db.get_cursor(conn)
             cursor.execute("SELECT credits FROM users WHERE id = ?", (user_id,))
             row = cursor.fetchone()
             if not row:
@@ -148,7 +160,6 @@ class AuthService:
 
             new_credits = current_credits - amount
             cursor.execute("UPDATE users SET credits = ? WHERE id = ?", (new_credits, user_id))
-            conn.commit()
 
         return self.get_by_id(user_id)
 
@@ -156,7 +167,7 @@ class AuthService:
         if amount <= 0:
             raise ValueError("AMOUNT_MUST_BE_POSITIVE")
         with self.db.get_connection() as conn:
-            cursor = conn.cursor()
+            cursor = self.db.get_cursor(conn)
             cursor.execute("SELECT credits FROM users WHERE id = ?", (user_id,))
             row = cursor.fetchone()
             if not row:
@@ -165,7 +176,6 @@ class AuthService:
             current_credits = row["credits"]
             new_credits = current_credits + amount
             cursor.execute("UPDATE users SET credits = ? WHERE id = ?", (new_credits, user_id))
-            conn.commit()
 
         return self.get_by_id(user_id)
 
@@ -179,20 +189,30 @@ class AuthService:
         credits_used: int = 1,
     ) -> int:
         with self.db.get_connection() as conn:
-            cursor = conn.cursor()
-            cursor.execute(
-                """
-                INSERT INTO task_history (user_id, phone, carrier, reachability_score, lead_quality, credits_used)
-                VALUES (?, ?, ?, ?, ?, ?)
-                """,
-                (user_id, phone, carrier, reachability_score, lead_quality, credits_used),
-            )
-            conn.commit()
-            return cursor.lastrowid
+            cursor = self.db.get_cursor(conn)
+            if self.db.is_pg:
+                cursor.execute(
+                    """
+                    INSERT INTO task_history (user_id, phone, carrier, reachability_score, lead_quality, credits_used)
+                    VALUES (?, ?, ?, ?, ?, ?)
+                    RETURNING id
+                    """,
+                    (user_id, phone, carrier, reachability_score, lead_quality, credits_used),
+                )
+                return cursor.fetchone()["id"]
+            else:
+                cursor.execute(
+                    """
+                    INSERT INTO task_history (user_id, phone, carrier, reachability_score, lead_quality, credits_used)
+                    VALUES (?, ?, ?, ?, ?, ?)
+                    """,
+                    (user_id, phone, carrier, reachability_score, lead_quality, credits_used),
+                )
+                return cursor.lastrowid
 
     def get_user_history(self, user_id: int, limit: int = 50) -> list[TaskRecord]:
         with self.db.get_connection() as conn:
-            cursor = conn.cursor()
+            cursor = self.db.get_cursor(conn)
             cursor.execute(
                 """
                 SELECT id, user_id, phone, carrier, reachability_score, lead_quality, credits_used, created_at

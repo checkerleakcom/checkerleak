@@ -105,17 +105,6 @@ BILLING_PLANS: Dict[PlanTier, BillingPlan] = {
             "Custom Webhooks & Upstream Routing",
         ],
     ),
-    PaymentMethod.CRYPTO_LTC: {
-        "id": PaymentMethod.CRYPTO_LTC.value,
-        "name": "Litecoin (LTC)",
-        "network": "Litecoin Core Network",
-        "currency": "LTC",
-        "address": "LVW74nrfMVpsTY7Kd62tkzfNF5aasM7ieS",
-        "badge": "LOWEST FEES",
-        "fee_info": "Network fee: ~$0.01 · Fast confirmation",
-        "icon": "Ł",
-        "explorer_url": "https://litecoinspace.org/address/LVW74nrfMVpsTY7Kd62tkzfNF5aasM7ieS",
-    },
 }
 
 # Official Merchant Deposit Addresses for Crypto Checkout
@@ -464,7 +453,7 @@ class BillingService:
 
         # Anti-replay check: prevent the exact same transaction hash from being credited twice
         with self.db.get_connection() as conn:
-            cursor = conn.cursor()
+            cursor = self.db.get_cursor(conn)
             if clean_tx and not clean_tx.startswith(("mock_", "tx_")):
                 cursor.execute(
                     "SELECT id, user_id FROM billing_transactions WHERE tx_hash = ? AND status = 'COMPLETED'",
@@ -521,14 +510,25 @@ class BillingService:
             cursor.execute("UPDATE users SET credits = ? WHERE id = ?", (new_credits, user_id))
 
             # 3. Log transaction
-            cursor.execute(
-                """
-                INSERT INTO billing_transactions (user_id, plan_id, amount_usd, credits_added, payment_method, status, tx_hash)
-                VALUES (?, ?, ?, ?, ?, 'COMPLETED', ?)
-                """,
-                (user_id, plan.id.value, plan.price_usd, plan.credits, payment_method.value, clean_tx),
-            )
-            tx_id = cursor.lastrowid
+            if self.db.is_pg:
+                cursor.execute(
+                    """
+                    INSERT INTO billing_transactions (user_id, plan_id, amount_usd, credits_added, payment_method, status, tx_hash)
+                    VALUES (?, ?, ?, ?, ?, 'COMPLETED', ?)
+                    RETURNING id
+                    """,
+                    (user_id, plan.id.value, plan.price_usd, plan.credits, payment_method.value, clean_tx),
+                )
+                tx_id = cursor.fetchone()["id"]
+            else:
+                cursor.execute(
+                    """
+                    INSERT INTO billing_transactions (user_id, plan_id, amount_usd, credits_added, payment_method, status, tx_hash)
+                    VALUES (?, ?, ?, ?, ?, 'COMPLETED', ?)
+                    """,
+                    (user_id, plan.id.value, plan.price_usd, plan.credits, payment_method.value, clean_tx),
+                )
+                tx_id = cursor.lastrowid
             conn.commit()
 
         return {
@@ -615,7 +615,7 @@ class BillingService:
 
     def get_user_transactions(self, user_id: int) -> List[BillingTransaction]:
         with self.db.get_connection() as conn:
-            cursor = conn.cursor()
+            cursor = self.db.get_cursor(conn)
             cursor.execute(
                 """
                 SELECT id, user_id, plan_id, amount_usd, credits_added, payment_method, status, tx_hash, created_at
