@@ -122,6 +122,7 @@ class DatabaseService:
                         full_name VARCHAR(255) NOT NULL,
                         credits INTEGER NOT NULL DEFAULT 0,
                         api_key VARCHAR(128) UNIQUE NOT NULL,
+                        status VARCHAR(32) NOT NULL DEFAULT 'active',
                         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                     );
 
@@ -148,11 +149,25 @@ class DatabaseService:
                         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                     );
 
+                    CREATE TABLE IF NOT EXISTS admin_audit_logs (
+                        id SERIAL PRIMARY KEY,
+                        admin_action VARCHAR(64) NOT NULL,
+                        target_user_id INTEGER,
+                        details TEXT NOT NULL,
+                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                    );
+
                     CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
                     CREATE INDEX IF NOT EXISTS idx_users_api_key ON users(api_key);
                     CREATE INDEX IF NOT EXISTS idx_tasks_user_id ON task_history(user_id);
                     CREATE INDEX IF NOT EXISTS idx_billing_user_id ON billing_transactions(user_id);
+                    CREATE INDEX IF NOT EXISTS idx_audit_created ON admin_audit_logs(created_at DESC);
                 """)
+                # Safe migration: ensure status column exists if table was created previously
+                try:
+                    cursor.execute("ALTER TABLE users ADD COLUMN IF NOT EXISTS status VARCHAR(32) DEFAULT 'active';")
+                except Exception:
+                    pass
             else:
                 conn.executescript("""
                     CREATE TABLE IF NOT EXISTS users (
@@ -163,6 +178,7 @@ class DatabaseService:
                         full_name TEXT NOT NULL,
                         credits INTEGER NOT NULL DEFAULT 0,
                         api_key TEXT UNIQUE NOT NULL,
+                        status TEXT NOT NULL DEFAULT 'active',
                         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                     );
 
@@ -191,8 +207,22 @@ class DatabaseService:
                         FOREIGN KEY(user_id) REFERENCES users(id)
                     );
 
+                    CREATE TABLE IF NOT EXISTS admin_audit_logs (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        admin_action TEXT NOT NULL,
+                        target_user_id INTEGER,
+                        details TEXT NOT NULL,
+                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                    );
+
                     CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
                     CREATE INDEX IF NOT EXISTS idx_users_api_key ON users(api_key);
                     CREATE INDEX IF NOT EXISTS idx_tasks_user_id ON task_history(user_id);
                     CREATE INDEX IF NOT EXISTS idx_billing_user_id ON billing_transactions(user_id);
+                    CREATE INDEX IF NOT EXISTS idx_audit_created ON admin_audit_logs(created_at DESC);
                 """)
+                # Safe migration for sqlite if status column was absent
+                try:
+                    conn.execute("ALTER TABLE users ADD COLUMN status TEXT NOT NULL DEFAULT 'active';")
+                except Exception:
+                    pass

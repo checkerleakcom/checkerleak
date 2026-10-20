@@ -63,6 +63,9 @@ logs/
 # Python
 __pycache__/
 *.pyc
+*.db
+*.sqlite*
+github_seo_fleet/
 
 # Task files (Claude Code teams)
 tasks/
