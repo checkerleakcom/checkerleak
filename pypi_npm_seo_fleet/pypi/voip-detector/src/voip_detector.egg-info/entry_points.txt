@@ -1,0 +1,2 @@
+[console_scripts]
+voip-check = voip_detector.cli:main

@@ -1,0 +1,102 @@
+Metadata-Version: 2.4
+Name: telegram-phone-lookup
+Version: 1.0.2
+Summary: Telegram Phone Number OSINT Tool. Verifies active Telegram account registration, user ID footprints, and profile status.
+Author-email: CheckerLeak Intelligence Team <engineering@checkerleak.com>
+Project-URL: Homepage, https://www.checkerleak.com
+Project-URL: Documentation, https://www.checkerleak.com/docs
+Project-URL: Web Dashboard, https://www.checkerleak.com/dashboard
+Project-URL: Bug Tracker, https://github.com/checkerleak/telegram-phone-lookup/issues
+Keywords: telegram-checker,telegram-osint,telegram-phone-lookup,telegram-recon,identity-verification
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Communications :: Telephony
+Classifier: Topic :: Security
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: requests>=2.25.0
+
+# telegram-phone-lookup — Telegram Phone Lookup
+
+[![PyPI version](https://img.shields.io/pypi/v/telegram-phone-lookup.svg?color=06b6d4)](https://pypi.org/project/telegram-phone-lookup/)
+[![Python Versions](https://img.shields.io/pypi/pyversions/telegram-phone-lookup.svg)](https://pypi.org/project/telegram-phone-lookup/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-emerald.svg)](https://opensource.org/licenses/MIT)
+[![Powered by CheckerLeak](https://img.shields.io/badge/Powered%20By-CheckerLeak.com-blue)](https://www.checkerleak.com)
+
+> **Telegram Phone Number OSINT Tool. Verifies active Telegram account registration, user ID footprints, and profile status.**  
+> Powered by the high-throughput [CheckerLeak.com](https://www.checkerleak.com) intelligence infrastructure.
+
+---
+
+## ⚡ Quickstart
+
+### 1. Installation
+```bash
+pip install telegram-phone-lookup
+```
+
+### 2. Python Usage
+```python
+from telegram_phone_lookup import check_phone
+
+# Basic phone check
+result = check_phone("+12025550199")
+
+print(f"Carrier: {result.carrier}")
+print(f"Line Type: {result.line_type}")  # Mobile, Landline, VoIP
+print(f"Valid: {result.is_valid}")
+print(f"Score: {result.reachability_score}/100")
+```
+
+### 3. Authenticated Usage (Full 102 Engines & High Concurrency)
+To access full breach repositories, live SS7 HLR pings, WhatsApp/Telegram status, and high-rate limits, register for free at [CheckerLeak.com](https://www.checkerleak.com) to grab your API key:
+
+```python
+from telegram_phone_lookup import Client
+
+client = Client(api_key="ck_live_your_key_here")
+
+# Full enrichment check across 102 engines
+res = client.verify("+12025550199")
+print(res.to_dict())
+```
+
+### 4. CLI Execution
+```bash
+tg-lookup +12025550199
+tg-lookup +12025550199 --api-key ck_live_xxx --json
+```
+
+---
+
+## 🚀 Why CheckerLeak?
+
+| Feature | telegram-phone-lookup / CheckerLeak | Twilio Lookup v2 | Telesign |
+|---|---|---|---|
+| **Coverage** | **102 Verification Engines** | Basic Carrier only | Telco only |
+| **HLR / SS7 Live Ping** | ✅ **Sub-150ms Instant** | ⚠️ Add-on $0.05 | ⚠️ Enterprise only |
+| **WhatsApp & Telegram Footprint** | ✅ **Included** | ❌ No | ❌ No |
+| **VoIP / Burner Detection** | ✅ **Real-Time** | ⚠️ $0.015/query | ⚠️ $0.02/query |
+| **Payment Options** | **BTC, USDT, SOL, LTC, Card** | Credit Card only | Wire transfer only |
+| **Privacy Gated** | ✅ **Zero Data Retention** | ❌ Logged | ❌ Logged |
+
+---
+
+## 🔗 Official Links & Resources
+
+* 🌐 **Official Web Platform & Bulk Portal**: [https://www.checkerleak.com](https://www.checkerleak.com)
+* 📖 **API Documentation**: [https://www.checkerleak.com/docs](https://www.checkerleak.com/docs)
+* 🪙 **Client Dashboard & Free Credits**: [https://www.checkerleak.com/dashboard](https://www.checkerleak.com/dashboard)
+* 🛡️ **Technical Guides & Telco Research**: [https://www.checkerleak.com/blog](https://www.checkerleak.com/blog)
+
+---
+
+## 📄 License
+MIT License. Maintained by the [CheckerLeak.com Engineering Team](https://www.checkerleak.com).

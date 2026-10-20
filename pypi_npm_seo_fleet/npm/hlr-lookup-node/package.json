@@ -1,0 +1,24 @@
+{
+  "name": "hlr-lookup-node",
+  "version": "1.0.2",
+  "description": "SS7 & HLR Lookup client for Node.js. Check real-time SIM connectivity, roaming status, and network routing in sub-150ms.",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "bin": {
+    "hlr-lookup-node": "./bin/cli.js"
+  },
+  "scripts": {
+    "test": "node test.js"
+  },
+  "keywords": ["hlr-lookup", "ss7-ping", "sim-status", "telco-verification", "carrier-portability"],
+  "author": "CheckerLeak Intelligence Team <engineering@checkerleak.com>",
+  "license": "MIT",
+  "homepage": "https://www.checkerleak.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/checkerleak/hlr-lookup-node.git"
+  },
+  "bugs": {
+    "url": "https://github.com/checkerleak/hlr-lookup-node/issues"
+  }
+}

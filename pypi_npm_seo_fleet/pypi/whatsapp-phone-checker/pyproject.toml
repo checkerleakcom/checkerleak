@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "whatsapp-phone-checker"
+version = "1.0.2"
+authors = [
+  { name="CheckerLeak Intelligence Team", email="engineering@checkerleak.com" },
+]
+description = "High-speed WhatsApp Number Probe. Checks if a phone number is registered on WhatsApp, business status, and profile footprint."
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Communications :: Telephony",
+    "Topic :: Security",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+keywords = ['whatsapp-checker', 'whatsapp-number-check', 'whatsapp-validator', 'whatsapp-osint', 'phone-registration']
+dependencies = [
+    "requests>=2.25.0",
+]
+
+[project.urls]
+"Homepage" = "https://www.checkerleak.com"
+"Documentation" = "https://www.checkerleak.com/docs"
+"Web Dashboard" = "https://www.checkerleak.com/dashboard"
+"Bug Tracker" = "https://github.com/checkerleak/whatsapp-phone-checker/issues"
+
+[project.scripts]
+wa-check = "whatsapp_phone_checker.cli:main"

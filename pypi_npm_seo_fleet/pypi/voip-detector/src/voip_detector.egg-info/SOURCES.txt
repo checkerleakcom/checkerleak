@@ -1,0 +1,11 @@
+README.md
+pyproject.toml
+src/voip_detector/__init__.py
+src/voip_detector/cli.py
+src/voip_detector/client.py
+src/voip_detector.egg-info/PKG-INFO
+src/voip_detector.egg-info/SOURCES.txt
+src/voip_detector.egg-info/dependency_links.txt
+src/voip_detector.egg-info/entry_points.txt
+src/voip_detector.egg-info/requires.txt
+src/voip_detector.egg-info/top_level.txt

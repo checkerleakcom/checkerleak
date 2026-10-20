@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "phone-carrier-lookup"
+version = "1.0.2"
+authors = [
+  { name="CheckerLeak Intelligence Team", email="engineering@checkerleak.com" },
+]
+description = "Ultra-fast Phone Carrier & Line Type Detector. Identifies Verizon, AT&T, T-Mobile, Vodafone, Orange, VoIP, and Prepaid SIMs."
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Communications :: Telephony",
+    "Topic :: Security",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+keywords = ['phone-carrier-lookup', 'carrier-detector', 'mcc-mnc', 'line-type', 'voip-check', 'telco-lookup']
+dependencies = [
+    "requests>=2.25.0",
+]
+
+[project.urls]
+"Homepage" = "https://www.checkerleak.com"
+"Documentation" = "https://www.checkerleak.com/docs"
+"Web Dashboard" = "https://www.checkerleak.com/dashboard"
+"Bug Tracker" = "https://github.com/checkerleak/phone-carrier-lookup/issues"
+
+[project.scripts]
+carrier-lookup = "phone_carrier_lookup.cli:main"

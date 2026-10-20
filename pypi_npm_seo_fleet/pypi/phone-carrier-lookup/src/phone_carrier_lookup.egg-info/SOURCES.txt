@@ -1,0 +1,11 @@
+README.md
+pyproject.toml
+src/phone_carrier_lookup/__init__.py
+src/phone_carrier_lookup/cli.py
+src/phone_carrier_lookup/client.py
+src/phone_carrier_lookup.egg-info/PKG-INFO
+src/phone_carrier_lookup.egg-info/SOURCES.txt
+src/phone_carrier_lookup.egg-info/dependency_links.txt
+src/phone_carrier_lookup.egg-info/entry_points.txt
+src/phone_carrier_lookup.egg-info/requires.txt
+src/phone_carrier_lookup.egg-info/top_level.txt

@@ -1,0 +1,2 @@
+[console_scripts]
+tg-lookup = telegram_phone_lookup.cli:main

@@ -1,0 +1,24 @@
+{
+  "name": "phone-carrier-lookup-js",
+  "version": "1.0.2",
+  "description": "Lightweight Node.js library to detect mobile carrier, line type (mobile/landline/voip), and country for any international phone number.",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "bin": {
+    "phone-carrier-lookup-js": "./bin/cli.js"
+  },
+  "scripts": {
+    "test": "node test.js"
+  },
+  "keywords": ["phone-carrier-lookup", "carrier-detection", "voip-check", "number-validator", "hlr-lookup"],
+  "author": "CheckerLeak Intelligence Team <engineering@checkerleak.com>",
+  "license": "MIT",
+  "homepage": "https://www.checkerleak.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/checkerleak/phone-carrier-lookup-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/checkerleak/phone-carrier-lookup-js/issues"
+  }
+}

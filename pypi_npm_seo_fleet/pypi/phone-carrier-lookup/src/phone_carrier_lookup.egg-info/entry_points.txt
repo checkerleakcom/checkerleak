@@ -1,0 +1,2 @@
+[console_scripts]
+carrier-lookup = phone_carrier_lookup.cli:main

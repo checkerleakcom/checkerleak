@@ -1,0 +1,2 @@
+[console_scripts]
+wa-check = whatsapp_phone_checker.cli:main

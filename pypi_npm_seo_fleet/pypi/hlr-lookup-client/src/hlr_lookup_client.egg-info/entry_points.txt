@@ -1,0 +1,2 @@
+[console_scripts]
+hlr-ping = hlr_lookup_client.cli:main

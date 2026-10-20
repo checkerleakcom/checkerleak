@@ -1,0 +1,24 @@
+{
+  "name": "checkerleak",
+  "version": "1.0.3",
+  "description": "Official Node.js & TypeScript client for CheckerLeak.com - Real-Time Carrier, HLR, WhatsApp, and 102 OSINT Engines.",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "bin": {
+    "checkerleak": "./bin/cli.js"
+  },
+  "scripts": {
+    "test": "node test.js"
+  },
+  "keywords": ["checkerleak", "phone-validator", "carrier-lookup", "hlr-lookup", "whatsapp-checker", "voip-detection"],
+  "author": "CheckerLeak Intelligence Team <engineering@checkerleak.com>",
+  "license": "MIT",
+  "homepage": "https://www.checkerleak.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/checkerleak/checkerleak.git"
+  },
+  "bugs": {
+    "url": "https://github.com/checkerleak/checkerleak/issues"
+  }
+}
