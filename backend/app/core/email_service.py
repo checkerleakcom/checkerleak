@@ -3,6 +3,7 @@ EmailService: Production-ready transactional email delivery.
 Supports Resend API (Free Tier: 3,000 emails/month, zero latency, no blocked SMTP ports),
 standard SMTP (Resend SMTP, SendGrid, Amazon SES, Mailgun, Postmark),
 and graceful safe console logging fallback for development.
+Clean Silicon-Valley Minimal Light Theme (Stripe / Linear / GitHub standard).
 """
 import os
 import smtplib
@@ -28,46 +29,106 @@ class EmailService:
         self.base_url = os.getenv("BASE_URL", "https://checkerleak.com").rstrip("/")
 
     def send_verification_email(self, to_email: str, token: str, full_name: Optional[str] = None) -> bool:
-        """Sends an HTML transactional verification email with 1-click confirmation link."""
+        """Sends a high-end corporate-grade HTML transactional verification email."""
         verify_url = f"{self.base_url}/verify-email?token={token}"
-        subject = "Verify your email — CheckerLeak.com"
-        name = full_name or "there"
+        subject = "Confirm your CheckerLeak account"
+        name = full_name.strip() if full_name and full_name.strip() else "there"
 
-        html_body = f"""
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <meta charset="utf-8">
-          <style>
-            body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #07090e; color: #f8fafc; margin: 0; padding: 24px; }}
-            .container {{ max-width: 540px; margin: 0 auto; background-color: #0d111a; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 32px; }}
-            .logo {{ font-size: 20px; font-weight: 800; color: #38bdf8; margin-bottom: 24px; }}
-            h1 {{ font-size: 20px; font-weight: 700; color: #ffffff; margin-bottom: 12px; }}
-            p {{ font-size: 14px; line-height: 1.6; color: #94a3b8; margin-bottom: 24px; }}
-            .btn {{ display: inline-block; background-color: #06b6d4; color: #000000; font-weight: 700; text-decoration: none; padding: 12px 28px; border-radius: 10px; font-size: 14px; }}
-            .token-box {{ margin-top: 24px; padding: 12px; background-color: #07090e; border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; font-family: monospace; font-size: 11px; word-break: break-all; color: #64748b; }}
-            .footer {{ margin-top: 32px; font-size: 11px; color: #475569; border-top: 1px solid rgba(255,255,255,0.04); padding-top: 16px; }}
-          </style>
-        </head>
-        <body>
-          <div class="container">
-            <div class="logo">⚡ CheckerLeak.com</div>
-            <h1>Verify your email address</h1>
-            <p>Hi {name},<br><br>Thank you for creating an account on CheckerLeak. Click the button below to verify your email address and activate full API capabilities.</p>
-            <a href="{verify_url}" class="btn" target="_blank">Verify Email Address</a>
-            <div class="token-box">
-              Or copy this verification link into your browser:<br>
-              {verify_url}
-            </div>
-            <div class="footer">
-              If you did not sign up for CheckerLeak, you can safely ignore this email.
-            </div>
-          </div>
-        </body>
-        </html>
-        """
+        # Stripe / Linear / Vercel corporate minimal light email design
+        html_body = f"""<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Confirm your CheckerLeak account</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased;">
+  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed; background-color: #f8fafc; padding: 40px 16px;">
+    <tr>
+      <td align="center" valign="top">
+        <!-- Main Card Container -->
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 540px; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); overflow: hidden;">
+          
+          <!-- Top Clean Brand Header -->
+          <tr>
+            <td style="padding: 36px 40px 24px 40px; border-bottom: 1px solid #f1f5f9;">
+              <table border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td style="background-color: #0f172a; width: 32px; height: 32px; border-radius: 8px; text-align: center; vertical-align: middle; color: #ffffff; font-size: 15px; font-weight: bold;">
+                    ⚡
+                  </td>
+                  <td style="padding-left: 12px; font-size: 18px; font-weight: 700; color: #0f172a; letter-spacing: -0.3px;">
+                    CheckerLeak
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
 
-        text_body = f"Hi {name},\n\nPlease verify your email for CheckerLeak.com by visiting this link:\n{verify_url}\n\nThank you,\nCheckerLeak Team"
+          <!-- Content Body -->
+          <tr>
+            <td style="padding: 32px 40px 36px 40px;">
+              <h1 style="margin: 0 0 16px 0; font-size: 21px; font-weight: 700; color: #0f172a; line-height: 1.35; letter-spacing: -0.4px;">
+                Verify your email address
+              </h1>
+              
+              <p style="margin: 0 0 14px 0; font-size: 15px; line-height: 1.6; color: #334155;">
+                Hi {name},
+              </p>
+              
+              <p style="margin: 0 0 28px 0; font-size: 15px; line-height: 1.6; color: #475569;">
+                Thanks for getting started with <strong>CheckerLeak</strong>. Please click the button below to confirm your email and activate your account.
+              </p>
+
+              <!-- High-Contrast Enterprise Action Button -->
+              <table border="0" cellpadding="0" cellspacing="0" style="margin: 0 0 32px 0;">
+                <tr>
+                  <td align="center" style="border-radius: 8px; background-color: #0f172a;">
+                    <a href="{verify_url}" target="_blank" style="display: inline-block; padding: 13px 26px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 14px; font-weight: 600; color: #ffffff; text-decoration: none; border-radius: 8px; letter-spacing: 0.2px;">
+                      Confirm Email Address &rarr;
+                    </a>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Muted Fallback Link -->
+              <p style="margin: 0 0 8px 0; font-size: 13px; line-height: 1.5; color: #64748b;">
+                Button not working? Copy and paste this link into your browser:
+              </p>
+              <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 10px 12px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 12px; line-height: 1.5; word-break: break-all;">
+                <a href="{verify_url}" target="_blank" style="color: #2563eb; text-decoration: none;">{verify_url}</a>
+              </div>
+
+              <!-- Security Notice -->
+              <div style="margin-top: 32px; padding-top: 20px; border-top: 1px solid #f1f5f9; font-size: 12px; line-height: 1.6; color: #94a3b8;">
+                <p style="margin: 0 0 6px 0;">
+                  This link expires in 24 hours. If you did not create an account on CheckerLeak, you can safely ignore this email.
+                </p>
+                <p style="margin: 0; color: #cbd5e1;">
+                  CheckerLeak Intelligence Platform &bull; Automated Security Verification
+                </p>
+              </div>
+            </td>
+          </tr>
+
+        </table>
+
+        <!-- Micro Footer -->
+        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 540px; margin-top: 20px;">
+          <tr>
+            <td align="center" style="font-size: 12px; color: #94a3b8; line-height: 1.5;">
+              &copy; 2026 CheckerLeak.com. All rights reserved.
+            </td>
+          </tr>
+        </table>
+
+      </td>
+    </tr>
+  </table>
+</body>
+</html>"""
+
+        text_body = f"Hi {name},\n\nPlease confirm your email address for CheckerLeak by visiting this link:\n{verify_url}\n\nThis link will expire in 24 hours.\n\nThank you,\nCheckerLeak Security Team"
 
         # Strategy 1: Resend REST API (Best deliverability & high concurrency)
         if self.resend_api_key:
