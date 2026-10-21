@@ -93,3 +93,32 @@ def test_registration_and_email_verification_lifecycle():
     )
     assert reverify_res.status_code == 200
     assert reverify_res.json()["email_verified"] is True
+
+
+def test_resend_email_service_dispatch(monkeypatch):
+    from app.core.email_service import EmailService
+
+    class MockResponse:
+        status_code = 200
+        def json(self):
+            return {"id": "resend_mock_email_12345"}
+
+    called = {}
+    def mock_post(url, json=None, headers=None, timeout=None):
+        called["url"] = url
+        called["json"] = json
+        called["headers"] = headers
+        return MockResponse()
+
+    monkeypatch.setenv("RESEND_API_KEY", "re_test_dummy_key_123")
+    monkeypatch.setattr("requests.post", mock_post)
+
+    svc = EmailService()
+    assert svc.resend_api_key == "re_test_dummy_key_123"
+
+    success = svc.send_verification_email("client@company.com", "test_token_abc", "Client Name")
+    assert success is True
+    assert called["url"] == "https://api.resend.com/emails"
+    assert "re_test_dummy_key_123" in called["headers"]["Authorization"]
+    assert called["json"]["to"] == ["client@company.com"]
+
