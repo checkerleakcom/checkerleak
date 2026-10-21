@@ -180,6 +180,134 @@ TOP_GEO_PROFILES: Dict[str, CountryTelecomProfile] = {
         ],
         description="Germany: Privacy-conscious market with strict GDPR compliance and strong WhatsApp Business adoption.",
     ),
+    "DZ": CountryTelecomProfile(
+        iso="DZ",
+        name="Algeria",
+        dial_code="+213",
+        flag="🇩🇿",
+        currency="DZD",
+        sample_phone="+213550123456",
+        e164_format="+213 [5-7]XX XX XX XX",
+        whatsapp_penetration_pct=88.0,
+        imessage_share_pct=18.0,
+        avg_latency_ms=95,
+        carriers=[
+            TelecomCarrierInfo(name="Mobilis (ATM)", mcc_mnc="603-01", network_type="3G/4G/LTE", market_share_pct=42.0),
+            TelecomCarrierInfo(name="Djezzy (OTA)", mcc_mnc="603-02", network_type="3G/4G/LTE", market_share_pct=32.0),
+            TelecomCarrierInfo(name="Ooredoo Algérie", mcc_mnc="603-03", network_type="3G/4G/LTE", market_share_pct=26.0),
+        ],
+        description="Algeria: North African mobile market with expanding 4G coverage and high WhatsApp messaging volume.",
+    ),
+    "TN": CountryTelecomProfile(
+        iso="TN",
+        name="Tunisia",
+        dial_code="+216",
+        flag="🇹🇳",
+        currency="TND",
+        sample_phone="+21620123456",
+        e164_format="+216 [2,5,9]X XXX XXX",
+        whatsapp_penetration_pct=89.5,
+        imessage_share_pct=24.0,
+        avg_latency_ms=90,
+        carriers=[
+            TelecomCarrierInfo(name="Ooredoo Tunisie", mcc_mnc="605-01", network_type="4G/LTE", market_share_pct=41.0),
+            TelecomCarrierInfo(name="Tunisie Telecom", mcc_mnc="605-02", network_type="4G/LTE", market_share_pct=33.0),
+            TelecomCarrierInfo(name="Orange Tunisie", mcc_mnc="605-03", network_type="4G/LTE", market_share_pct=26.0),
+        ],
+        description="Tunisia: Maghreb digital hub with active mobile data usage and high messaging footprint.",
+    ),
+    "EG": CountryTelecomProfile(
+        iso="EG",
+        name="Egypt",
+        dial_code="+20",
+        flag="🇪🇬",
+        currency="EGP",
+        sample_phone="+201012345678",
+        e164_format="+20 1[0-2,5] XXXX XXXX",
+        whatsapp_penetration_pct=91.0,
+        imessage_share_pct=22.0,
+        avg_latency_ms=88,
+        carriers=[
+            TelecomCarrierInfo(name="Vodafone Egypt", mcc_mnc="602-02", network_type="4G/5G", market_share_pct=41.5),
+            TelecomCarrierInfo(name="Orange Egypt", mcc_mnc="602-01", network_type="4G/5G", market_share_pct=28.0),
+            TelecomCarrierInfo(name="Etisalat Misr", mcc_mnc="602-03", network_type="4G/5G", market_share_pct=22.0),
+            TelecomCarrierInfo(name="WE (Telecom Egypt)", mcc_mnc="602-04", network_type="4G/5G", market_share_pct=8.5),
+        ],
+        description="Egypt: Massive North African and Middle East market with over 100M mobile subscriptions.",
+    ),
+    "CA": CountryTelecomProfile(
+        iso="CA",
+        name="Canada",
+        dial_code="+1",
+        flag="🇨🇦",
+        currency="CAD",
+        sample_phone="+14165550192",
+        e164_format="+1 (NXX) NXX-XXXX",
+        whatsapp_penetration_pct=48.0,
+        imessage_share_pct=58.0,
+        avg_latency_ms=68,
+        carriers=[
+            TelecomCarrierInfo(name="Rogers Wireless", mcc_mnc="302-720", network_type="5G", market_share_pct=33.0),
+            TelecomCarrierInfo(name="Bell Mobility", mcc_mnc="302-610", network_type="5G", market_share_pct=31.0),
+            TelecomCarrierInfo(name="Telus Mobility", mcc_mnc="302-220", network_type="5G", market_share_pct=29.0),
+        ],
+        description="Canada: Advanced telecom infrastructure with strong Apple iMessage ecosystem and carrier 5G networks.",
+    ),
+    "BE": CountryTelecomProfile(
+        iso="BE",
+        name="Belgium",
+        dial_code="+32",
+        flag="🇧🇪",
+        currency="EUR",
+        sample_phone="+32470123456",
+        e164_format="+32 4XX XX XX XX",
+        whatsapp_penetration_pct=84.0,
+        imessage_share_pct=38.0,
+        avg_latency_ms=74,
+        carriers=[
+            TelecomCarrierInfo(name="Proximus", mcc_mnc="206-01", network_type="5G", market_share_pct=39.0),
+            TelecomCarrierInfo(name="Orange Belgium", mcc_mnc="206-10", network_type="5G", market_share_pct=32.0),
+            TelecomCarrierInfo(name="Telenet / BASE", mcc_mnc="206-20", network_type="5G", market_share_pct=29.0),
+        ],
+        description="Belgium: Central European hub with strict GDPR and high cross-border carrier compliance.",
+    ),
+    "NL": CountryTelecomProfile(
+        iso="NL",
+        name="Netherlands",
+        dial_code="+31",
+        flag="🇳🇱",
+        currency="EUR",
+        sample_phone="+31612345678",
+        e164_format="+31 6 XXXXXXXX",
+        whatsapp_penetration_pct=95.0,
+        imessage_share_pct=46.0,
+        avg_latency_ms=72,
+        carriers=[
+            TelecomCarrierInfo(name="KPN", mcc_mnc="204-08", network_type="5G", market_share_pct=38.0),
+            TelecomCarrierInfo(name="VodafoneZiggo", mcc_mnc="204-04", network_type="5G", market_share_pct=32.0),
+            TelecomCarrierInfo(name="Odido", mcc_mnc="204-16", network_type="5G", market_share_pct=30.0),
+        ],
+        description="Netherlands: Europe's highest WhatsApp penetration and fiber-backed 5G mobile networks.",
+    ),
+    "IT": CountryTelecomProfile(
+        iso="IT",
+        name="Italy",
+        dial_code="+39",
+        flag="🇮🇹",
+        currency="EUR",
+        sample_phone="+393201234567",
+        e164_format="+39 3XX XXXXXXX",
+        whatsapp_penetration_pct=90.0,
+        imessage_share_pct=26.0,
+        avg_latency_ms=82,
+        carriers=[
+            TelecomCarrierInfo(name="TIM", mcc_mnc="222-01", network_type="5G", market_share_pct=28.0),
+            TelecomCarrierInfo(name="Vodafone Italia", mcc_mnc="222-10", network_type="5G", market_share_pct=27.0),
+            TelecomCarrierInfo(name="Wind Tre", mcc_mnc="222-88", network_type="5G", market_share_pct=25.0),
+            TelecomCarrierInfo(name="Iliad Italia", mcc_mnc="222-50", network_type="5G", market_share_pct=14.0),
+        ],
+        description="Italy: Highly competitive Mediterranean telecom market with dense WhatsApp messaging traffic.",
+    ),
 }
 
 
@@ -225,16 +353,36 @@ class GeoIntelligenceService:
 
         # 3. Parse Accept-Language (e.g. "fr-MA,fr;q=0.9,en;q=0.8" or "en-US")
         lang_header = headers.get("accept-language", "").lower()
-        if "ma" in lang_header or "ar" in lang_header:
+        if "ma" in lang_header or "ar-ma" in lang_header:
             return self.profiles["MA"]
+        elif "dz" in lang_header or "ar-dz" in lang_header:
+            return self.profiles["DZ"]
+        elif "tn" in lang_header or "ar-tn" in lang_header:
+            return self.profiles["TN"]
+        elif "eg" in lang_header or "ar-eg" in lang_header:
+            return self.profiles["EG"]
+        elif "sa" in lang_header or "ar-sa" in lang_header:
+            return self.profiles["SA"]
+        elif "ae" in lang_header or "ar-ae" in lang_header:
+            return self.profiles["AE"]
         elif "fr" in lang_header:
             return self.profiles["FR"]
         elif "es" in lang_header:
             return self.profiles["ES"]
         elif "de" in lang_header:
             return self.profiles["DE"]
+        elif "it" in lang_header:
+            return self.profiles["IT"]
+        elif "nl" in lang_header:
+            return self.profiles["NL"]
+        elif "be" in lang_header:
+            return self.profiles["BE"]
         elif "gb" in lang_header or "uk" in lang_header:
             return self.profiles["GB"]
+        elif "ca" in lang_header:
+            return self.profiles["CA"]
+        elif "ar" in lang_header:
+            return self.profiles["MA"]
 
         # Default fallback
         return self.profiles["MA"]

@@ -487,9 +487,9 @@
               <p class="text-xs text-slate-500 mt-0.5">Test any international phone number against real telephony, carrier HLR, and platform checkers</p>
             </div>
             <div class="flex items-center gap-2">
-              <span id="guestTrialBadge" class="text-xs font-semibold px-2.5 py-1 rounded-lg bg-amber-50 text-amber-800 border border-amber-200/80 flex items-center gap-1.5 cursor-pointer hover:bg-amber-100 transition" onclick="openTrialLimitModal()" title="Daily Free Trial Quota">
-                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-600"></i>
-                <span>Free Demo: <strong id="guestTrialRemaining">3</strong> / 3 left</span>
+              <span class="text-xs font-medium px-2.5 py-1 rounded-lg bg-slate-50 text-slate-600 border border-slate-200 flex items-center gap-1.5 shadow-2xs">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span id="geoDetectedBadge">Telephony Engine Live</span>
               </span>
             </div>
           </div>
@@ -501,8 +501,8 @@
                 <input 
                   type="text" 
                   id="targetPhone" 
-                  value="+212 661 123456" 
-                  placeholder="e.g. +212 661 123456, +1 415 555-2671..." 
+                  value=""
+                  placeholder="e.g. +212 6XX-XXXXXX"
                   class="w-full pl-4 pr-4 py-3 bg-slate-50 border border-slate-300 focus:border-[#435ebf] rounded-xl text-slate-900 placeholder-slate-400 font-mono text-sm outline-none transition"
                   onkeydown="if(event.key === 'Enter') runVerification()"
                 >
@@ -529,7 +529,7 @@
           </div>
 
           <!-- Dynamic Result Display Container -->
-          <div id="resultDisplay" class="mt-6 pt-6 border-t border-slate-100">
+          <div id="resultDisplay" class="mt-6 pt-6 border-t border-slate-100 hidden">
             <!-- Rendered by JavaScript -->
           </div>
         </div>
@@ -2946,6 +2946,60 @@
       renderResult(sample);
     }
 
+    async function initVisitorGeo() {
+      try {
+        const res = await fetch("/v1/geo/detect");
+        if (res.ok) {
+          const geo = await res.json();
+          if (geo && geo.dial_code) {
+            applyGeoTelecom(geo);
+            return;
+          }
+        }
+      } catch (err) {
+        console.debug("Backend geo lookup fallback:", err);
+      }
+
+      const tz = (Intl.DateTimeFormat().resolvedOptions().timeZone || "").toLowerCase();
+      const lang = (navigator.language || "").toLowerCase();
+
+      if (tz.includes("casablanca") || lang.includes("ma") || lang.startsWith("ar")) {
+        applyGeoTelecom({ iso: "MA", name: "Morocco", dial_code: "+212", flag: "🇲🇦", sample_phone: "+212 661 123456" });
+      } else if (tz.includes("paris") || lang.startsWith("fr")) {
+        applyGeoTelecom({ iso: "FR", name: "France", dial_code: "+33", flag: "🇫🇷", sample_phone: "+33 6 12 34 56 78" });
+      } else if (tz.includes("london") || tz.includes("europe/belfast")) {
+        applyGeoTelecom({ iso: "GB", name: "United Kingdom", dial_code: "+44", flag: "🇬🇧", sample_phone: "+44 7911 123456" });
+      } else if (tz.includes("madrid") || lang.startsWith("es")) {
+        applyGeoTelecom({ iso: "ES", name: "Spain", dial_code: "+34", flag: "🇪🇸", sample_phone: "+34 612 34 56 78" });
+      } else if (tz.includes("berlin") || lang.startsWith("de")) {
+        applyGeoTelecom({ iso: "DE", name: "Germany", dial_code: "+49", flag: "🇩🇪", sample_phone: "+49 151 12345678" });
+      } else if (tz.includes("dubai")) {
+        applyGeoTelecom({ iso: "AE", name: "United Arab Emirates", dial_code: "+971", flag: "🇦🇪", sample_phone: "+971 50 123 4567" });
+      } else if (tz.includes("riyadh")) {
+        applyGeoTelecom({ iso: "SA", name: "Saudi Arabia", dial_code: "+966", flag: "🇸🇦", sample_phone: "+966 50 123 4567" });
+      } else if (tz.includes("algiers") || tz.includes("alger")) {
+        applyGeoTelecom({ iso: "DZ", name: "Algeria", dial_code: "+213", flag: "🇩🇿", sample_phone: "+213 550 12 34 56" });
+      } else if (tz.includes("tunis")) {
+        applyGeoTelecom({ iso: "TN", name: "Tunisia", dial_code: "+216", flag: "🇹🇳", sample_phone: "+216 20 123 456" });
+      } else if (tz.includes("cairo")) {
+        applyGeoTelecom({ iso: "EG", name: "Egypt", dial_code: "+20", flag: "🇪🇬", sample_phone: "+20 101 234 5678" });
+      } else if (tz.includes("america") || tz.includes("us") || tz.includes("new_york") || tz.includes("los_angeles") || tz.includes("chicago")) {
+        applyGeoTelecom({ iso: "US", name: "United States", dial_code: "+1", flag: "🇺🇸", sample_phone: "+1 (415) 555-2671" });
+      } else {
+        applyGeoTelecom({ iso: "MA", name: "Morocco", dial_code: "+212", flag: "🇲🇦", sample_phone: "+212 661 123456" });
+      }
+    }
+
+    function applyGeoTelecom(geo) {
+      const input = document.getElementById("targetPhone");
+      if (input && !input.value) {
+        input.placeholder = `e.g. ${geo.sample_phone || (geo.dial_code + ' 6XX-XXXXXX')}`;
+      }
+      const badge = document.getElementById("geoDetectedBadge");
+      if (badge && geo.name) {
+        badge.innerHTML = `${geo.flag || '📍'} ${geo.name} Signaling Ready (${geo.dial_code})`;
+      }
+    }
     document.addEventListener("DOMContentLoaded", () => {
       lucide.createIcons();
       const urlParams = new URLSearchParams(window.location.search);
@@ -2959,7 +3013,7 @@
       setupDragAndDrop();
       
       fetchGuestQuota();
-      renderSampleResult();
+      initVisitorGeo();
     });
 
     // Load session from localStorage
@@ -3282,7 +3336,8 @@
     }
 
     function renderResult(r) {
-      const container = document.getElementById("resultDisplay");
+      const container = document.getElementById("resultDisplay");
+      if (container) container.classList.remove("hidden");
       const carrierName = r.carrier ? r.carrier.carrier_name || "Unallocated" : "Unallocated";
       const isVoip = r.carrier ? r.carrier.is_voip : false;
 
