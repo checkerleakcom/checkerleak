@@ -28,12 +28,12 @@ export default function AdminDashboardPage() {
         isRefreshing={isRefreshing}
       />
 
-      {/* Main Content Dashboard Container */}
-      <main className="flex-1 max-w-[1520px] w-full mx-auto px-4 sm:px-6 lg:px-8 pt-6">
-        {/* Band 1: Hero Metric (3x Lead) + Dedicated Time Series Chart + Asymmetric Side Stats */}
+      {/* Main Content Dashboard Container with Generous Spacing */}
+      <main className="flex-1 max-w-[1520px] w-full mx-auto px-6 sm:px-10 lg:px-12 pt-8">
+        {/* Band 1: Hero Metric (3x Lead) + Dedicated Smooth Area Chart + Asymmetric Side Stats */}
         <HeroMetricBand />
 
-        {/* Band 3: Diverse Chart Inventory (Donut, Ranked Bars, Telemetry Sparklines) */}
+        {/* Band 3: Diverse Chart Inventory (Donut, Ranked Bars, Clean Telemetry) */}
         <ChartInventoryBand />
 
         {/* Band 4: Real Interactive Sorting & Searchable Data Table */}
