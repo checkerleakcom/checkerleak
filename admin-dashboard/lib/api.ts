@@ -69,6 +69,7 @@ export interface LiveUser {
   name: string;
   credits: number;
   status: "active" | "banned";
+  email_verified: boolean;
   api_key_masked: string;
   api_key_full: string;
   created_at: string;
@@ -173,6 +174,19 @@ export async function overrideTransactionLive(txId: number) {
   });
   if (!res.ok) {
     throw new Error(`Manual override failed (${res.status})`);
+  }
+  return res.json();
+}
+
+export async function overrideUserEmailVerifiedLive(userId: number, verified: boolean) {
+  const url = `${getApiUrl()}/v1/admin/users/${userId}/verify-email`;
+  const res = await fetch(url, {
+    method: "POST",
+    headers: authHeaders(),
+    body: JSON.stringify({ verified }),
+  });
+  if (!res.ok) {
+    throw new Error(`Failed to update email verification status (${res.status})`);
   }
   return res.json();
 }

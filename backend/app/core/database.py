@@ -123,6 +123,8 @@ class DatabaseService:
                         credits INTEGER NOT NULL DEFAULT 0,
                         api_key VARCHAR(128) UNIQUE NOT NULL,
                         status VARCHAR(32) NOT NULL DEFAULT 'active',
+                        email_verified INTEGER NOT NULL DEFAULT 0,
+                        verification_token VARCHAR(128),
                         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                     );
 
@@ -166,6 +168,8 @@ class DatabaseService:
                 # Safe migration: ensure status column exists if table was created previously
                 try:
                     cursor.execute("ALTER TABLE users ADD COLUMN IF NOT EXISTS status VARCHAR(32) DEFAULT 'active';")
+                    cursor.execute("ALTER TABLE users ADD COLUMN IF NOT EXISTS email_verified INTEGER DEFAULT 0;")
+                    cursor.execute("ALTER TABLE users ADD COLUMN IF NOT EXISTS verification_token VARCHAR(128);")
                 except Exception:
                     pass
             else:
@@ -179,6 +183,8 @@ class DatabaseService:
                         credits INTEGER NOT NULL DEFAULT 0,
                         api_key TEXT UNIQUE NOT NULL,
                         status TEXT NOT NULL DEFAULT 'active',
+                        email_verified INTEGER NOT NULL DEFAULT 0,
+                        verification_token TEXT,
                         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                     );
 
@@ -224,5 +230,13 @@ class DatabaseService:
                 # Safe migration for sqlite if status column was absent
                 try:
                     conn.execute("ALTER TABLE users ADD COLUMN status TEXT NOT NULL DEFAULT 'active';")
+                except Exception:
+                    pass
+                try:
+                    conn.execute("ALTER TABLE users ADD COLUMN email_verified INTEGER NOT NULL DEFAULT 0;")
+                except Exception:
+                    pass
+                try:
+                    conn.execute("ALTER TABLE users ADD COLUMN verification_token TEXT;")
                 except Exception:
                     pass

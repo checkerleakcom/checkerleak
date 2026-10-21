@@ -1,5 +1,5 @@
 """
-Auth API Router: Endpoints for client registration, login, and user profile management.
+Auth API Router: Endpoints for client registration, login, email verification, and profile management.
 """
 from typing import Optional
 from fastapi import APIRouter, HTTPException, Header, Query, Request
@@ -23,6 +23,14 @@ class LoginRequest(BaseModel):
     password: str = Field(..., example="SecurePass123!")
 
 
+class VerifyEmailRequest(BaseModel):
+    token: str = Field(..., example="verification_token_string")
+
+
+class ResendVerificationRequest(BaseModel):
+    email: str = Field(..., example="client@company.com")
+
+
 class AuthResponse(BaseModel):
     user: User
     token: str
@@ -39,7 +47,7 @@ def _get_client_ip(request: Request) -> str:
 
 @auth_router.post("/register", response_model=AuthResponse)
 def register_client(req: RegisterRequest, request: Request):
-    """Register a new client, auto-generate API Key, and initialize account wallet."""
+    """Register a new client, generate verification token, auto-generate API Key, and send verification email."""
     client_ip = _get_client_ip(request)
     is_allowed, _ = auth_limiter.check_register_allowed(client_ip)
     if not is_allowed:
@@ -58,7 +66,7 @@ def register_client(req: RegisterRequest, request: Request):
         return AuthResponse(
             user=user,
             token=user.api_key,
-            message="Account registered successfully. Welcome to CheckerLeak.com.",
+            message="Account registered successfully. Please check your inbox to verify your email.",
         )
     except ValueError as ve:
         error_msg = str(ve)
@@ -102,6 +110,60 @@ def login_client(req: LoginRequest, request: Request):
         raise HTTPException(status_code=400, detail=str(ve))
     except Exception:
         raise HTTPException(status_code=500, detail="INTERNAL_AUTH_ERROR")
+
+
+@auth_router.get("/verify-email")
+@auth_router.post("/verify-email")
+def verify_email(
+    token: Optional[str] = Query(None),
+    payload: Optional[VerifyEmailRequest] = None,
+):
+    """
+    Validates email verification token, marks user account as verified,
+    and returns verified user profile.
+    """
+    token_str = (payload.token if payload else None) or token
+    if not token_str:
+        raise HTTPException(status_code=400, detail="Verification token is required.")
+
+    try:
+        user = auth_service.verify_email(token_str)
+        return {
+            "success": True,
+            "message": "Email verified successfully! Your account is active with full access.",
+            "user": user,
+        }
+    except ValueError as ve:
+        err = str(ve)
+        if err == "INVALID_OR_EXPIRED_TOKEN":
+            raise HTTPException(status_code=400, detail="This verification link is invalid or has expired.")
+        raise HTTPException(status_code=400, detail=err)
+    except Exception:
+        raise HTTPException(status_code=500, detail="Failed to verify email.")
+
+
+@auth_router.post("/resend-verification")
+def resend_verification(payload: ResendVerificationRequest):
+    """Resends email verification token to user."""
+    try:
+        auth_service.resend_verification(payload.email)
+        return {
+            "success": True,
+            "message": f"Verification email resent to {payload.email}. Please check your inbox and spam folder.",
+        }
+    except ValueError as ve:
+        err = str(ve)
+        if err == "ALREADY_VERIFIED":
+            raise HTTPException(status_code=400, detail="This email address is already verified.")
+        elif err == "USER_NOT_FOUND":
+            # For security, we don't leak user existence
+            return {
+                "success": True,
+                "message": f"If an account exists for {payload.email}, a verification link has been sent.",
+            }
+        raise HTTPException(status_code=400, detail=err)
+    except Exception:
+        raise HTTPException(status_code=500, detail="Failed to send verification email.")
 
 
 @auth_router.get("/me", response_model=User)

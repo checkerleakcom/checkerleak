@@ -8,6 +8,7 @@ import secrets
 from typing import Optional
 from pydantic import BaseModel, ConfigDict
 from app.core.database import DatabaseService
+from app.core.email_service import EmailService
 
 
 class User(BaseModel):
@@ -19,6 +20,8 @@ class User(BaseModel):
     full_name: str
     credits: int
     api_key: str
+    email_verified: bool = False
+    status: str = "active"
     created_at: Optional[str] = None
 
 
@@ -39,8 +42,9 @@ class TaskRecord(BaseModel):
 class AuthService:
     """Handles user identity, password hashing, and credit balances."""
 
-    def __init__(self, db: Optional[DatabaseService] = None):
+    def __init__(self, db: Optional[DatabaseService] = None, email_service: Optional[EmailService] = None):
         self.db = db or DatabaseService()
+        self.email_service = email_service or EmailService()
 
     def _hash_password(self, password: str, salt: str) -> str:
         key = hashlib.pbkdf2_hmac(
@@ -61,6 +65,7 @@ class AuthService:
         salt = secrets.token_hex(16)
         pwd_hash = self._hash_password(password, salt)
         api_key = f"pk_live_{secrets.token_urlsafe(24)}"
+        verification_token = secrets.token_urlsafe(32)
         initial_credits = 0
 
         with self.db.get_connection() as conn:
@@ -69,20 +74,20 @@ class AuthService:
                 if self.db.is_pg:
                     cursor.execute(
                         """
-                        INSERT INTO users (email, password_hash, salt, full_name, credits, api_key)
-                        VALUES (?, ?, ?, ?, ?, ?)
+                        INSERT INTO users (email, password_hash, salt, full_name, credits, api_key, status, email_verified, verification_token)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                         RETURNING id
                         """,
-                        (clean_email, pwd_hash, salt, full_name.strip(), initial_credits, api_key),
+                        (clean_email, pwd_hash, salt, full_name.strip(), initial_credits, api_key, "active", 0, verification_token),
                     )
                     user_id = cursor.fetchone()["id"]
                 else:
                     cursor.execute(
                         """
-                        INSERT INTO users (email, password_hash, salt, full_name, credits, api_key)
-                        VALUES (?, ?, ?, ?, ?, ?)
+                        INSERT INTO users (email, password_hash, salt, full_name, credits, api_key, status, email_verified, verification_token)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                         """,
-                        (clean_email, pwd_hash, salt, full_name.strip(), initial_credits, api_key),
+                        (clean_email, pwd_hash, salt, full_name.strip(), initial_credits, api_key, "active", 0, verification_token),
                     )
                     user_id = cursor.lastrowid
             except Exception as e:
@@ -91,12 +96,20 @@ class AuthService:
                     raise ValueError("EMAIL_ALREADY_EXISTS")
                 raise e
 
+        # Trigger transactional verification email (falls back to console link if SMTP is unset)
+        try:
+            self.email_service.send_verification_email(clean_email, verification_token, full_name.strip())
+        except Exception as mail_err:
+            print(f"[AuthService] Warning: Failed to send verification email ({mail_err})")
+
         return User(
             id=user_id,
             email=clean_email,
             full_name=full_name.strip(),
             credits=initial_credits,
             api_key=api_key,
+            email_verified=False,
+            status="active",
         )
 
     def authenticate(self, email: str, password: str) -> User:
@@ -104,7 +117,7 @@ class AuthService:
         with self.db.get_connection() as conn:
             cursor = self.db.get_cursor(conn)
             cursor.execute(
-                "SELECT id, email, password_hash, salt, full_name, credits, api_key, created_at FROM users WHERE email = ?",
+                "SELECT id, email, password_hash, salt, full_name, credits, api_key, status, email_verified, created_at FROM users WHERE email = ?",
                 (clean_email,),
             )
             row = cursor.fetchone()
@@ -122,6 +135,8 @@ class AuthService:
             full_name=row["full_name"],
             credits=row["credits"],
             api_key=row["api_key"],
+            status=row.get("status") or "active",
+            email_verified=bool(row.get("email_verified", 0)),
             created_at=str(row["created_at"]),
         )
 
@@ -129,7 +144,7 @@ class AuthService:
         with self.db.get_connection() as conn:
             cursor = self.db.get_cursor(conn)
             cursor.execute(
-                "SELECT id, email, full_name, credits, api_key, created_at FROM users WHERE id = ?",
+                "SELECT id, email, full_name, credits, api_key, status, email_verified, created_at FROM users WHERE id = ?",
                 (user_id,),
             )
             row = cursor.fetchone()
@@ -143,6 +158,8 @@ class AuthService:
             full_name=row["full_name"],
             credits=row["credits"],
             api_key=row["api_key"],
+            status=row.get("status") or "active",
+            email_verified=bool(row.get("email_verified", 0)),
             created_at=str(row["created_at"]),
         )
 
@@ -152,7 +169,7 @@ class AuthService:
         with self.db.get_connection() as conn:
             cursor = self.db.get_cursor(conn)
             cursor.execute(
-                "SELECT id, email, full_name, credits, api_key, created_at FROM users WHERE api_key = ?",
+                "SELECT id, email, full_name, credits, api_key, status, email_verified, created_at FROM users WHERE api_key = ?",
                 (api_key.strip(),),
             )
             row = cursor.fetchone()
@@ -166,8 +183,78 @@ class AuthService:
             full_name=row["full_name"],
             credits=row["credits"],
             api_key=row["api_key"],
+            status=row.get("status") or "active",
+            email_verified=bool(row.get("email_verified", 0)),
             created_at=str(row["created_at"]),
         )
+
+    def verify_email(self, token: str) -> User:
+        """Atomically marks user's email as verified using token and clears token."""
+        if not token or not token.strip():
+            raise ValueError("INVALID_TOKEN")
+        clean_token = token.strip()
+        with self.db.get_connection() as conn:
+            cursor = self.db.get_cursor(conn)
+            cursor.execute(
+                "SELECT id, email, full_name, credits, api_key, email_verified FROM users WHERE verification_token = ?",
+                (clean_token,),
+            )
+            row = cursor.fetchone()
+            if not row:
+                raise ValueError("INVALID_OR_EXPIRED_TOKEN")
+
+            user_id = row["id"]
+            cursor.execute(
+                "UPDATE users SET email_verified = 1, verification_token = NULL WHERE id = ?",
+                (user_id,),
+            )
+
+        updated_user = self.get_by_id(user_id)
+        if not updated_user:
+            raise ValueError("USER_NOT_FOUND")
+        return updated_user
+
+    def resend_verification(self, email: str) -> bool:
+        """Issues a fresh verification token and dispatches email."""
+        clean_email = email.strip().lower()
+        if not clean_email or "@" not in clean_email:
+            raise ValueError("INVALID_EMAIL")
+
+        with self.db.get_connection() as conn:
+            cursor = self.db.get_cursor(conn)
+            cursor.execute(
+                "SELECT id, full_name, email_verified FROM users WHERE email = ?",
+                (clean_email,),
+            )
+            row = cursor.fetchone()
+            if not row:
+                # Return True or error to prevent account discovery
+                raise ValueError("USER_NOT_FOUND")
+
+            if row.get("email_verified"):
+                raise ValueError("ALREADY_VERIFIED")
+
+            new_token = secrets.token_urlsafe(32)
+            cursor.execute(
+                "UPDATE users SET verification_token = ? WHERE id = ?",
+                (new_token, row["id"]),
+            )
+
+        self.email_service.send_verification_email(clean_email, new_token, row.get("full_name"))
+        return True
+
+    def admin_set_email_verified(self, user_id: int, verified: bool = True) -> User:
+        """Admin override to mark email as verified directly."""
+        with self.db.get_connection() as conn:
+            cursor = self.db.get_cursor(conn)
+            cursor.execute(
+                "UPDATE users SET email_verified = ?, verification_token = NULL WHERE id = ?",
+                (1 if verified else 0, user_id),
+            )
+        user = self.get_by_id(user_id)
+        if not user:
+            raise ValueError("USER_NOT_FOUND")
+        return user
 
     def deduct_credits(self, user_id: int, amount: int = 1) -> User:
         with self.db.get_connection() as conn:

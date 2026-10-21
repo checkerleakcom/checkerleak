@@ -13,6 +13,7 @@ import {
   adjustUserCreditsLive,
   toggleUserStatusLive,
   overrideTransactionLive,
+  overrideUserEmailVerifiedLive,
   LiveStatsResponse,
   LiveUser,
   LiveTransaction,
@@ -82,6 +83,11 @@ export default function AdminDashboardPage() {
     await loadAllData(false);
   };
 
+  const handleToggleEmailVerified = async (userId: number, verified: boolean) => {
+    await overrideUserEmailVerifiedLive(userId, verified);
+    await loadAllData(false);
+  };
+
   return (
     <div className="min-h-screen bg-[#07090e] text-slate-100 flex flex-col selection:bg-cyan-500/30 selection:text-cyan-200">
       {/* Header & Global Status */}
@@ -114,6 +120,7 @@ export default function AdminDashboardPage() {
           isLoading={isLoading}
           onAdjustCredits={handleAdjustCredits}
           onToggleStatus={handleToggleStatus}
+          onToggleEmailVerified={handleToggleEmailVerified}
           onOverrideTx={handleOverrideTx}
           onRefresh={() => loadAllData(true)}
         />

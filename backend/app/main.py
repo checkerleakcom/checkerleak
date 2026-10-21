@@ -74,9 +74,11 @@ ROBOTS_PATH = os.path.join(STATIC_DIR, "robots.txt")
 SITEMAP_PATH = os.path.join(STATIC_DIR, "sitemap.xml")
 LLMS_PATH = os.path.join(STATIC_DIR, "llms.txt")
 LLMS_FULL_PATH = os.path.join(STATIC_DIR, "llms-full.txt")
-
-
 DASHBOARD_PATH = os.path.join(STATIC_DIR, "dashboard.html")
+BILLING_PATH = os.path.join(STATIC_DIR, "billing.html")
+ADMIN_PATH = os.path.join(STATIC_DIR, "admin.html")
+VERIFY_EMAIL_PATH = os.path.join(STATIC_DIR, "verify-email.html")
+
 
 @app.get("/", include_in_schema=False)
 async def serve_index():
@@ -85,6 +87,7 @@ async def serve_index():
         return FileResponse(INDEX_PATH)
     return {"message": "API Online."}
 
+
 @app.get("/dashboard", include_in_schema=False)
 async def serve_dashboard():
     """Serves the CheckerLeak client portal."""
@@ -92,14 +95,14 @@ async def serve_dashboard():
         return FileResponse(DASHBOARD_PATH)
     return {"message": "Dashboard not found."}
 
-BILLING_PATH = os.path.join(STATIC_DIR, "billing.html")
+
 @app.get("/billing", include_in_schema=False)
 async def serve_billing():
     if os.path.exists(BILLING_PATH):
         return FileResponse(BILLING_PATH)
     return {"message": "Billing not found."}
 
-ADMIN_PATH = os.path.join(STATIC_DIR, "admin.html")
+
 @app.get("/admin", include_in_schema=False)
 @app.get("/admin/login", include_in_schema=False)
 async def serve_admin():
@@ -107,6 +110,13 @@ async def serve_admin():
         return FileResponse(ADMIN_PATH)
     return {"message": "Admin interface not found."}
 
+
+@app.get("/verify-email", include_in_schema=False)
+async def serve_verify_email():
+    """Serves email verification landing confirmation page."""
+    if os.path.exists(VERIFY_EMAIL_PATH):
+        return FileResponse(VERIFY_EMAIL_PATH)
+    return FileResponse(INDEX_PATH)
 
 
 @app.get("/robots.txt", include_in_schema=False)

@@ -230,6 +230,7 @@ async def list_admin_users(
                 u.full_name,
                 u.credits,
                 COALESCE(u.status, 'active') as status,
+                COALESCE(u.email_verified, 0) as email_verified,
                 u.api_key,
                 u.created_at,
                 (SELECT COUNT(*) FROM task_history th WHERE th.user_id = u.id) as total_checks,
@@ -279,6 +280,7 @@ async def list_admin_users(
             "full_name": u.get("full_name"),
             "credits": u.get("credits"),
             "status": u.get("status", "active"),
+            "email_verified": bool(u.get("email_verified", 0)),
             "api_key_masked": masked_key,
             "api_key_full": raw_key,
             "created_at": str(u.get("created_at")),
@@ -366,6 +368,44 @@ async def toggle_user_status(
         )
 
     return {"success": True, "user_id": user_id, "status": new_status}
+
+
+class VerifyUserEmailRequest(BaseModel):
+    verified: bool = True
+
+
+@admin_router.post("/users/{user_id}/verify-email")
+async def admin_verify_user_email(
+    user_id: int,
+    payload: VerifyUserEmailRequest = VerifyUserEmailRequest(),
+    _: bool = Depends(verify_admin_access)
+):
+    """Admin manual override to toggle or confirm email verification status."""
+    with db_service.get_connection() as conn:
+        cursor = db_service.get_cursor(conn)
+        cursor.execute("SELECT id, email FROM users WHERE id = ?", (user_id,))
+        user = cursor.fetchone()
+        if not user:
+            raise HTTPException(status_code=404, detail="User not found")
+
+        cursor.execute(
+            "UPDATE users SET email_verified = ?, verification_token = NULL WHERE id = ?",
+            (1 if payload.verified else 0, user_id)
+        )
+
+        action_name = "EMAIL_VERIFIED_MANUAL" if payload.verified else "EMAIL_UNVERIFIED_MANUAL"
+        details = f"Admin set email_verified={payload.verified} for {user.get('email')} (User #{user_id})"
+        cursor.execute(
+            "INSERT INTO admin_audit_logs (admin_action, target_user_id, details) VALUES (?, ?, ?)",
+            (action_name, user_id, details)
+        )
+
+    return {
+        "success": True,
+        "user_id": user_id,
+        "email_verified": payload.verified,
+        "message": f"User #{user_id} email verification marked as {payload.verified}"
+    }
 
 
 @admin_router.get("/users/{user_id}/tasks")

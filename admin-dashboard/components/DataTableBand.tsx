@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import { Search, ArrowUpDown, ArrowUp, ArrowDown, CheckCircle2, ShieldAlert, Plus, Ban, ExternalLink, RefreshCw, UserCheck, UserX } from "lucide-react";
+import { Search, ArrowUpDown, ArrowUp, ArrowDown, CheckCircle2, ShieldAlert, Plus, Ban, ExternalLink, RefreshCw, UserCheck, UserX, Mail, MailCheck, ShieldCheck } from "lucide-react";
 import { LiveUser, LiveTransaction } from "@/lib/api";
 
 interface DataTableBandProps {
@@ -10,6 +10,7 @@ interface DataTableBandProps {
   isLoading: boolean;
   onAdjustCredits: (userId: number, delta: number, reason: string) => Promise<void>;
   onToggleStatus: (userId: number, newStatus: "active" | "banned") => Promise<void>;
+  onToggleEmailVerified: (userId: number, verified: boolean) => Promise<void>;
   onOverrideTx: (txId: number) => Promise<void>;
   onRefresh: () => void;
 }
@@ -20,6 +21,7 @@ export function DataTableBand({
   isLoading,
   onAdjustCredits,
   onToggleStatus,
+  onToggleEmailVerified,
   onOverrideTx,
   onRefresh,
 }: DataTableBandProps) {
@@ -27,6 +29,7 @@ export function DataTableBand({
   const [search, setSearch] = useState("");
   const [userStatusFilter, setUserStatusFilter] = useState<"all" | "active" | "banned">("all");
   const [paymentFilter, setPaymentFilter] = useState<"all" | "paid" | "unpaid">("all");
+  const [emailFilter, setEmailFilter] = useState<"all" | "verified" | "unverified">("all");
   const [txStatusFilter, setTxStatusFilter] = useState<"ALL" | "COMPLETED" | "PENDING">("ALL");
 
   // Sorting
@@ -66,7 +69,14 @@ export function DataTableBand({
           ? spent > 0
           : spent === 0;
 
-      return matchSearch && matchStatus && matchPayment;
+      const matchEmail =
+        emailFilter === "all"
+          ? true
+          : emailFilter === "verified"
+          ? u.email_verified
+          : !u.email_verified;
+
+      return matchSearch && matchStatus && matchPayment && matchEmail;
     }).sort((a, b) => {
       let cmp = 0;
       if (sortField === "id") cmp = a.id - b.id;
@@ -76,10 +86,12 @@ export function DataTableBand({
       if (sortField === "email") cmp = a.email.localeCompare(b.email);
       return sortOrder === "asc" ? cmp : -cmp;
     });
-  }, [users, search, userStatusFilter, paymentFilter, sortField, sortOrder]);
+  }, [users, search, userStatusFilter, paymentFilter, emailFilter, sortField, sortOrder]);
 
   const paidCount = useMemo(() => users.filter((u) => (u.total_spent_usd || 0) > 0).length, [users]);
   const unpaidCount = useMemo(() => users.filter((u) => (u.total_spent_usd || 0) === 0).length, [users]);
+  const verifiedCount = useMemo(() => users.filter((u) => u.email_verified).length, [users]);
+  const unverifiedCount = useMemo(() => users.filter((u) => !u.email_verified).length, [users]);
 
   // Filtered Transactions
   const filteredTxs = useMemo(() => {
@@ -159,39 +171,74 @@ export function DataTableBand({
               />
             </div>
 
-            {/* Filter Pills for Users: All vs Paid vs Unpaid */}
+            {/* Filter Pills for Users: All vs Paid vs Unpaid & Email Status */}
             {activeView === "users" ? (
-              <div className="flex items-center bg-[#07090e] p-1 rounded-xl border border-white/[0.06] text-xs font-mono">
-                <button
-                  onClick={() => setPaymentFilter("all")}
-                  className={`px-3 py-1 rounded-lg transition-all ${
-                    paymentFilter === "all"
-                      ? "bg-white/[0.12] text-white font-semibold shadow-xs"
-                      : "text-slate-400 hover:text-slate-200"
-                  }`}
-                >
-                  All ({users.length})
-                </button>
-                <button
-                  onClick={() => setPaymentFilter("paid")}
-                  className={`px-3 py-1 rounded-lg transition-all ${
-                    paymentFilter === "paid"
-                      ? "bg-emerald-500/20 text-emerald-400 font-semibold shadow-xs"
-                      : "text-slate-400 hover:text-slate-200"
-                  }`}
-                >
-                  Paid ({paidCount})
-                </button>
-                <button
-                  onClick={() => setPaymentFilter("unpaid")}
-                  className={`px-3 py-1 rounded-lg transition-all ${
-                    paymentFilter === "unpaid"
-                      ? "bg-amber-500/20 text-amber-400 font-semibold shadow-xs"
-                      : "text-slate-400 hover:text-slate-200"
-                  }`}
-                >
-                  Unpaid Leads ({unpaidCount})
-                </button>
+              <div className="flex flex-wrap items-center gap-2">
+                <div className="flex items-center bg-[#07090e] p-1 rounded-xl border border-white/[0.06] text-xs font-mono">
+                  <button
+                    onClick={() => setPaymentFilter("all")}
+                    className={`px-3 py-1 rounded-lg transition-all ${
+                      paymentFilter === "all"
+                        ? "bg-white/[0.12] text-white font-semibold shadow-xs"
+                        : "text-slate-400 hover:text-slate-200"
+                    }`}
+                  >
+                    All ({users.length})
+                  </button>
+                  <button
+                    onClick={() => setPaymentFilter("paid")}
+                    className={`px-3 py-1 rounded-lg transition-all ${
+                      paymentFilter === "paid"
+                        ? "bg-emerald-500/20 text-emerald-400 font-semibold shadow-xs"
+                        : "text-slate-400 hover:text-slate-200"
+                    }`}
+                  >
+                    Paid ({paidCount})
+                  </button>
+                  <button
+                    onClick={() => setPaymentFilter("unpaid")}
+                    className={`px-3 py-1 rounded-lg transition-all ${
+                      paymentFilter === "unpaid"
+                        ? "bg-amber-500/20 text-amber-400 font-semibold shadow-xs"
+                        : "text-slate-400 hover:text-slate-200"
+                    }`}
+                  >
+                    Unpaid Leads ({unpaidCount})
+                  </button>
+                </div>
+
+                <div className="flex items-center bg-[#07090e] p-1 rounded-xl border border-white/[0.06] text-xs font-mono">
+                  <button
+                    onClick={() => setEmailFilter("all")}
+                    className={`px-2.5 py-1 rounded-lg transition-all ${
+                      emailFilter === "all"
+                        ? "bg-white/[0.12] text-white font-semibold"
+                        : "text-slate-400 hover:text-slate-200"
+                    }`}
+                  >
+                    All Emails
+                  </button>
+                  <button
+                    onClick={() => setEmailFilter("verified")}
+                    className={`px-2.5 py-1 rounded-lg transition-all ${
+                      emailFilter === "verified"
+                        ? "bg-emerald-500/20 text-emerald-400 font-semibold"
+                        : "text-slate-400 hover:text-slate-200"
+                    }`}
+                  >
+                    Verified ({verifiedCount})
+                  </button>
+                  <button
+                    onClick={() => setEmailFilter("unverified")}
+                    className={`px-2.5 py-1 rounded-lg transition-all ${
+                      emailFilter === "unverified"
+                        ? "bg-cyan-500/20 text-cyan-400 font-semibold"
+                        : "text-slate-400 hover:text-slate-200"
+                    }`}
+                  >
+                    Unverified ({unverifiedCount})
+                  </button>
+                </div>
               </div>
             ) : (
               <div className="flex items-center bg-[#07090e] p-1 rounded-xl border border-white/[0.06] text-xs font-mono">
@@ -278,7 +325,20 @@ export function DataTableBand({
                               #{u.id}
                             </span>
                             <div>
-                              <span className="text-sm font-semibold text-white block">{u.email}</span>
+                              <div className="flex items-center gap-2">
+                                <span className="text-sm font-semibold text-white block">{u.email}</span>
+                                {u.email_verified ? (
+                                  <span className="inline-flex items-center gap-1 text-[10px] text-emerald-400 font-medium bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20" title="Email address verified">
+                                    <CheckCircle2 className="w-2.5 h-2.5" />
+                                    Verified
+                                  </span>
+                                ) : (
+                                  <span className="inline-flex items-center gap-1 text-[10px] text-cyan-400 font-medium bg-cyan-500/10 px-1.5 py-0.5 rounded border border-cyan-500/20" title="Email verification pending">
+                                    <Mail className="w-2.5 h-2.5" />
+                                    Unverified
+                                  </span>
+                                )}
+                              </div>
                               <span className="text-[11px] text-slate-500">
                                 {u.name || "Registered Lead"} · Joined {u.created_at?.split("T")[0] || u.created_at?.split(" ")[0]}
                               </span>
@@ -341,6 +401,26 @@ export function DataTableBand({
                         {/* Actions */}
                         <td className="py-4 px-6 text-right whitespace-nowrap">
                           <div className="inline-flex items-center gap-2">
+                            {/* Manual Email Verification Override */}
+                            {!u.email_verified ? (
+                              <button
+                                onClick={() => onToggleEmailVerified(u.id, true)}
+                                title="Manually verify email address"
+                                className="px-2.5 py-1 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/20 text-xs font-mono transition flex items-center gap-1"
+                              >
+                                <MailCheck className="w-3 h-3" />
+                                Verify
+                              </button>
+                            ) : (
+                              <button
+                                onClick={() => onToggleEmailVerified(u.id, false)}
+                                title="Revoke email verification"
+                                className="px-2 py-1 rounded-lg hover:bg-white/[0.04] text-slate-500 hover:text-slate-300 text-[11px] font-mono transition"
+                              >
+                                Unverify
+                              </button>
+                            )}
+
                             <button
                               onClick={() => setModalUser(u)}
                               className="px-2.5 py-1 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/20 text-xs font-mono transition flex items-center gap-1"
