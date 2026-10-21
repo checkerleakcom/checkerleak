@@ -49,27 +49,24 @@ class EmailService:
         <!-- Main Card Container -->
         <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 540px; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); overflow: hidden;">
           
-          <!-- Top Clean Brand Header -->
+          <!-- Top Clean Brand Header with Official Retina Logo -->
           <tr>
-            <td style="padding: 36px 40px 24px 40px; border-bottom: 1px solid #f1f5f9;">
-              <table border="0" cellpadding="0" cellspacing="0">
-                <tr>
-                  <td style="background-color: #0f172a; width: 32px; height: 32px; border-radius: 8px; text-align: center; vertical-align: middle; color: #ffffff; font-size: 15px; font-weight: bold;">
-                    ⚡
-                  </td>
-                  <td style="padding-left: 12px; font-size: 18px; font-weight: 700; color: #0f172a; letter-spacing: -0.3px;">
-                    CheckerLeak
-                  </td>
-                </tr>
-              </table>
+            <td style="padding: 32px 40px 24px 40px; border-bottom: 1px solid #f1f5f9;">
+              <a href="https://checkerleak.com" target="_blank" style="text-decoration: none; display: inline-block;">
+                <img src="https://checkerleak.com/static/checkerleak-brand-logo.png" alt="CheckerLeak.com" width="180" height="36" style="display: block; border: 0; outline: none; text-decoration: none; width: 180px; height: 36px; max-width: 100%;" />
+              </a>
             </td>
           </tr>
 
           <!-- Content Body -->
           <tr>
             <td style="padding: 32px 40px 36px 40px;">
+              <div style="display: inline-block; padding: 4px 10px; background-color: #f1f5f9; border-radius: 9999px; font-size: 11px; font-weight: 600; color: #475569; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 14px;">
+                Account Verification
+              </div>
+
               <h1 style="margin: 0 0 16px 0; font-size: 21px; font-weight: 700; color: #0f172a; line-height: 1.35; letter-spacing: -0.4px;">
-                Verify your email address
+                Confirm your email address
               </h1>
               
               <p style="margin: 0 0 14px 0; font-size: 15px; line-height: 1.6; color: #334155;">
@@ -77,14 +74,14 @@ class EmailService:
               </p>
               
               <p style="margin: 0 0 28px 0; font-size: 15px; line-height: 1.6; color: #475569;">
-                Thanks for getting started with <strong>CheckerLeak</strong>. Please click the button below to confirm your email and activate your account.
+                Thanks for getting started with <strong>CheckerLeak</strong>. Please click the button below to confirm your email address and activate your API access credentials.
               </p>
 
               <!-- High-Contrast Enterprise Action Button -->
               <table border="0" cellpadding="0" cellspacing="0" style="margin: 0 0 32px 0;">
                 <tr>
                   <td align="center" style="border-radius: 8px; background-color: #0f172a;">
-                    <a href="{verify_url}" target="_blank" style="display: inline-block; padding: 13px 26px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 14px; font-weight: 600; color: #ffffff; text-decoration: none; border-radius: 8px; letter-spacing: 0.2px;">
+                    <a href="{verify_url}" target="_blank" style="display: inline-block; padding: 13px 28px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 14px; font-weight: 600; color: #ffffff; text-decoration: none; border-radius: 8px; letter-spacing: 0.2px;">
                       Confirm Email Address &rarr;
                     </a>
                   </td>
