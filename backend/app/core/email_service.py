@@ -22,8 +22,8 @@ class EmailService:
         self.smtp_user = os.getenv("SMTP_USER")
         self.smtp_pass = os.getenv("SMTP_PASSWORD")
 
-        # Default sender: If Resend is used without a verified custom domain, onboarding@resend.dev works out-of-the-box
-        default_sender = "CheckerLeak <onboarding@resend.dev>" if self.resend_api_key else "CheckerLeak <noreply@checkerleak.com>"
+        # Default sender: Since checkerleak.com domain is verified on Resend, send from official branded address
+        default_sender = "CheckerLeak Security <verify@checkerleak.com>" if self.resend_api_key else "CheckerLeak <noreply@checkerleak.com>"
         self.from_email = os.getenv("RESEND_FROM") or os.getenv("SMTP_FROM") or default_sender
         self.base_url = os.getenv("BASE_URL", "https://checkerleak.com").rstrip("/")
 
