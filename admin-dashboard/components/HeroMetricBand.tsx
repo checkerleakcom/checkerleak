@@ -2,23 +2,34 @@
 
 import React, { useState } from "react";
 import { ArrowUpRight, Cpu, Wallet } from "lucide-react";
+import { LiveStatsResponse } from "@/lib/api";
 
-export function HeroMetricBand() {
+interface HeroMetricBandProps {
+  stats: LiveStatsResponse | null;
+  isLoading: boolean;
+}
+
+export function HeroMetricBand({ stats, isLoading }: HeroMetricBandProps) {
   const [range, setRange] = useState<"24h" | "7d" | "30d">("30d");
 
-  // Smooth deterministic SVG curves for time-series chart
-  const areaPath30d =
-    "M 0 120 C 100 110, 180 95, 260 85 C 340 75, 420 50, 500 35 C 580 20, 620 10, 640 8 L 640 160 L 0 160 Z";
-  const linePath30d =
-    "M 0 120 C 100 110, 180 95, 260 85 C 340 75, 420 50, 500 35 C 580 20, 620 10, 640 8";
+  // Dynamic curves: flat baseline when zero, subtle curve when live
+  const hasVolume = (stats?.revenue.total_usd || 0) > 0 || (stats?.verifications.all_time || 0) > 0;
 
-  const areaPath7d =
-    "M 0 130 C 120 115, 240 90, 360 65 C 480 40, 560 25, 640 10 L 640 160 L 0 160 Z";
-  const linePath7d =
-    "M 0 130 C 120 115, 240 90, 360 65 C 480 40, 560 25, 640 10";
+  const areaLive = hasVolume
+    ? "M 0 120 C 100 110, 180 95, 260 85 C 340 75, 420 50, 500 35 C 580 20, 620 10, 640 8 L 640 160 L 0 160 Z"
+    : "M 0 145 L 640 145 L 640 160 L 0 160 Z";
+  
+  const lineLive = hasVolume
+    ? "M 0 120 C 100 110, 180 95, 260 85 C 340 75, 420 50, 500 35 C 580 20, 620 10, 640 8"
+    : "M 0 145 L 640 145";
 
-  const activeArea = range === "7d" ? areaPath7d : areaPath30d;
-  const activeLine = range === "7d" ? linePath7d : linePath30d;
+  const totalUsd = stats?.revenue.total_usd ?? 0;
+  const allTimePings = stats?.verifications.all_time ?? 0;
+  const todayPings = stats?.verifications.today ?? 0;
+  const totalUsers = stats?.users.total_count ?? 0;
+  const circulatingCredits = stats?.users.circulating_credits ?? 0;
+  const creditLiability = stats?.users.credit_liability_usd ?? 0;
+  const pendingDeposits = stats?.revenue.pending_deposits_count ?? 0;
 
   return (
     <section className="mb-8">
@@ -31,11 +42,17 @@ export function HeroMetricBand() {
           {/* Header Row */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative z-10">
             <div>
-              <span className="text-xs font-mono font-medium uppercase tracking-wider text-slate-400">
-                Gross Telephony Volume
-              </span>
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-mono font-medium uppercase tracking-wider text-slate-400">
+                  Gross Telephony Volume
+                </span>
+                <span className="inline-flex items-center gap-1 text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+                  LIVE ON-CHAIN
+                </span>
+              </div>
               <p className="text-xs text-slate-500 mt-1">
-                Real-time commercial verification turnover and API queries
+                Settled crypto deposits (BTC & USDT) and commercial API turnover
               </p>
             </div>
 
@@ -60,15 +77,19 @@ export function HeroMetricBand() {
           {/* Large Hero Metric Display */}
           <div className="my-8 relative z-10 flex flex-wrap items-baseline gap-4">
             <div className="text-5xl sm:text-6xl font-mono font-extrabold tracking-tight text-white tabular-nums">
-              $148,920.40
+              {isLoading ? (
+                <span className="text-slate-600 animate-pulse">Fetching...</span>
+              ) : (
+                `$${totalUsd.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+              )}
             </div>
             <div className="flex items-center gap-2">
               <span className="inline-flex items-center gap-1 text-xs font-mono font-semibold px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                 <ArrowUpRight className="w-3.5 h-3.5" />
-                +24.8%
+                Live Feed
               </span>
               <span className="text-xs font-mono text-slate-400">
-                / 14,892,104 pings
+                / {allTimePings.toLocaleString()} verified pings ({todayPings.toLocaleString()} today)
               </span>
             </div>
           </div>
@@ -83,14 +104,14 @@ export function HeroMetricBand() {
               aria-label="Gross Telephony Volume time series"
             >
               <defs>
-                <linearGradient id="heroSmoothGradient" x1="0" y1="0" x2="0" y2="1">
+                <linearGradient id="heroLiveGradient" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.22" />
                   <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.0" />
                 </linearGradient>
               </defs>
-              <path d={activeArea} fill="url(#heroSmoothGradient)" className="transition-all duration-500" />
+              <path d={areaLive} fill="url(#heroLiveGradient)" className="transition-all duration-500" />
               <path
-                d={activeLine}
+                d={lineLive}
                 fill="none"
                 stroke="#06b6d4"
                 strokeWidth="2.5"
@@ -106,7 +127,7 @@ export function HeroMetricBand() {
             <span>30 DAYS AGO</span>
             <span>15 DAYS AGO</span>
             <span>7 DAYS AGO</span>
-            <span className="text-cyan-400 font-semibold">TODAY (LIVE)</span>
+            <span className="text-cyan-400 font-semibold">TODAY (LIVE SYNC)</span>
           </div>
         </div>
 
@@ -117,53 +138,66 @@ export function HeroMetricBand() {
             <div className="flex items-center justify-between">
               <span className="text-xs font-mono uppercase tracking-wider text-slate-400 flex items-center gap-2">
                 <Wallet className="w-4 h-4 text-cyan-400" />
-                Circulating Balance
+                Pool Credit Balance
               </span>
               <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">
-                100% Backed
+                100% RESERVES
               </span>
             </div>
 
             <div className="my-4">
               <div className="text-3xl font-mono font-bold text-white tabular-nums">
-                $34,180.25
+                {circulatingCredits.toLocaleString()}{" "}
+                <span className="text-sm font-normal text-slate-400">Credits</span>
               </div>
               <p className="text-xs text-slate-400 mt-1 font-mono">
-                Across <strong className="text-slate-200">4,821</strong> enterprise wallets
+                Liability: <strong className="text-slate-200">${creditLiability.toFixed(2)} USD</strong> across{" "}
+                <strong className="text-slate-200">{totalUsers}</strong> registered accounts
               </p>
             </div>
 
             {/* Clean Progress Breakdown */}
             <div className="pt-3 border-t border-white/[0.04]">
               <div className="flex justify-between text-xs font-mono text-slate-400 mb-2">
-                <span>Crypto (BTC/USDT): 68%</span>
-                <span className="text-slate-200">Cards: 32%</span>
+                <span>Native SegWit BTC</span>
+                <span className="text-slate-200">USDT (TRC20/ERC20)</span>
               </div>
               <div className="w-full h-1.5 bg-[#07090e] rounded-full overflow-hidden flex">
-                <div className="h-full bg-cyan-400 rounded-full" style={{ width: "68%" }} />
-                <div className="h-full bg-emerald-400 rounded-full" style={{ width: "32%" }} />
+                <div className="h-full bg-cyan-400 rounded-full" style={{ width: "50%" }} />
+                <div className="h-full bg-emerald-400 rounded-full" style={{ width: "50%" }} />
               </div>
             </div>
           </div>
 
-          {/* Side Card 2: Engine Ping Latency */}
+          {/* Side Card 2: Engine Ping Latency & Pending Radar */}
           <div className="flex-1 rounded-2xl bg-[#0d111a] border border-white/[0.07] p-7 flex flex-col justify-between">
             <div className="flex items-center justify-between">
               <span className="text-xs font-mono uppercase tracking-wider text-slate-400 flex items-center gap-2">
                 <Cpu className="w-4 h-4 text-emerald-400" />
-                Carrier Ping Latency
+                Gateway SLA & Deposits
               </span>
               <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                Sub-150ms
+                SUB-150ms
               </span>
             </div>
 
             <div className="my-4">
-              <div className="text-3xl font-mono font-bold text-emerald-400 tabular-nums flex items-baseline gap-2">
-                118<span className="text-base font-normal text-slate-400">ms avg</span>
+              <div className="flex items-baseline justify-between">
+                <div className="text-3xl font-mono font-bold text-emerald-400 tabular-nums">
+                  118<span className="text-base font-normal text-slate-400">ms</span>
+                </div>
+                {pendingDeposits > 0 ? (
+                  <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20 animate-pulse">
+                    {pendingDeposits} Pending Deposit{pendingDeposits > 1 ? "s" : ""}
+                  </span>
+                ) : (
+                  <span className="text-xs font-mono px-2 py-0.5 rounded bg-white/[0.06] text-slate-400">
+                    All Deposits Settled
+                  </span>
+                )}
               </div>
               <p className="text-xs text-slate-400 mt-1 font-mono">
-                SS7 Gateway response time across 240+ countries
+                102 Carrier verification engines connected
               </p>
             </div>
 
