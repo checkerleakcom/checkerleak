@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import { Search, ArrowUpDown, ArrowUp, ArrowDown, CheckCircle2, ShieldAlert, Plus, Ban, ExternalLink, RefreshCw } from "lucide-react";
+import { Search, ArrowUpDown, ArrowUp, ArrowDown, CheckCircle2, ShieldAlert, Plus, Ban, ExternalLink, RefreshCw, UserCheck, UserX } from "lucide-react";
 import { LiveUser, LiveTransaction } from "@/lib/api";
 
 interface DataTableBandProps {
@@ -26,6 +26,7 @@ export function DataTableBand({
   const [activeView, setActiveView] = useState<"users" | "transactions">("users");
   const [search, setSearch] = useState("");
   const [userStatusFilter, setUserStatusFilter] = useState<"all" | "active" | "banned">("all");
+  const [paymentFilter, setPaymentFilter] = useState<"all" | "paid" | "unpaid">("all");
   const [txStatusFilter, setTxStatusFilter] = useState<"ALL" | "COMPLETED" | "PENDING">("ALL");
 
   // Sorting
@@ -47,7 +48,7 @@ export function DataTableBand({
     }
   };
 
-  // Filtered Users
+  // Filtered Users with Payment distinction
   const filteredUsers = useMemo(() => {
     return users.filter((u) => {
       const matchSearch =
@@ -56,16 +57,29 @@ export function DataTableBand({
         (u.api_key_masked && u.api_key_masked.toLowerCase().includes(search.toLowerCase()));
 
       const matchStatus = userStatusFilter === "all" ? true : u.status === userStatusFilter;
-      return matchSearch && matchStatus;
+
+      const spent = u.total_spent_usd || 0;
+      const matchPayment =
+        paymentFilter === "all"
+          ? true
+          : paymentFilter === "paid"
+          ? spent > 0
+          : spent === 0;
+
+      return matchSearch && matchStatus && matchPayment;
     }).sort((a, b) => {
       let cmp = 0;
       if (sortField === "id") cmp = a.id - b.id;
       if (sortField === "credits") cmp = a.credits - b.credits;
       if (sortField === "total_checks") cmp = a.total_checks - b.total_checks;
+      if (sortField === "spent") cmp = (a.total_spent_usd || 0) - (b.total_spent_usd || 0);
       if (sortField === "email") cmp = a.email.localeCompare(b.email);
       return sortOrder === "asc" ? cmp : -cmp;
     });
-  }, [users, search, userStatusFilter, sortField, sortOrder]);
+  }, [users, search, userStatusFilter, paymentFilter, sortField, sortOrder]);
+
+  const paidCount = useMemo(() => users.filter((u) => (u.total_spent_usd || 0) > 0).length, [users]);
+  const unpaidCount = useMemo(() => users.filter((u) => (u.total_spent_usd || 0) === 0).length, [users]);
 
   // Filtered Transactions
   const filteredTxs = useMemo(() => {
@@ -113,7 +127,7 @@ export function DataTableBand({
                   activeView === "users" ? "text-white border-b-2 border-cyan-400 pb-1" : "text-slate-400 hover:text-slate-200"
                 }`}
               >
-                Registered Users Directory ({users.length})
+                Registered Users ({users.length})
               </button>
               <span className="text-slate-600">|</span>
               <button
@@ -127,7 +141,7 @@ export function DataTableBand({
             </div>
             <p className="text-xs text-slate-400 mt-1.5">
               {activeView === "users"
-                ? "Live user accounts, credit balances, 1-click adjustments, and ban management"
+                ? `Total Users: ${users.length} (${paidCount} Paid Clients · ${unpaidCount} Unpaid Registered Leads)`
                 : "Real-time ledger of on-chain Bitcoin/USDT deposits with transaction hashes & 1-click manual override"}
             </p>
           </div>
@@ -145,22 +159,39 @@ export function DataTableBand({
               />
             </div>
 
-            {/* Filter Pills for Users */}
+            {/* Filter Pills for Users: All vs Paid vs Unpaid */}
             {activeView === "users" ? (
               <div className="flex items-center bg-[#07090e] p-1 rounded-xl border border-white/[0.06] text-xs font-mono">
-                {(["all", "active", "banned"] as const).map((s) => (
-                  <button
-                    key={s}
-                    onClick={() => setUserStatusFilter(s)}
-                    className={`px-3 py-1 rounded-lg transition-all uppercase ${
-                      userStatusFilter === s
-                        ? "bg-white/[0.12] text-white font-semibold shadow-xs"
-                        : "text-slate-400 hover:text-slate-200"
-                    }`}
-                  >
-                    {s}
-                  </button>
-                ))}
+                <button
+                  onClick={() => setPaymentFilter("all")}
+                  className={`px-3 py-1 rounded-lg transition-all ${
+                    paymentFilter === "all"
+                      ? "bg-white/[0.12] text-white font-semibold shadow-xs"
+                      : "text-slate-400 hover:text-slate-200"
+                  }`}
+                >
+                  All ({users.length})
+                </button>
+                <button
+                  onClick={() => setPaymentFilter("paid")}
+                  className={`px-3 py-1 rounded-lg transition-all ${
+                    paymentFilter === "paid"
+                      ? "bg-emerald-500/20 text-emerald-400 font-semibold shadow-xs"
+                      : "text-slate-400 hover:text-slate-200"
+                  }`}
+                >
+                  Paid ({paidCount})
+                </button>
+                <button
+                  onClick={() => setPaymentFilter("unpaid")}
+                  className={`px-3 py-1 rounded-lg transition-all ${
+                    paymentFilter === "unpaid"
+                      ? "bg-amber-500/20 text-amber-400 font-semibold shadow-xs"
+                      : "text-slate-400 hover:text-slate-200"
+                  }`}
+                >
+                  Unpaid Leads ({unpaidCount})
+                </button>
               </div>
             ) : (
               <div className="flex items-center bg-[#07090e] p-1 rounded-xl border border-white/[0.06] text-xs font-mono">
@@ -202,6 +233,7 @@ export function DataTableBand({
                       <ArrowUpDown className="w-3.5 h-3.5 opacity-30" />
                     </button>
                   </th>
+                  <th scope="col" className="py-4 px-6">Payment Status</th>
                   <th scope="col" className="py-4 px-6">
                     <button onClick={() => handleSort("credits")} className="flex items-center gap-1.5 hover:text-white transition">
                       <span>Balance</span>
@@ -222,93 +254,115 @@ export function DataTableBand({
               <tbody className="divide-y divide-white/[0.03] font-mono text-slate-300">
                 {isLoading ? (
                   <tr>
-                    <td colSpan={6} className="py-12 text-center text-slate-500 font-mono text-sm animate-pulse">
+                    <td colSpan={7} className="py-12 text-center text-slate-500 font-mono text-sm animate-pulse">
                       Syncing live user accounts from database...
                     </td>
                   </tr>
                 ) : filteredUsers.length === 0 ? (
                   <tr>
-                    <td colSpan={6} className="py-12 text-center text-slate-500 font-mono text-sm">
+                    <td colSpan={7} className="py-12 text-center text-slate-500 font-mono text-sm">
                       {search ? `No accounts matching "${search}".` : "No registered accounts yet. Database clean and waiting for live signups."}
                     </td>
                   </tr>
                 ) : (
-                  filteredUsers.map((u) => (
-                    <tr key={u.id} className="hover:bg-white/[0.02] transition-colors">
-                      {/* ID & Email */}
-                      <td className="py-4 px-6 whitespace-nowrap">
-                        <div className="flex items-center gap-2.5">
-                          <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-white/[0.08] text-slate-300">
-                            #{u.id}
-                          </span>
-                          <div>
-                            <span className="text-sm font-semibold text-white block">{u.email}</span>
-                            <span className="text-[11px] text-slate-500">{u.name || "Enterprise Lead"} · Joined {u.created_at?.split("T")[0] || u.created_at?.split(" ")[0]}</span>
+                  filteredUsers.map((u) => {
+                    const spent = u.total_spent_usd || 0;
+                    const isPaid = spent > 0;
+
+                    return (
+                      <tr key={u.id} className="hover:bg-white/[0.02] transition-colors">
+                        {/* ID & Email */}
+                        <td className="py-4 px-6 whitespace-nowrap">
+                          <div className="flex items-center gap-2.5">
+                            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-white/[0.08] text-slate-300">
+                              #{u.id}
+                            </span>
+                            <div>
+                              <span className="text-sm font-semibold text-white block">{u.email}</span>
+                              <span className="text-[11px] text-slate-500">
+                                {u.name || "Registered Lead"} · Joined {u.created_at?.split("T")[0] || u.created_at?.split(" ")[0]}
+                              </span>
+                            </div>
                           </div>
-                        </div>
-                      </td>
+                        </td>
 
-                      {/* Balance */}
-                      <td className="py-4 px-6 whitespace-nowrap">
-                        <span className="text-sm font-bold text-white tabular-nums">
-                          {u.credits.toLocaleString()}
-                        </span>
-                        <span className="text-[11px] text-slate-500 block">
-                          ${(u.credits * 0.00009).toFixed(2)} USD value
-                        </span>
-                      </td>
+                        {/* Payment Status (Paid vs Unpaid Lead) */}
+                        <td className="py-4 px-6 whitespace-nowrap">
+                          {isPaid ? (
+                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-semibold">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                              PAID (${spent.toFixed(2)})
+                            </span>
+                          ) : (
+                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-medium">
+                              <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                              UNPAID LEAD ($0.00)
+                            </span>
+                          )}
+                        </td>
 
-                      {/* Checks */}
-                      <td className="py-4 px-6 whitespace-nowrap tabular-nums text-slate-300">
-                        {u.total_checks.toLocaleString()} checks run
-                      </td>
-
-                      {/* API Key */}
-                      <td className="py-4 px-6 whitespace-nowrap text-slate-400">
-                        <span className="px-2 py-1 rounded bg-[#07090e] border border-white/[0.06] text-[11px]">
-                          {u.api_key_masked || "No active key"}
-                        </span>
-                      </td>
-
-                      {/* Status */}
-                      <td className="py-4 px-6 whitespace-nowrap">
-                        {u.status === "active" ? (
-                          <span className="inline-flex items-center gap-1.5 text-emerald-400 text-xs">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                            Active
+                        {/* Balance */}
+                        <td className="py-4 px-6 whitespace-nowrap">
+                          <span className="text-sm font-bold text-white tabular-nums">
+                            {u.credits.toLocaleString()}
                           </span>
-                        ) : (
-                          <span className="inline-flex items-center gap-1.5 text-rose-400 text-xs">
-                            <Ban className="w-3.5 h-3.5 text-rose-400" />
-                            Banned
+                          <span className="text-[11px] text-slate-500 block">
+                            ${(u.credits * 0.00009).toFixed(2)} USD credits
                           </span>
-                        )}
-                      </td>
+                        </td>
 
-                      {/* Actions */}
-                      <td className="py-4 px-6 text-right whitespace-nowrap">
-                        <div className="inline-flex items-center gap-2">
-                          <button
-                            onClick={() => setModalUser(u)}
-                            className="px-2.5 py-1 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/20 text-xs font-mono transition flex items-center gap-1"
-                          >
-                            <Plus className="w-3 h-3" />
-                            Credits
-                          </button>
-                          <button
-                            onClick={() => onToggleStatus(u.id, u.status === "active" ? "banned" : "active")}
-                            className={`px-2.5 py-1 rounded-lg text-xs font-mono border transition ${
-                              u.status === "active"
-                                ? "bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border-rose-500/20"
-                                : "bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border-emerald-500/20"
-                            }`}
-                          >
-                            {u.status === "active" ? "Ban" : "Unban"}
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))
+                        {/* Checks */}
+                        <td className="py-4 px-6 whitespace-nowrap tabular-nums text-slate-300">
+                          {u.total_checks.toLocaleString()} checks run
+                        </td>
+
+                        {/* API Key */}
+                        <td className="py-4 px-6 whitespace-nowrap text-slate-400">
+                          <span className="px-2 py-1 rounded bg-[#07090e] border border-white/[0.06] text-[11px]">
+                            {u.api_key_masked || "No active key"}
+                          </span>
+                        </td>
+
+                        {/* Status */}
+                        <td className="py-4 px-6 whitespace-nowrap">
+                          {u.status === "active" ? (
+                            <span className="inline-flex items-center gap-1.5 text-emerald-400 text-xs">
+                              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                              Active
+                            </span>
+                          ) : (
+                            <span className="inline-flex items-center gap-1.5 text-rose-400 text-xs">
+                              <Ban className="w-3.5 h-3.5 text-rose-400" />
+                              Banned
+                            </span>
+                          )}
+                        </td>
+
+                        {/* Actions */}
+                        <td className="py-4 px-6 text-right whitespace-nowrap">
+                          <div className="inline-flex items-center gap-2">
+                            <button
+                              onClick={() => setModalUser(u)}
+                              className="px-2.5 py-1 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/20 text-xs font-mono transition flex items-center gap-1"
+                            >
+                              <Plus className="w-3 h-3" />
+                              Credits
+                            </button>
+                            <button
+                              onClick={() => onToggleStatus(u.id, u.status === "active" ? "banned" : "active")}
+                              className={`px-2.5 py-1 rounded-lg text-xs font-mono border transition ${
+                                u.status === "active"
+                                  ? "bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border-rose-500/20"
+                                  : "bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border-emerald-500/20"
+                              }`}
+                            >
+                              {u.status === "active" ? "Ban" : "Unban"}
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })
                 )}
               </tbody>
             </table>
@@ -433,7 +487,7 @@ export function DataTableBand({
         {/* Footer info */}
         <div className="p-4 sm:p-5 border-t border-white/[0.04] bg-[#07090e]/30 flex items-center justify-between text-xs font-mono text-slate-500">
           <span>
-            {activeView === "users" ? `${filteredUsers.length} total users in database` : `${filteredTxs.length} billing transactions`}
+            {activeView === "users" ? `${filteredUsers.length} users shown (${paidCount} paid, ${unpaidCount} unpaid)` : `${filteredTxs.length} billing transactions`}
           </span>
           <span className="text-slate-400">Database Connection Active</span>
         </div>
