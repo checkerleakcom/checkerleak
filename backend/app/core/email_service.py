@@ -3,7 +3,7 @@ EmailService: Production-ready transactional email delivery.
 Supports Resend API (Free Tier: 3,000 emails/month, zero latency, no blocked SMTP ports),
 standard SMTP (Resend SMTP, SendGrid, Amazon SES, Mailgun, Postmark),
 and graceful safe console logging fallback for development.
-Clean Silicon-Valley Minimal Light Theme (Stripe / Linear / GitHub standard).
+Clean Silicon-Valley Minimal Light Theme (Stripe / Linear / GitHub standard) with Hidden Preheader.
 """
 import os
 import smtplib
@@ -43,29 +43,36 @@ class EmailService:
   <title>Confirm your CheckerLeak account</title>
 </head>
 <body style="margin: 0; padding: 0; background-color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased;">
+  
+  <!-- Hidden Preheader for Inbox Snippet Preview -->
+  <div style="display: none; max-height: 0px; overflow: hidden; mso-hide: all; font-size: 1px; line-height: 1px; color: #fff; opacity: 0;">
+    Confirm your email address to activate your CheckerLeak API credentials and unlock 102+ deep verification engines.
+    &#847; &zwnj; &nbsp; &#8199; &shy; &#847; &zwnj; &nbsp; &#8199; &shy; &#847; &zwnj; &nbsp; &#8199; &shy; &#847; &zwnj; &nbsp; &#8199; &shy;
+  </div>
+
   <table border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed; background-color: #f8fafc; padding: 40px 16px;">
     <tr>
       <td align="center" valign="top">
         <!-- Main Card Container -->
         <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 540px; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); overflow: hidden;">
           
-          <!-- Top Clean Brand Header with Official Retina Logo -->
+          <!-- Top Clean Brand Header with Prominent Retina Logo -->
           <tr>
-            <td style="padding: 32px 40px 24px 40px; border-bottom: 1px solid #f1f5f9;">
+            <td style="padding: 34px 44px 26px 44px; border-bottom: 1px solid #f1f5f9;">
               <a href="https://checkerleak.com" target="_blank" style="text-decoration: none; display: inline-block;">
-                <img src="https://checkerleak.com/static/checkerleak-brand-logo.png" alt="CheckerLeak.com" width="180" height="36" style="display: block; border: 0; outline: none; text-decoration: none; width: 180px; height: 36px; max-width: 100%;" />
+                <img src="https://checkerleak.com/static/checkerleak-brand-logo.png" alt="CheckerLeak.com" width="210" height="42" style="display: block; border: 0; outline: none; text-decoration: none; width: 210px; height: 42px; max-width: 100%;" />
               </a>
             </td>
           </tr>
 
           <!-- Content Body -->
           <tr>
-            <td style="padding: 32px 40px 36px 40px;">
-              <div style="display: inline-block; padding: 4px 10px; background-color: #f1f5f9; border-radius: 9999px; font-size: 11px; font-weight: 600; color: #475569; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 14px;">
+            <td style="padding: 36px 44px 38px 44px;">
+              <div style="display: inline-block; padding: 4px 10px; background-color: #f1f5f9; border-radius: 9999px; font-size: 11px; font-weight: 600; color: #475569; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 16px;">
                 Account Verification
               </div>
 
-              <h1 style="margin: 0 0 16px 0; font-size: 21px; font-weight: 700; color: #0f172a; line-height: 1.35; letter-spacing: -0.4px;">
+              <h1 style="margin: 0 0 18px 0; font-size: 22px; font-weight: 700; color: #0f172a; line-height: 1.35; letter-spacing: -0.4px;">
                 Confirm your email address
               </h1>
               
@@ -74,14 +81,14 @@ class EmailService:
               </p>
               
               <p style="margin: 0 0 28px 0; font-size: 15px; line-height: 1.6; color: #475569;">
-                Thanks for getting started with <strong>CheckerLeak</strong>. Please click the button below to confirm your email address and activate your API access credentials.
+                Thanks for getting started with <strong>CheckerLeak</strong>. Please confirm your email address below to activate your account and unlock instant access to our <strong>102+ deep verification engines</strong>.
               </p>
 
               <!-- High-Contrast Enterprise Action Button -->
               <table border="0" cellpadding="0" cellspacing="0" style="margin: 0 0 32px 0;">
                 <tr>
-                  <td align="center" style="border-radius: 8px; background-color: #0f172a;">
-                    <a href="{verify_url}" target="_blank" style="display: inline-block; padding: 13px 28px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 14px; font-weight: 600; color: #ffffff; text-decoration: none; border-radius: 8px; letter-spacing: 0.2px;">
+                  <td align="center" style="border-radius: 9px; background-color: #0f172a;">
+                    <a href="{verify_url}" target="_blank" style="display: inline-block; padding: 14px 34px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 15px; font-weight: 600; color: #ffffff; text-decoration: none; border-radius: 9px; letter-spacing: 0.1px;">
                       Confirm Email Address &rarr;
                     </a>
                   </td>
@@ -92,17 +99,17 @@ class EmailService:
               <p style="margin: 0 0 8px 0; font-size: 13px; line-height: 1.5; color: #64748b;">
                 Button not working? Copy and paste this link into your browser:
               </p>
-              <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 10px 12px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 12px; line-height: 1.5; word-break: break-all;">
+              <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 10px 14px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 11px; line-height: 1.5; word-break: break-all;">
                 <a href="{verify_url}" target="_blank" style="color: #2563eb; text-decoration: none;">{verify_url}</a>
               </div>
 
               <!-- Security Notice -->
               <div style="margin-top: 32px; padding-top: 20px; border-top: 1px solid #f1f5f9; font-size: 12px; line-height: 1.6; color: #94a3b8;">
                 <p style="margin: 0 0 6px 0;">
-                  This link expires in 24 hours. If you did not create an account on CheckerLeak, you can safely ignore this email.
+                  🔒 This verification link expires in 24 hours. If you did not create an account on CheckerLeak, you can safely ignore this email.
                 </p>
                 <p style="margin: 0; color: #cbd5e1;">
-                  CheckerLeak Intelligence Platform &bull; Automated Security Verification
+                  CheckerLeak Intelligence Platform &bull; Cryptographic Zero-Knowledge Architecture
                 </p>
               </div>
             </td>
