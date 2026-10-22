@@ -1323,13 +1323,13 @@
       'REFERRAL':      { label: 'External Referral',   color: '#0891b2', badge: 'bg-cyan-50 text-cyan-700 border-cyan-200' },
     };
 
-    const COUNTRY_FLAGS = {
-      'US':'🇺🇸','GB':'🇬🇧','FR':'🇫🇷','DE':'🇩🇪','MA':'🇲🇦','DZ':'🇩🇿','TN':'🇹🇳','SA':'🇸🇦',
-      'AE':'🇦🇪','IN':'🇮🇳','BR':'🇧🇷','CA':'🇨🇦','AU':'🇦🇺','NL':'🇳🇱','PL':'🇵🇱','RU':'🇷🇺',
-      'UA':'🇺🇦','ES':'🇪🇸','IT':'🇮🇹','TR':'🇹🇷','MX':'🇲🇽','JP':'🇯🇵','KR':'🇰🇷','CN':'🇨🇳','XX':'🌐'
-    };
-    const getFlag = c => COUNTRY_FLAGS[c] || '🌐';
-
+    function getFlag(country) {
+      if (!country || country === 'XX') {
+        return `<span class="inline-flex items-center justify-center w-5 h-4 bg-slate-100 rounded text-[10px]">🌐</span>`;
+      }
+      const c = country.toLowerCase().trim();
+      return `<img src="https://flagcdn.com/24x18/${c}.png" srcset="https://flagcdn.com/48x36/${c}.png 2x" width="20" height="15" alt="${country}" class="inline-block rounded-xs shadow-2xs border border-slate-200/60 align-middle" onerror="this.outerHTML='🌐'">`;
+    }
     function renderTrafficDashboard(data) {
       const ov = data.overview || {};
       document.getElementById('traffic-hits-24h').innerText = (ov.hits_24h || 0).toLocaleString();
