@@ -348,3 +348,45 @@ class AuthService:
             )
             for row in rows
         ]
+
+    def change_password(self, user_id: int, current_password: str, new_password: str) -> bool:
+        """Securely updates a user password after verifying current credentials."""
+        if not new_password or len(new_password) < 6:
+            raise ValueError("PASSWORD_TOO_SHORT")
+
+        with self.db.get_connection() as conn:
+            cursor = self.db.get_cursor(conn)
+            cursor.execute("SELECT id, password_hash, salt FROM users WHERE id = ?", (user_id,))
+            row = cursor.fetchone()
+            if not row:
+                raise ValueError("USER_NOT_FOUND")
+
+            expected_hash = self._hash_password(current_password, row["salt"])
+            if not secrets.compare_digest(expected_hash, row["password_hash"]):
+                raise ValueError("INVALID_CURRENT_PASSWORD")
+
+            new_salt = secrets.token_hex(16)
+            new_hash = self._hash_password(new_password, new_salt)
+            cursor.execute(
+                "UPDATE users SET password_hash = ?, salt = ? WHERE id = ?",
+                (new_hash, new_salt, user_id),
+            )
+        return True
+
+    def regenerate_api_key(self, user_id: int) -> User:
+        """Issues a fresh secret API key for the user and invalidates previous credentials."""
+        new_api_key = f"pk_live_{secrets.token_urlsafe(24)}"
+        with self.db.get_connection() as conn:
+            cursor = self.db.get_cursor(conn)
+            cursor.execute("SELECT id FROM users WHERE id = ?", (user_id,))
+            row = cursor.fetchone()
+            if not row:
+                raise ValueError("USER_NOT_FOUND")
+
+            cursor.execute("UPDATE users SET api_key = ? WHERE id = ?", (new_api_key, user_id))
+
+        updated = self.get_by_id(user_id)
+        if not updated:
+            raise ValueError("USER_NOT_FOUND")
+        return updated
+

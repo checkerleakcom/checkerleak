@@ -12,6 +12,16 @@ if sys.platform == "win32" and hasattr(sys.stdout, "reconfigure"):
 # Ensure backend folder is in PYTHONPATH
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "backend"))
 
+# Load .env variables locally
+env_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env")
+if os.path.exists(env_path):
+    with open(env_path, "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if line and not line.startswith("#") and "=" in line:
+                k, v = line.split("=", 1)
+                os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
+
 if __name__ == "__main__":
     import uvicorn
     print("\nStarting PulseCheck.AI Server on http://127.0.0.1:8000")

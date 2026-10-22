@@ -31,6 +31,16 @@ class ResendVerificationRequest(BaseModel):
     email: str = Field(..., example="client@company.com")
 
 
+class ChangePasswordRequest(BaseModel):
+    user_id: int = Field(..., example=1)
+    current_password: str = Field(..., min_length=1)
+    new_password: str = Field(..., min_length=6, example="NewSecurePass123!")
+
+
+class RegenerateApiKeyRequest(BaseModel):
+    user_id: int = Field(..., example=1)
+
+
 class AuthResponse(BaseModel):
     user: User
     token: str
@@ -196,3 +206,68 @@ def get_current_user_profile(
         return user.model_copy(update={"api_key": masked_key})
 
     return user
+
+
+@auth_router.post("/change-password")
+def change_password(
+    payload: ChangePasswordRequest,
+    authorization: Optional[str] = Header(None),
+):
+    """Change user password after verifying current credentials and optional session authorization."""
+    user = auth_service.get_by_id(payload.user_id)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found.")
+
+    if authorization:
+        token = authorization.replace("Bearer ", "").strip()
+        if token != user.api_key:
+            raise HTTPException(status_code=403, detail="Unauthorized session.")
+
+    try:
+        auth_service.change_password(
+            user_id=payload.user_id,
+            current_password=payload.current_password,
+            new_password=payload.new_password,
+        )
+        return {
+            "success": True,
+            "message": "Password updated successfully. Please use your new password next time you log in.",
+        }
+    except ValueError as ve:
+        err = str(ve)
+        if err == "INVALID_CURRENT_PASSWORD":
+            raise HTTPException(status_code=400, detail="The current password you entered is incorrect.")
+        elif err == "PASSWORD_TOO_SHORT":
+            raise HTTPException(status_code=400, detail="New password must be at least 6 characters.")
+        raise HTTPException(status_code=400, detail=err)
+    except Exception:
+        raise HTTPException(status_code=500, detail="Failed to update password.")
+
+
+@auth_router.post("/regenerate-api-key")
+def regenerate_api_key(
+    payload: RegenerateApiKeyRequest,
+    authorization: Optional[str] = Header(None),
+):
+    """Regenerates a fresh API Key for the user and invalidates the previous key."""
+    user = auth_service.get_by_id(payload.user_id)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found.")
+
+    if authorization:
+        token = authorization.replace("Bearer ", "").strip()
+        if token != user.api_key:
+            raise HTTPException(status_code=403, detail="Unauthorized session.")
+
+    try:
+        updated_user = auth_service.regenerate_api_key(payload.user_id)
+        return {
+            "success": True,
+            "message": "A new API Key has been generated. Ensure to update your integration scripts.",
+            "api_key": updated_user.api_key,
+            "user": updated_user,
+        }
+    except Exception:
+        raise HTTPException(status_code=500, detail="Failed to regenerate API Key.")
+
+
