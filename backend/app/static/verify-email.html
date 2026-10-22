@@ -96,7 +96,7 @@
             </div>
           </div>
 
-          <a href="/" id="btnProceed" class="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm transition shadow-sm hover:shadow">
+          <a href="/dashboard" id="btnProceed" class="w-full inline-flex items-center justify-center gap-2 py-3.5 px-6 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm transition shadow-sm hover:shadow">
             <span>Continue to Dashboard</span>
             <span id="countdown" class="font-mono text-xs text-slate-400">(redirecting in 5s)</span>
             <span>&rarr;</span>
@@ -192,7 +192,7 @@
             seconds--;
             if (seconds <= 0) {
               clearInterval(timer);
-              window.location.href = "/";
+              window.location.href = "/dashboard";
             } else {
               countdownEl.innerText = `(redirecting in ${seconds}s)`;
             }

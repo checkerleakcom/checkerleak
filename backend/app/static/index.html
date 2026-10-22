@@ -3190,7 +3190,7 @@
         localStorage.setItem("checkerleak_client", JSON.stringify(currentUser));
         closeAuthModal();
         renderHeaderAuth();
-        document.getElementById("clientPortalSection").scrollIntoView({ behavior: 'smooth' });
+        window.location.href = "/dashboard";
       } catch (err) {
         showAlert(err.message, false);
       } finally {
@@ -3223,7 +3223,7 @@
         localStorage.setItem("checkerleak_client", JSON.stringify(currentUser));
         closeAuthModal();
         renderHeaderAuth();
-        document.getElementById("clientPortalSection").scrollIntoView({ behavior: 'smooth' });
+        window.location.href = "/dashboard";
       } catch (err) {
         showAlert(err.message, false);
       } finally {
