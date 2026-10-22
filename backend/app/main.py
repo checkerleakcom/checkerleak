@@ -80,6 +80,7 @@ DASHBOARD_PATH = os.path.join(STATIC_DIR, "dashboard.html")
 BILLING_PATH = os.path.join(STATIC_DIR, "billing.html")
 ADMIN_PATH = os.path.join(STATIC_DIR, "admin.html")
 VERIFY_EMAIL_PATH = os.path.join(STATIC_DIR, "verify-email.html")
+PRIVACY_PATH = os.path.join(STATIC_DIR, "privacy.html")
 
 
 @app.get("/", include_in_schema=False)
@@ -118,6 +119,15 @@ async def serve_verify_email():
     """Serves email verification landing confirmation page."""
     if os.path.exists(VERIFY_EMAIL_PATH):
         return FileResponse(VERIFY_EMAIL_PATH)
+    return FileResponse(INDEX_PATH)
+
+
+@app.get("/privacy", include_in_schema=False)
+@app.get("/privacy-policy", include_in_schema=False)
+async def serve_privacy():
+    """Serves the Zero-Retention Privacy Policy declaration."""
+    if os.path.exists(PRIVACY_PATH):
+        return FileResponse(PRIVACY_PATH)
     return FileResponse(INDEX_PATH)
 
 
