@@ -68,6 +68,10 @@ class DatabaseService:
             cleaned_url = self.db_url
             if cleaned_url.startswith("postgres://"):
                 cleaned_url = cleaned_url.replace("postgres://", "postgresql://", 1)
+            # Ensure SSL mode is enabled for remote cloud databases (Render, Neon, Supabase)
+            if "sslmode=" not in cleaned_url and ("render.com" in cleaned_url or "neon.tech" in cleaned_url or "supabase.co" in cleaned_url):
+                separator = "&" if "?" in cleaned_url else "?"
+                cleaned_url = f"{cleaned_url}{separator}sslmode=require"
             try:
                 self._pg_pool = pool.SimpleConnectionPool(1, 10, cleaned_url)
             except Exception as e:
