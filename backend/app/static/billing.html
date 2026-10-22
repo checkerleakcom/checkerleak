@@ -575,10 +575,10 @@
         <div class="mb-12">
           <h3 class="font-bold text-slate-900 mb-3 text-sm">Or enter a custom amount</h3>
           <div class="flex items-center gap-2 mb-4">
-            <button type="button" onclick="setCustomAmount(20)" id="pill-20" class="custom-amt-pill px-3 py-1.5 rounded-lg border border-[#435ebf] bg-blue-50 text-xs font-bold text-[#435ebf] transition shadow-2xs">$20.00</button>
-            <button type="button" onclick="setCustomAmount(50)" id="pill-50" class="custom-amt-pill px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-semibold text-slate-600 hover:border-[#435ebf] hover:text-[#435ebf] transition">$50.00</button>
-            <button type="button" onclick="setCustomAmount(100)" id="pill-100" class="custom-amt-pill px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-semibold text-slate-600 hover:border-[#435ebf] hover:text-[#435ebf] transition">$100.00 <span class="text-[10px] font-black text-[#435ebf] bg-blue-50 px-1 py-0.5 rounded">+5%</span></button>
-            <button type="button" onclick="setCustomAmount(250)" id="pill-250" class="custom-amt-pill px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-semibold text-slate-600 hover:border-[#435ebf] hover:text-[#435ebf] transition">$250.00 <span class="text-[10px] font-black text-[#435ebf] bg-blue-50 px-1 py-0.5 rounded">+10%</span></button>
+            <button type="button" onclick="setCustomAmount(20)" data-val="20" id="pill-20" class="custom-amt-pill px-3.5 py-1.5 rounded-lg border-2 border-[#435ebf] bg-blue-50 text-xs font-bold text-[#435ebf] transition shadow-xs cursor-pointer select-none">$20.00</button>
+            <button type="button" onclick="setCustomAmount(50)" data-val="50" id="pill-50" class="custom-amt-pill px-3.5 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-semibold text-slate-600 hover:border-[#435ebf] hover:text-[#435ebf] transition cursor-pointer select-none">$50.00</button>
+            <button type="button" onclick="setCustomAmount(100)" data-val="100" id="pill-100" class="custom-amt-pill px-3.5 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-semibold text-slate-600 hover:border-[#435ebf] hover:text-[#435ebf] transition cursor-pointer select-none">$100.00 <span class="text-[10px] font-black text-[#435ebf] bg-blue-100/70 px-1 py-0.5 rounded ml-1">+5%</span></button>
+            <button type="button" onclick="setCustomAmount(250)" data-val="250" id="pill-250" class="custom-amt-pill px-3.5 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-semibold text-slate-600 hover:border-[#435ebf] hover:text-[#435ebf] transition cursor-pointer select-none">$250.00 <span class="text-[10px] font-black text-[#435ebf] bg-blue-100/70 px-1 py-0.5 rounded ml-1">+10%</span></button>
           </div>
           
           <div class="flex items-center gap-3">
@@ -592,6 +592,8 @@
                 placeholder="20" 
                 value="20"
                 oninput="onCustomAmountChange()"
+                onkeyup="onCustomAmountChange()"
+                onchange="onCustomAmountChange()"
                 onkeydown="if(event.key === 'Enter') submitCustomAmount()"
                 class="w-full pl-8 pr-4 py-3 bg-white border border-slate-200 rounded-xl text-sm font-bold text-slate-900 focus:border-[#435ebf] focus:ring-2 focus:ring-blue-100 focus:outline-none transition font-mono"
               >
@@ -600,6 +602,7 @@
               id="btnAddFunds"
               type="button"
               onclick="submitCustomAmount()" 
+              style="background-color: #435ebf; color: #ffffff;"
               class="px-7 py-3 bg-[#435ebf] hover:bg-[#324796] text-white font-bold rounded-xl text-sm transition-all duration-200 shadow-md hover:shadow-lg active:scale-95 flex items-center justify-center gap-2 shrink-0 cursor-pointer"
             >
               <i data-lucide="plus-circle" class="w-4 h-4"></i>
@@ -872,31 +875,55 @@
       const raw = parseFloat(input.value);
       const val = isNaN(raw) ? 0 : raw;
 
-      // Update pills highlighting
-      document.querySelectorAll('.custom-amt-pill').forEach(pill => {
-        pill.className = 'custom-amt-pill px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-semibold text-slate-600 hover:border-[#435ebf] hover:text-[#435ebf] transition';
+      // 1. Update pills highlighting dynamically
+      const pills = document.querySelectorAll('.custom-amt-pill');
+      pills.forEach(pill => {
+        const pVal = parseFloat(pill.getAttribute('data-val') || '0');
+        if (val > 0 && Math.round(val) === Math.round(pVal)) {
+          // ACTIVE SELECTED PILL: Royal Blue border and light blue background
+          pill.className = 'custom-amt-pill px-3.5 py-1.5 rounded-lg border-2 border-[#435ebf] bg-blue-50 text-xs font-bold text-[#435ebf] transition shadow-xs cursor-pointer select-none';
+          pill.style.borderColor = '#435ebf';
+          pill.style.backgroundColor = '#eff4ff';
+          pill.style.color = '#435ebf';
+        } else {
+          // INACTIVE UNSELECTED PILL: Slate border and clean white background
+          pill.className = 'custom-amt-pill px-3.5 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-semibold text-slate-600 hover:border-[#435ebf] hover:text-[#435ebf] transition cursor-pointer select-none';
+          pill.style.borderColor = '#e2e8f0';
+          pill.style.backgroundColor = '#ffffff';
+          pill.style.color = '#475569';
+        }
       });
-      const activePill = document.getElementById('pill-' + val);
-      if (activePill) {
-        activePill.className = 'custom-amt-pill px-3 py-1.5 rounded-lg border border-[#435ebf] bg-blue-50 text-xs font-bold text-[#435ebf] transition shadow-2xs';
-      }
 
-      // Dynamic button state & color
+      // 2. Dynamic button state & color
       if (val >= 20 && val <= 10000) {
         btn.disabled = false;
+        btn.style.backgroundColor = '#435ebf';
+        btn.style.color = '#ffffff';
+        btn.style.cursor = 'pointer';
+        btn.style.opacity = '1';
+        btn.style.boxShadow = '0 4px 14px rgba(67, 94, 191, 0.35)';
         btn.className = 'px-7 py-3 bg-[#435ebf] hover:bg-[#324796] text-white font-bold rounded-xl text-sm transition-all duration-200 shadow-md hover:shadow-lg active:scale-95 flex items-center justify-center gap-2 shrink-0 cursor-pointer';
+
+        const bonusPct = val >= 2000 ? 25 : (val >= 1000 ? 20 : (val >= 500 ? 15 : (val >= 200 ? 10 : (val >= 100 ? 5 : 0))));
         if (btnText) {
-          const bonusPct = val >= 2000 ? 25 : (val >= 1000 ? 20 : (val >= 500 ? 15 : (val >= 200 ? 10 : (val >= 100 ? 5 : 0))));
           btnText.innerText = bonusPct > 0 ? `Add Funds · $${val} (+${bonusPct}% bonus)` : `Add Funds · $${val}`;
         }
       } else {
         btn.disabled = true;
+        btn.style.backgroundColor = '#e2e8f0';
+        btn.style.color = '#94a3b8';
+        btn.style.cursor = 'not-allowed';
+        btn.style.opacity = '0.75';
+        btn.style.boxShadow = 'none';
         btn.className = 'px-7 py-3 bg-slate-200 text-slate-400 font-bold rounded-xl text-sm transition flex items-center justify-center gap-2 shrink-0 cursor-not-allowed shadow-none';
+
         if (btnText) {
-          btnText.innerText = val > 0 ? `Min $20 Required` : `Add Funds`;
+          btnText.innerText = val > 0 ? `Min $20 Required` : `Add Funds (Min $20)`;
         }
       }
-      if (window.lucide) lucide.createIcons();
+      if (window.lucide) {
+        try { lucide.createIcons(); } catch(e) {}
+      }
     }
 
     function submitCustomAmount() {
@@ -941,12 +968,19 @@
     
     // Load user details
   document.addEventListener("DOMContentLoaded", () => {
-    const stored = localStorage.getItem("checkerleak_client");
-    if (stored) {
-      const user = JSON.parse(stored);
-      document.getElementById('portalUserName').innerText = user.firstName + " " + user.lastName;
-      document.getElementById('portalUserEmail').innerText = user.email;
-      document.getElementById('portalCreditCount').innerText = user.credits;
+    try {
+      const stored = localStorage.getItem("checkerleak_client");
+      if (stored) {
+        const user = JSON.parse(stored);
+        const nameEl = document.getElementById('portalUserName');
+        if (nameEl) nameEl.innerText = user.full_name || (user.firstName ? user.firstName + " " + user.lastName : "Client");
+        const emailEl = document.getElementById('portalUserEmail');
+        if (emailEl) emailEl.innerText = user.email || "";
+        const balEl = document.getElementById('billingBalance');
+        if (balEl && user.credits !== undefined) balEl.innerText = (user.credits * 0.01).toFixed(2);
+      }
+    } catch(e) {
+      console.error(e);
     }
     onCustomAmountChange();
   });
