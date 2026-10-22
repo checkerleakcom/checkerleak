@@ -575,20 +575,39 @@
         <div class="mb-12">
           <h3 class="font-bold text-slate-900 mb-3 text-sm">Or enter a custom amount</h3>
           <div class="flex items-center gap-2 mb-4">
-            <button onclick="document.getElementById('customAmt').value=20" class="px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-semibold text-slate-600 hover:border-[#435ebf] hover:text-[#435ebf] transition">$20.00</button>
-            <button onclick="document.getElementById('customAmt').value=50" class="px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-semibold text-slate-600 hover:border-[#435ebf] hover:text-[#435ebf] transition">$50.00</button>
-            <button onclick="document.getElementById('customAmt').value=100" class="px-3 py-1.5 rounded-lg border border-[#435ebf] bg-blue-50 text-xs font-bold text-[#435ebf] transition">$100.00 <span class="text-[10px] font-black">+5%</span></button>
+            <button type="button" onclick="setCustomAmount(20)" id="pill-20" class="custom-amt-pill px-3 py-1.5 rounded-lg border border-[#435ebf] bg-blue-50 text-xs font-bold text-[#435ebf] transition shadow-2xs">$20.00</button>
+            <button type="button" onclick="setCustomAmount(50)" id="pill-50" class="custom-amt-pill px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-semibold text-slate-600 hover:border-[#435ebf] hover:text-[#435ebf] transition">$50.00</button>
+            <button type="button" onclick="setCustomAmount(100)" id="pill-100" class="custom-amt-pill px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-semibold text-slate-600 hover:border-[#435ebf] hover:text-[#435ebf] transition">$100.00 <span class="text-[10px] font-black text-[#435ebf] bg-blue-50 px-1 py-0.5 rounded">+5%</span></button>
+            <button type="button" onclick="setCustomAmount(250)" id="pill-250" class="custom-amt-pill px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-semibold text-slate-600 hover:border-[#435ebf] hover:text-[#435ebf] transition">$250.00 <span class="text-[10px] font-black text-[#435ebf] bg-blue-50 px-1 py-0.5 rounded">+10%</span></button>
           </div>
           
-          <div class="flex items-center gap-4">
+          <div class="flex items-center gap-3">
             <div class="relative flex-1 max-w-xl">
               <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">$</span>
-              <input type="number" id="customAmt" placeholder="Enter amount" class="w-full pl-8 pr-4 py-3 bg-white border border-slate-200 rounded-xl text-sm font-bold text-slate-900 focus:border-[#435ebf] focus:ring-1 focus:ring-[#435ebf] focus:outline-none transition">
+              <input 
+                type="number" 
+                id="customAmt" 
+                min="20" 
+                max="10000" 
+                placeholder="20" 
+                value="20"
+                oninput="onCustomAmountChange()"
+                onkeydown="if(event.key === 'Enter') submitCustomAmount()"
+                class="w-full pl-8 pr-4 py-3 bg-white border border-slate-200 rounded-xl text-sm font-bold text-slate-900 focus:border-[#435ebf] focus:ring-2 focus:ring-blue-100 focus:outline-none transition font-mono"
+              >
             </div>
-            <button onclick="const a = parseFloat(document.getElementById('customAmt').value); if(a>=20) { topUpCredits(a, a>99?a*1.05:a); } else { showToast('Minimum amount is $20', 'error'); }" class="px-6 py-3 bg-[#a8b8ff] hover:bg-[#435ebf] text-white font-bold rounded-xl text-sm transition shadow-sm">Add Funds</button>
+            <button 
+              id="btnAddFunds"
+              type="button"
+              onclick="submitCustomAmount()" 
+              class="px-7 py-3 bg-[#435ebf] hover:bg-[#324796] text-white font-bold rounded-xl text-sm transition-all duration-200 shadow-md hover:shadow-lg active:scale-95 flex items-center justify-center gap-2 shrink-0 cursor-pointer"
+            >
+              <i data-lucide="plus-circle" class="w-4 h-4"></i>
+              <span id="btnAddFundsText">Add Funds · $20</span>
+            </button>
           </div>
           <p class="text-[11px] text-slate-400 mt-3">Min $20 · Max $10,000</p>
-          <p class="text-[11px] text-slate-400 mt-1">Corporate customers who need to pay via bank transfer or credit card, please <a href="#" class="text-[#435ebf] hover:underline">contact our customer service</a>.</p>
+          <p class="text-[11px] text-slate-400 mt-1">Corporate customers who need to pay via bank transfer or credit card, please <a href="https://t.me/CheckerLeakSupport" target="_blank" class="text-[#435ebf] hover:underline font-semibold">contact our customer service</a>.</p>
         </div>
 
         </div>
@@ -836,6 +855,73 @@
       document.getElementById('cryptoTopUpModal').classList.add('hidden');
     }
 
+    function setCustomAmount(val) {
+      const input = document.getElementById('customAmt');
+      if (input) {
+        input.value = val;
+        onCustomAmountChange();
+      }
+    }
+
+    function onCustomAmountChange() {
+      const input = document.getElementById('customAmt');
+      const btn = document.getElementById('btnAddFunds');
+      const btnText = document.getElementById('btnAddFundsText');
+      if (!input || !btn) return;
+
+      const raw = parseFloat(input.value);
+      const val = isNaN(raw) ? 0 : raw;
+
+      // Update pills highlighting
+      document.querySelectorAll('.custom-amt-pill').forEach(pill => {
+        pill.className = 'custom-amt-pill px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-semibold text-slate-600 hover:border-[#435ebf] hover:text-[#435ebf] transition';
+      });
+      const activePill = document.getElementById('pill-' + val);
+      if (activePill) {
+        activePill.className = 'custom-amt-pill px-3 py-1.5 rounded-lg border border-[#435ebf] bg-blue-50 text-xs font-bold text-[#435ebf] transition shadow-2xs';
+      }
+
+      // Dynamic button state & color
+      if (val >= 20 && val <= 10000) {
+        btn.disabled = false;
+        btn.className = 'px-7 py-3 bg-[#435ebf] hover:bg-[#324796] text-white font-bold rounded-xl text-sm transition-all duration-200 shadow-md hover:shadow-lg active:scale-95 flex items-center justify-center gap-2 shrink-0 cursor-pointer';
+        if (btnText) {
+          const bonusPct = val >= 2000 ? 25 : (val >= 1000 ? 20 : (val >= 500 ? 15 : (val >= 200 ? 10 : (val >= 100 ? 5 : 0))));
+          btnText.innerText = bonusPct > 0 ? `Add Funds · $${val} (+${bonusPct}% bonus)` : `Add Funds · $${val}`;
+        }
+      } else {
+        btn.disabled = true;
+        btn.className = 'px-7 py-3 bg-slate-200 text-slate-400 font-bold rounded-xl text-sm transition flex items-center justify-center gap-2 shrink-0 cursor-not-allowed shadow-none';
+        if (btnText) {
+          btnText.innerText = val > 0 ? `Min $20 Required` : `Add Funds`;
+        }
+      }
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function submitCustomAmount() {
+      const input = document.getElementById('customAmt');
+      if (!input) return;
+      const a = parseFloat(input.value);
+      if (isNaN(a) || a < 20) {
+        showToast('Minimum deposit amount is $20', 'error');
+        return;
+      }
+      if (a > 10000) {
+        showToast('Maximum online deposit is $10,000. Contact support for higher volumes.', 'error');
+        return;
+      }
+      let bonusMult = 1.0;
+      if (a >= 2000) bonusMult = 1.25;
+      else if (a >= 1000) bonusMult = 1.20;
+      else if (a >= 500) bonusMult = 1.15;
+      else if (a >= 200) bonusMult = 1.10;
+      else if (a >= 100) bonusMult = 1.05;
+
+      const finalCredits = Math.round(a * bonusMult);
+      topUpCredits(a, finalCredits);
+    }
+
     function updatePendingUI() {
       const stored = localStorage.getItem("checkerleak_client");
       if (stored) {
@@ -862,6 +948,7 @@
       document.getElementById('portalUserEmail').innerText = user.email;
       document.getElementById('portalCreditCount').innerText = user.credits;
     }
+    onCustomAmountChange();
   });
 
 
