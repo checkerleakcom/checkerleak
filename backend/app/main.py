@@ -16,6 +16,7 @@ from app.api.geo_router import geo_router
 from app.api.seo_router import router as seo_router
 from app.api.blog_router import blog_router
 from app.api.admin_router import admin_router
+from app.api.telemetry_router import telemetry_router
 
 app = FastAPI(
     title="Next-Gen Contact Intelligence API",
@@ -64,6 +65,7 @@ app.include_router(geo_router)
 app.include_router(seo_router)
 app.include_router(blog_router)
 app.include_router(admin_router)
+app.include_router(telemetry_router)
 
 # Mount static folder for assets like logos, css, images
 app.mount("/static", StaticFiles(directory=os.path.join(os.path.dirname(__file__), "static")), name="static")

@@ -159,11 +159,34 @@ class DatabaseService:
                         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                     );
 
+                    CREATE TABLE IF NOT EXISTS visitor_traffic (
+                        id SERIAL PRIMARY KEY,
+                        session_id VARCHAR(64),
+                        ip_hash VARCHAR(64),
+                        country VARCHAR(8) DEFAULT 'XX',
+                        source_channel VARCHAR(32) NOT NULL,
+                        source_engine VARCHAR(64) NOT NULL,
+                        referrer_url TEXT,
+                        landing_path VARCHAR(255) NOT NULL,
+                        product_slug VARCHAR(128),
+                        search_query VARCHAR(255),
+                        utm_source VARCHAR(64),
+                        utm_medium VARCHAR(64),
+                        utm_campaign VARCHAR(64),
+                        device_type VARCHAR(32) DEFAULT 'Desktop',
+                        user_agent TEXT,
+                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                    );
+
                     CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
                     CREATE INDEX IF NOT EXISTS idx_users_api_key ON users(api_key);
                     CREATE INDEX IF NOT EXISTS idx_tasks_user_id ON task_history(user_id);
                     CREATE INDEX IF NOT EXISTS idx_billing_user_id ON billing_transactions(user_id);
                     CREATE INDEX IF NOT EXISTS idx_audit_created ON admin_audit_logs(created_at DESC);
+                    CREATE INDEX IF NOT EXISTS idx_traffic_created ON visitor_traffic(created_at DESC);
+                    CREATE INDEX IF NOT EXISTS idx_traffic_channel ON visitor_traffic(source_channel);
+                    CREATE INDEX IF NOT EXISTS idx_traffic_engine ON visitor_traffic(source_engine);
+                    CREATE INDEX IF NOT EXISTS idx_traffic_product ON visitor_traffic(product_slug);
                 """)
                 # Safe migration: ensure status column exists if table was created previously
                 try:
@@ -221,11 +244,34 @@ class DatabaseService:
                         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                     );
 
+                    CREATE TABLE IF NOT EXISTS visitor_traffic (
+                        id SERIAL PRIMARY KEY,
+                        session_id VARCHAR(64),
+                        ip_hash VARCHAR(64),
+                        country VARCHAR(8) DEFAULT 'XX',
+                        source_channel VARCHAR(32) NOT NULL,
+                        source_engine VARCHAR(64) NOT NULL,
+                        referrer_url TEXT,
+                        landing_path VARCHAR(255) NOT NULL,
+                        product_slug VARCHAR(128),
+                        search_query VARCHAR(255),
+                        utm_source VARCHAR(64),
+                        utm_medium VARCHAR(64),
+                        utm_campaign VARCHAR(64),
+                        device_type VARCHAR(32) DEFAULT 'Desktop',
+                        user_agent TEXT,
+                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                    );
+
                     CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
                     CREATE INDEX IF NOT EXISTS idx_users_api_key ON users(api_key);
                     CREATE INDEX IF NOT EXISTS idx_tasks_user_id ON task_history(user_id);
                     CREATE INDEX IF NOT EXISTS idx_billing_user_id ON billing_transactions(user_id);
                     CREATE INDEX IF NOT EXISTS idx_audit_created ON admin_audit_logs(created_at DESC);
+                    CREATE INDEX IF NOT EXISTS idx_traffic_created ON visitor_traffic(created_at DESC);
+                    CREATE INDEX IF NOT EXISTS idx_traffic_channel ON visitor_traffic(source_channel);
+                    CREATE INDEX IF NOT EXISTS idx_traffic_engine ON visitor_traffic(source_engine);
+                    CREATE INDEX IF NOT EXISTS idx_traffic_product ON visitor_traffic(product_slug);
                 """)
                 # Safe migration for sqlite if status column was absent
                 try:

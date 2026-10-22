@@ -608,3 +608,180 @@ async def get_audit_logs(limit: int = 50, _: bool = Depends(verify_admin_access)
         logs = cursor.fetchall()
 
     return {"total": len(logs), "logs": logs}
+
+
+# =====================================================================
+# TRAFFIC & SEO ATTRIBUTION ANALYTICS
+# =====================================================================
+
+@admin_router.get("/analytics/traffic")
+async def get_traffic_analytics(
+    period: str = "7d",
+    _: bool = Depends(verify_admin_access)
+):
+    """
+    Returns comprehensive traffic & SEO intelligence analytics:
+    - Total visitors breakdown (24h, 7d, 30d)
+    - Source attribution (AI engines, Search, Dev Hubs, Direct, Social)
+    - Top AI referrers (ChatGPT, Gemini, Perplexity, Claude)
+    - Top search keywords / queries
+    - Top landing products / pages
+    - Recent visitor stream (last 50 hits)
+    - Geographic distribution
+    - Device type breakdown
+    """
+    # Map period to SQL interval
+    if db_service.is_pg:
+        intervals = {"24h": "24 HOURS", "7d": "7 DAYS", "30d": "30 DAYS", "all": "365 DAYS"}
+        interval_sql = intervals.get(period, "7 DAYS")
+        period_filter = f"created_at >= NOW() - INTERVAL '{interval_sql}'"
+        period_24h = "created_at >= NOW() - INTERVAL '24 HOURS'"
+        period_7d = "created_at >= NOW() - INTERVAL '7 DAYS'"
+        period_30d = "created_at >= NOW() - INTERVAL '30 DAYS'"
+    else:
+        intervals = {"24h": "-1 day", "7d": "-7 days", "30d": "-30 days", "all": "-365 days"}
+        interval_sql = intervals.get(period, "-7 days")
+        period_filter = f"created_at >= datetime('now', '{interval_sql}')"
+        period_24h = "created_at >= datetime('now', '-1 day')"
+        period_7d = "created_at >= datetime('now', '-7 days')"
+        period_30d = "created_at >= datetime('now', '-30 days')"
+
+    with db_service.get_connection() as conn:
+        cursor = db_service.get_cursor(conn)
+
+        # 1. Overview counts
+        cursor.execute(f"SELECT COUNT(*) as cnt FROM visitor_traffic WHERE {period_24h}")
+        hits_24h = int((cursor.fetchone() or {}).get("cnt") or 0)
+
+        cursor.execute(f"SELECT COUNT(*) as cnt FROM visitor_traffic WHERE {period_7d}")
+        hits_7d = int((cursor.fetchone() or {}).get("cnt") or 0)
+
+        cursor.execute(f"SELECT COUNT(*) as cnt FROM visitor_traffic WHERE {period_30d}")
+        hits_30d = int((cursor.fetchone() or {}).get("cnt") or 0)
+
+        cursor.execute(f"SELECT COUNT(*) as cnt FROM visitor_traffic WHERE source_channel = 'AI_SEARCH' AND {period_filter}")
+        ai_hits = int((cursor.fetchone() or {}).get("cnt") or 0)
+
+        cursor.execute(f"SELECT COUNT(*) as cnt FROM visitor_traffic WHERE {period_filter}")
+        total_period = int((cursor.fetchone() or {}).get("cnt") or 0)
+
+        # 2. Source channel breakdown
+        cursor.execute(f"""
+            SELECT source_channel, COUNT(*) as cnt
+            FROM visitor_traffic
+            WHERE {period_filter}
+            GROUP BY source_channel
+            ORDER BY cnt DESC
+        """)
+        channel_rows = cursor.fetchall()
+        channel_breakdown = [{"channel": r.get("source_channel"), "count": int(r.get("cnt") or 0)} for r in channel_rows]
+
+        # 3. Top source engines (AI + all)
+        cursor.execute(f"""
+            SELECT source_engine, source_channel, COUNT(*) as cnt
+            FROM visitor_traffic
+            WHERE {period_filter}
+            GROUP BY source_engine, source_channel
+            ORDER BY cnt DESC
+            LIMIT 20
+        """)
+        engine_rows = cursor.fetchall()
+        top_engines = [{"engine": r.get("source_engine"), "channel": r.get("source_channel"), "count": int(r.get("cnt") or 0)} for r in engine_rows]
+
+        # 4. Top search keywords
+        cursor.execute(f"""
+            SELECT search_query, COUNT(*) as cnt
+            FROM visitor_traffic
+            WHERE search_query IS NOT NULL AND search_query != '' AND {period_filter}
+            GROUP BY search_query
+            ORDER BY cnt DESC
+            LIMIT 25
+        """)
+        keyword_rows = cursor.fetchall()
+        top_keywords = [{"keyword": r.get("search_query"), "count": int(r.get("cnt") or 0)} for r in keyword_rows]
+
+        # 5. Top landing pages / products
+        cursor.execute(f"""
+            SELECT landing_path, product_slug, COUNT(*) as cnt
+            FROM visitor_traffic
+            WHERE {period_filter}
+            GROUP BY landing_path, product_slug
+            ORDER BY cnt DESC
+            LIMIT 20
+        """)
+        page_rows = cursor.fetchall()
+        top_pages = [{"path": r.get("landing_path"), "product": r.get("product_slug"), "count": int(r.get("cnt") or 0)} for r in page_rows]
+
+        # 6. Geographic distribution (top countries)
+        cursor.execute(f"""
+            SELECT country, COUNT(*) as cnt
+            FROM visitor_traffic
+            WHERE {period_filter}
+            GROUP BY country
+            ORDER BY cnt DESC
+            LIMIT 15
+        """)
+        geo_rows = cursor.fetchall()
+        top_countries = [{"country": r.get("country"), "count": int(r.get("cnt") or 0)} for r in geo_rows]
+
+        # 7. Device breakdown
+        cursor.execute(f"""
+            SELECT device_type, COUNT(*) as cnt
+            FROM visitor_traffic
+            WHERE {period_filter}
+            GROUP BY device_type
+            ORDER BY cnt DESC
+        """)
+        device_rows = cursor.fetchall()
+        device_breakdown = [{"device": r.get("device_type"), "count": int(r.get("cnt") or 0)} for r in device_rows]
+
+        # 8. Recent live visitor stream
+        cursor.execute(f"""
+            SELECT id, country, source_channel, source_engine,
+                   landing_path, product_slug, search_query,
+                   device_type, created_at
+            FROM visitor_traffic
+            ORDER BY id DESC
+            LIMIT 50
+        """)
+        stream_rows = cursor.fetchall()
+        live_stream = []
+        for r in stream_rows:
+            live_stream.append({
+                "id": r.get("id"),
+                "country": r.get("country") or "XX",
+                "source_channel": r.get("source_channel"),
+                "source_engine": r.get("source_engine"),
+                "landing_path": r.get("landing_path"),
+                "product_slug": r.get("product_slug"),
+                "search_query": r.get("search_query"),
+                "device_type": r.get("device_type"),
+                "created_at": str(r.get("created_at")),
+            })
+
+        # 9. AI share percentage
+        ai_pct = round((ai_hits / total_period * 100), 1) if total_period > 0 else 0.0
+
+        # 10. Top product by visits
+        top_product = top_pages[0].get("product") or top_pages[0].get("path") if top_pages else "N/A"
+
+    return {
+        "period": period,
+        "overview": {
+            "hits_24h": hits_24h,
+            "hits_7d": hits_7d,
+            "hits_30d": hits_30d,
+            "total_period": total_period,
+            "ai_hits": ai_hits,
+            "ai_share_pct": ai_pct,
+            "top_product": top_product,
+            "top_keyword": top_keywords[0].get("keyword") if top_keywords else "N/A",
+        },
+        "channel_breakdown": channel_breakdown,
+        "top_engines": top_engines,
+        "top_keywords": top_keywords,
+        "top_pages": top_pages,
+        "top_countries": top_countries,
+        "device_breakdown": device_breakdown,
+        "live_stream": live_stream,
+    }

@@ -431,5 +431,26 @@ curl -X POST "https://api.checkerleak.com/v1/verify/service" \
       event.target.value = '';
     }
   </script>
+
+  <!-- CheckerLeak Visitor Telemetry Beacon -->
+  <script>
+    (function() {
+      try {
+        var sid = localStorage.getItem('_cl_sid');
+        if (!sid) { sid = Math.random().toString(36).slice(2) + Date.now().toString(36); localStorage.setItem('_cl_sid', sid); }
+        var params = new URLSearchParams(window.location.search);
+        var payload = JSON.stringify({
+          session_id: sid, referrer: document.referrer,
+          landing_path: window.location.pathname,
+          utm_source: params.get('utm_source') || '',
+          utm_medium: params.get('utm_medium') || '',
+          utm_campaign: params.get('utm_campaign') || '',
+          utm_term: params.get('utm_term') || ''
+        });
+        if (navigator.sendBeacon) { navigator.sendBeacon('/v1/telemetry/beacon', payload); }
+        else { fetch('/v1/telemetry/beacon', {method:'POST',body:payload,headers:{'Content-Type':'application/json'},keepalive:true}); }
+      } catch(e) {}
+    })();
+  </script>
 </body>
 </html>
