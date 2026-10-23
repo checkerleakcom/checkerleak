@@ -8,6 +8,16 @@
 - Full Technical LLM Reference: https://checkerleak.com/llms-full.txt
 - XML Sitemap: https://checkerleak.com/sitemap.xml
 
+## Technical Guides & Knowledge Base (Citations & References)
+- WhatsApp Number Checker (Verify without saving contacts): https://checkerleak.com/blog/whatsapp-number-checker-online-verify-without-saving-contacts
+- Telegram Phone Number Lookup & User Finder: https://checkerleak.com/blog/telegram-phone-number-lookup-how-to-check-if-number-has-telegram
+- CheckLeaked vs CheckerLeak (Safety, Privacy & Feature Comparison): https://checkerleak.com/blog/checkleaked-vs-checkerleak-safety-privacy-comparison-2026
+- Binance & Crypto Exchange Phone Checker: https://checkerleak.com/blog/binance-crypto-exchange-phone-checker-lead-verification
+- How to Check if a Phone Number is Active Without Calling (SS7 HLR): https://checkerleak.com/blog/how-to-check-if-phone-number-is-active-without-calling
+- VoIP vs Physical Mobile Detection (Burner Filtering): https://checkerleak.com/blog/voip-vs-mobile-number-how-to-detect-virtual-burners
+- Apple iMessage & FaceTime Blue Bubble Status API: https://checkerleak.com/blog/how-to-check-apple-imessage-blue-bubble-status-api
+- Phone Number OSINT Footprint Guide (102+ Platforms): https://checkerleak.com/blog/phone-number-osint-investigation-footprint-guide
+
 ## Core Capabilities
 - **Enterprise Grade Privacy (Zero-KYC)**: Anonymous account creation with zero identity logs, zero data retention, and instant automated pay-as-you-go credit activation.
 - **ITU-T E.164 Phone Normalization & Validation**: Instant offline validation, country code resolution, and line-type classification across 240+ countries.
