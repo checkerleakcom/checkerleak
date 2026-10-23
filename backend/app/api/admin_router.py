@@ -200,6 +200,8 @@ async def get_admin_stats(_: bool = Depends(verify_admin_access)):
         "system": {
             "status": "OPERATIONAL",
             "db_engine": "PostgreSQL (Render)" if db_service.is_pg else "SQLite (Local/Failover)",
+            "db_url_set": bool(db_service.db_url),
+            "db_error": getattr(db_service, "pg_error", None),
             "server_time": datetime.utcnow().isoformat() + "Z"
         }
     }

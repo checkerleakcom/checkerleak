@@ -62,6 +62,7 @@ class DatabaseService:
         self.is_pg = bool(self.db_url and self.db_url.startswith(("postgres://", "postgresql://")))
         self.db_path = db_path or os.path.join(os.path.dirname(os.path.dirname(__file__)), "pulsecheck.db")
         self._pg_pool = None
+        self.pg_error = None
 
         if self.is_pg and PSYCOPG2_AVAILABLE:
             # Fix Render postgres:// to postgresql:// for SQLAlchemy/psycopg2 standard
@@ -88,6 +89,7 @@ class DatabaseService:
             try:
                 self._pg_pool = pool.SimpleConnectionPool(1, 10, cleaned_url)
             except Exception as e:
+                self.pg_error = f"{type(e).__name__}: {str(e)}"
                 print(f"[DatabaseService] Warning: Failed to connect to PostgreSQL ({e}). Falling back to SQLite.")
                 self.is_pg = False
 
