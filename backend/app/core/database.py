@@ -68,6 +68,19 @@ class DatabaseService:
             cleaned_url = self.db_url
             if cleaned_url.startswith("postgres://"):
                 cleaned_url = cleaned_url.replace("postgres://", "postgresql://", 1)
+            # Safely encode special characters (#, %, !, etc.) in database password
+            if "://" in cleaned_url and "@" in cleaned_url:
+                try:
+                    import urllib.parse
+                    _scheme, _rest = cleaned_url.split("://", 1)
+                    _auth, _host = _rest.split("@", 1)
+                    if ":" in _auth:
+                        _u, _p = _auth.split(":", 1)
+                        _cu = urllib.parse.quote(urllib.parse.unquote(_u), safe="")
+                        _cp = urllib.parse.quote(urllib.parse.unquote(_p), safe="")
+                        cleaned_url = f"{_scheme}://{_cu}:{_cp}@{_host}"
+                except Exception as _url_err:
+                    print(f"[DatabaseService] URL sanitization notice: {_url_err}")
             # Ensure SSL mode is enabled for remote cloud databases (Render, Neon, Supabase)
             if "sslmode=" not in cleaned_url and ("render.com" in cleaned_url or "neon.tech" in cleaned_url or "supabase.co" in cleaned_url):
                 separator = "&" if "?" in cleaned_url else "?"
