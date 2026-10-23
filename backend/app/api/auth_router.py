@@ -108,7 +108,7 @@ def register_client(req: RegisterRequest, request: Request):
         return AuthResponse(
             user=user,
             token=user.api_key,
-            message="Account registered successfully. Please check your inbox to verify your email.",
+            message="Account registered successfully! All 102+ verification engines unlocked.",
         )
     except ValueError as ve:
         error_msg = str(ve)

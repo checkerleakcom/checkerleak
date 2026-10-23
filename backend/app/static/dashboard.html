@@ -1211,11 +1211,7 @@
     }
     const unverifiedBanner = document.getElementById('unverifiedBanner');
     if (unverifiedBanner) {
-      if (!user.email_verified) {
-        unverifiedBanner.classList.remove('hidden');
-      } else {
-        unverifiedBanner.classList.add('hidden');
-      }
+      unverifiedBanner.classList.add('hidden');
     }
   }
 

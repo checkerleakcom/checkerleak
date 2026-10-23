@@ -20,7 +20,7 @@ class User(BaseModel):
     full_name: str
     credits: int
     api_key: str
-    email_verified: bool = False
+    email_verified: bool = True
     status: str = "active"
     registration_source: Optional[str] = "Direct"
     source_channel: Optional[str] = "DIRECT"
@@ -95,7 +95,7 @@ class AuthService:
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                         RETURNING id
                         """,
-                        (clean_email, pwd_hash, salt, full_name.strip(), initial_credits, api_key, "active", 0, verification_token,
+                        (clean_email, pwd_hash, salt, full_name.strip(), initial_credits, api_key, "active", 1, None,
                          registration_source, source_channel, country, landing_path, ip_hash),
                     )
                     user_id = cursor.fetchone()["id"]
@@ -108,7 +108,7 @@ class AuthService:
                         )
                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                         """,
-                        (clean_email, pwd_hash, salt, full_name.strip(), initial_credits, api_key, "active", 0, verification_token,
+                        (clean_email, pwd_hash, salt, full_name.strip(), initial_credits, api_key, "active", 1, None,
                          registration_source, source_channel, country, landing_path, ip_hash),
                     )
                     user_id = cursor.lastrowid
@@ -118,19 +118,14 @@ class AuthService:
                     raise ValueError("EMAIL_ALREADY_EXISTS")
                 raise e
 
-        # Trigger transactional verification email (falls back to console link if SMTP is unset)
-        try:
-            self.email_service.send_verification_email(clean_email, verification_token, full_name.strip())
-        except Exception as mail_err:
-            print(f"[AuthService] Warning: Failed to send verification email ({mail_err})")
-
+        # Email verification disabled temporarily (instant verified accounts)
         return User(
             id=user_id,
             email=clean_email,
             full_name=full_name.strip(),
             credits=initial_credits,
             api_key=api_key,
-            email_verified=False,
+            email_verified=True,
             status="active",
             registration_source=registration_source,
             source_channel=source_channel,
