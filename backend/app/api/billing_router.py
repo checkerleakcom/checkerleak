@@ -41,6 +41,41 @@ def list_crypto_methods():
     return billing_service.get_crypto_methods()
 
 
+_CRYPTO_RATES_CACHE = {
+    "timestamp": 0,
+    "rates": {
+        "BTC": 81000.0,
+        "ETH": 2380.0,
+        "SOL": 103.0,
+        "LTC": 57.0,
+        "USDT": 1.0,
+        "USDT_TRC20": 1.0,
+        "USDT_BEP20": 1.0,
+    }
+}
+
+
+@router.get("/crypto-rates")
+def get_crypto_conversion_rates():
+    """Returns live crypto conversion rates (USD per crypto unit) with 60-second caching and instant fallback."""
+    import time
+    now = time.time()
+    if now - _CRYPTO_RATES_CACHE["timestamp"] > 60:
+        try:
+            import urllib.request, json
+            url = 'https://api.binance.com/api/v3/ticker/price?symbols=%5B%22BTCUSDT%22,%22ETHUSDT%22,%22SOLUSDT%22,%22LTCUSDT%22%5D'
+            req = urllib.request.Request(url, headers={'User-Agent': 'CheckerLeak-Billing/1.0'})
+            with urllib.request.urlopen(req, timeout=3) as resp:
+                data = json.loads(resp.read().decode('utf-8'))
+                for item in data:
+                    sym = item['symbol'].replace('USDT', '')
+                    _CRYPTO_RATES_CACHE["rates"][sym] = round(float(item['price']), 2)
+                _CRYPTO_RATES_CACHE["timestamp"] = now
+        except Exception:
+            pass
+    return _CRYPTO_RATES_CACHE["rates"]
+
+
 @router.post("/checkout")
 def create_checkout_session(request: CheckoutRequest):
     """Generate checkout invoice session for Cryptocurrency (USDT, BTC, ETH, SOL)."""
@@ -121,11 +156,12 @@ def auto_detect_onchain_deposit(request: AutoDetectRequest):
 
 
 class SubmitTxidRequest(BaseModel):
-    amount: float = Field(..., description="Amount sent in USD or crypto")
+    amount: float = Field(..., description="Deposit amount in USD")
     txid: str = Field(..., description="On-chain Transaction ID or Hash")
     client_email: Optional[str] = Field("unknown", description="Client email address")
     user_id: Optional[int] = Field(None, description="Client user ID")
     currency: Optional[str] = Field("USDT", description="Cryptocurrency used (USDT, BTC, ETH, SOL, LTC)")
+    crypto_amount: Optional[float] = Field(None, description="Exact cryptocurrency amount sent")
 
 
 @router.post("/submit-txid")

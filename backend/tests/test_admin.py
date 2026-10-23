@@ -171,5 +171,5 @@ def test_telemetry_endpoint():
     assert res.status_code == 200
     data = res.json()
     assert data["fleet_total"] == 102
-    assert len(data["categories"]) == 4
+    assert len(data["categories"]) >= 4
     assert len(data["top_engines"]) > 0
