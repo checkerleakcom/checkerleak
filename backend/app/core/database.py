@@ -197,6 +197,16 @@ class DatabaseService:
                     cursor.execute("ALTER TABLE users ADD COLUMN IF NOT EXISTS status VARCHAR(32) DEFAULT 'active';")
                     cursor.execute("ALTER TABLE users ADD COLUMN IF NOT EXISTS email_verified INTEGER DEFAULT 0;")
                     cursor.execute("ALTER TABLE users ADD COLUMN IF NOT EXISTS verification_token VARCHAR(128);")
+                    cursor.execute("ALTER TABLE users ADD COLUMN IF NOT EXISTS registration_source VARCHAR(64) DEFAULT 'Direct';")
+                    cursor.execute("ALTER TABLE users ADD COLUMN IF NOT EXISTS source_channel VARCHAR(32) DEFAULT 'DIRECT';")
+                    cursor.execute("ALTER TABLE users ADD COLUMN IF NOT EXISTS country VARCHAR(8) DEFAULT 'XX';")
+                    cursor.execute("ALTER TABLE users ADD COLUMN IF NOT EXISTS landing_path VARCHAR(255) DEFAULT '/';")
+                    cursor.execute("ALTER TABLE users ADD COLUMN IF NOT EXISTS ip_hash VARCHAR(64);")
+                    # Initial backfill for existing registered user
+                    try:
+                        cursor.execute("UPDATE users SET country = 'MA', registration_source = 'Direct', source_channel = 'DIRECT' WHERE email = 'trapstar0183@gmail.com';")
+                    except Exception:
+                        pass
                 except Exception:
                     pass
             else:
@@ -288,5 +298,25 @@ class DatabaseService:
                     pass
                 try:
                     conn.execute("ALTER TABLE users ADD COLUMN verification_token TEXT;")
+                except Exception:
+                    pass
+                try:
+                    conn.execute("ALTER TABLE users ADD COLUMN registration_source TEXT DEFAULT 'Direct';")
+                except Exception:
+                    pass
+                try:
+                    conn.execute("ALTER TABLE users ADD COLUMN source_channel TEXT DEFAULT 'DIRECT';")
+                except Exception:
+                    pass
+                try:
+                    conn.execute("ALTER TABLE users ADD COLUMN country TEXT DEFAULT 'XX';")
+                except Exception:
+                    pass
+                try:
+                    conn.execute("ALTER TABLE users ADD COLUMN landing_path TEXT DEFAULT '/';")
+                except Exception:
+                    pass
+                try:
+                    conn.execute("ALTER TABLE users ADD COLUMN ip_hash TEXT;")
                 except Exception:
                     pass

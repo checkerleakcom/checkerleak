@@ -232,6 +232,10 @@ async def list_admin_users(
                 COALESCE(u.status, 'active') as status,
                 COALESCE(u.email_verified, 0) as email_verified,
                 u.api_key,
+                COALESCE(u.registration_source, 'Direct') as registration_source,
+                COALESCE(u.source_channel, 'DIRECT') as source_channel,
+                COALESCE(u.country, 'XX') as country,
+                COALESCE(u.landing_path, '/') as landing_path,
                 u.created_at,
                 (SELECT COUNT(*) FROM task_history th WHERE th.user_id = u.id) as total_checks,
                 (SELECT COALESCE(SUM(bt.amount_usd), 0) FROM billing_transactions bt WHERE bt.user_id = u.id AND bt.status = 'COMPLETED') as total_spent_usd
@@ -283,6 +287,10 @@ async def list_admin_users(
             "email_verified": bool(u.get("email_verified", 0)),
             "api_key_masked": masked_key,
             "api_key_full": raw_key,
+            "registration_source": u.get("registration_source") or "Direct",
+            "source_channel": u.get("source_channel") or "DIRECT",
+            "country": u.get("country") or "XX",
+            "landing_path": u.get("landing_path") or "/",
             "created_at": str(u.get("created_at")),
             "total_checks": int(u.get("total_checks") or 0),
             "total_spent_usd": float(u.get("total_spent_usd") or 0.0)

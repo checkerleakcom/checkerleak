@@ -16,6 +16,10 @@ class RegisterRequest(BaseModel):
     email: str = Field(..., example="client@company.com")
     password: str = Field(..., min_length=6, example="SecurePass123!")
     full_name: str = Field(..., example="Hamza Alami")
+    referrer: Optional[str] = Field(None, max_length=512)
+    landing_path: Optional[str] = Field("/", max_length=255)
+    utm_source: Optional[str] = Field(None, max_length=64)
+    session_id: Optional[str] = Field(None, max_length=64)
 
 
 class LoginRequest(BaseModel):
@@ -66,11 +70,39 @@ def register_client(req: RegisterRequest, request: Request):
             detail="Registration limit reached. Maximum 10 accounts per hour per IP.",
         )
 
+    import hashlib
+    from app.api.telemetry_router import classify_referrer
+
+    ip = (
+        request.headers.get("CF-Connecting-IP") or
+        request.headers.get("X-Forwarded-For", "").split(",")[0].strip() or
+        client_ip
+    )
+    ip_hash = hashlib.sha256(ip.encode("utf-8")).hexdigest()[:32] if ip else None
+    country = request.headers.get("CF-IPCountry", "XX")[:8]
+    if not country or country == "XX":
+        country = request.headers.get("X-Country", "XX")[:8]
+
+    # Referrer classification
+    ref = req.referrer or request.headers.get("Referer", "")
+    source_channel, source_engine = classify_referrer(ref)
+    if req.utm_source:
+        if source_channel == "DIRECT":
+            source_channel = "CAMPAIGN"
+        source_engine = req.utm_source
+
+    landing_path = req.landing_path or "/"
+
     try:
         user = auth_service.register(
             email=req.email,
             password=req.password,
             full_name=req.full_name,
+            registration_source=source_engine,
+            source_channel=source_channel,
+            country=country,
+            landing_path=landing_path,
+            ip_hash=ip_hash,
         )
         auth_limiter.record_register(client_ip)
         return AuthResponse(

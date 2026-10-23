@@ -378,6 +378,7 @@
                 <thead>
                   <tr class="bg-slate-50 border-b border-slate-200 text-slate-600 font-semibold font-mono uppercase text-[11px] tracking-wider">
                     <th scope="col" class="py-3.5 px-6">ID & User</th>
+                    <th scope="col" class="py-3.5 px-6">Source & Country</th>
                     <th scope="col" class="py-3.5 px-6">Payment Status</th>
                     <th scope="col" class="py-3.5 px-6">Balance</th>
                     <th scope="col" class="py-3.5 px-6">Checks Run</th>
@@ -388,7 +389,7 @@
                 </thead>
                 <tbody id="table-users-body" class="divide-y divide-slate-100 font-mono text-slate-700">
                   <tr>
-                    <td colspan="7" class="py-12 text-center text-slate-400 font-mono">
+                    <td colspan="8" class="py-12 text-center text-slate-400 font-mono">
                       Loading users from database...
                     </td>
                   </tr>
@@ -425,7 +426,7 @@
                 </thead>
                 <tbody id="table-txs-body" class="divide-y divide-slate-100 font-mono text-slate-700">
                   <tr>
-                    <td colspan="7" class="py-12 text-center text-slate-400 font-mono">Loading transactions...</td>
+                    <td colspan="8" class="py-12 text-center text-slate-400 font-mono">Loading transactions...</td>
                   </tr>
                 </tbody>
               </table>
@@ -652,7 +653,7 @@
                   </tr>
                 </thead>
                 <tbody id="traffic-stream-body">
-                  <tr><td colspan="7" class="py-10 text-center text-slate-400">Deploy the beacon tracker and get real traffic to start seeing live data here.</td></tr>
+                  <tr><td colspan="8" class="py-10 text-center text-slate-400">Deploy the beacon tracker and get real traffic to start seeing live data here.</td></tr>
                 </tbody>
               </table>
             </div>
@@ -862,6 +863,16 @@
       document.getElementById('db-engine-pill').innerText = data.system?.db_engine || 'Database Live';
     }
 
+        const CHANNEL_META = {
+      'AI_SEARCH':     { label: 'AI Search Engines',  color: '#7c3aed', badge: 'bg-violet-50 text-violet-700 border-violet-200' },
+      'SEARCH_ENGINE': { label: 'Google & SEO',        color: '#2563eb', badge: 'bg-blue-50 text-blue-700 border-blue-200' },
+      'DEV_HUB':       { label: 'Dev Platforms',       color: '#059669', badge: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
+      'DIRECT':        { label: 'Direct',               color: '#64748b', badge: 'bg-slate-50 text-slate-600 border-slate-200' },
+      'SOCIAL':        { label: 'Social Media',         color: '#f59e0b', badge: 'bg-amber-50 text-amber-700 border-amber-200' },
+      'CAMPAIGN':      { label: 'Campaigns (UTM)',      color: '#db2777', badge: 'bg-pink-50 text-pink-700 border-pink-200' },
+      'REFERRAL':      { label: 'External Referral',   color: '#0891b2', badge: 'bg-cyan-50 text-cyan-700 border-cyan-200' },
+    };
+
     async function fetchUsers() {
       const search = document.getElementById('user-search-input').value.trim();
       let url = '/v1/admin/users?limit=100';
@@ -901,7 +912,7 @@
       });
 
       if (filtered.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" class="py-12 text-center text-slate-400 font-mono">No users matching current filters.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="8" class="py-12 text-center text-slate-400 font-mono">No users matching current filters.</td></tr>`;
         return;
       }
 
@@ -924,6 +935,20 @@
                     }
                   </div>
                   <span class="text-[11px] text-slate-500">${escapeHtml(u.full_name || 'Registered Lead')} &bull; Joined ${u.created_at?.split('T')[0] || u.created_at?.split(' ')[0]}</span>
+                </div>
+              </div>
+            </td>
+
+            <!-- Acquisition Source & Geo -->
+            <td class="py-4 px-6 whitespace-nowrap">
+              <div class="flex items-center gap-2.5">
+                <span class="text-xl shrink-0">${getFlag(u.country || 'XX')}</span>
+                <div>
+                  <div class="flex items-center gap-1.5">
+                    <span class="text-xs font-bold text-slate-800">${escapeHtml(u.registration_source || 'Direct')}</span>
+                    <span class="px-1.5 py-0.5 rounded text-[9px] font-mono border ${(CHANNEL_META[u.source_channel] || {badge:'bg-slate-50 text-slate-600 border-slate-200'}).badge}">${u.source_channel || 'DIRECT'}</span>
+                  </div>
+                  <span class="text-[10px] text-slate-400 font-mono block max-w-[150px] truncate" title="${escapeHtml(u.landing_path || '/')}">${escapeHtml(u.landing_path || '/')}</span>
                 </div>
               </div>
             </td>
@@ -1056,7 +1081,7 @@
     function renderTransactions(transactions) {
       const tbody = document.getElementById('table-txs-body');
       if (transactions.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" class="py-12 text-center text-slate-400 font-mono">No crypto deposits recorded yet.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="8" class="py-12 text-center text-slate-400 font-mono">No crypto deposits recorded yet.</td></tr>`;
         return;
       }
 
@@ -1313,17 +1338,7 @@
       fetchTrafficAnalytics();
     }
 
-    const CHANNEL_META = {
-      'AI_SEARCH':     { label: 'AI Search Engines',  color: '#7c3aed', badge: 'bg-violet-50 text-violet-700 border-violet-200' },
-      'SEARCH_ENGINE': { label: 'Google & SEO',        color: '#2563eb', badge: 'bg-blue-50 text-blue-700 border-blue-200' },
-      'DEV_HUB':       { label: 'Dev Platforms',       color: '#059669', badge: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
-      'DIRECT':        { label: 'Direct',               color: '#64748b', badge: 'bg-slate-50 text-slate-600 border-slate-200' },
-      'SOCIAL':        { label: 'Social Media',         color: '#f59e0b', badge: 'bg-amber-50 text-amber-700 border-amber-200' },
-      'CAMPAIGN':      { label: 'Campaigns (UTM)',      color: '#db2777', badge: 'bg-pink-50 text-pink-700 border-pink-200' },
-      'REFERRAL':      { label: 'External Referral',   color: '#0891b2', badge: 'bg-cyan-50 text-cyan-700 border-cyan-200' },
-    };
-
-    function getFlag(country) {
+      function getFlag(country) {
       if (!country || country === 'XX') {
         return `<span class="inline-flex items-center justify-center w-5 h-4 bg-slate-100 rounded text-[10px]">🌐</span>`;
       }
@@ -1458,7 +1473,7 @@
       const stream = data.live_stream || [];
       const chanM = ch => CHANNEL_META[ch] || { badge: 'bg-slate-50 text-slate-600 border-slate-200' };
       document.getElementById('traffic-stream-body').innerHTML = stream.length === 0
-        ? '<tr><td colspan="7" class="py-10 text-center text-slate-400">No visitor hits yet.</td></tr>'
+        ? '<tr><td colspan="8" class="py-10 text-center text-slate-400">No visitor hits yet.</td></tr>'
         : stream.map(v => {
             const m = chanM(v.source_channel);
             const t = v.created_at ? new Date(v.created_at).toLocaleTimeString() : '';

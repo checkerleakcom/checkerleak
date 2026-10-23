@@ -22,6 +22,10 @@ class User(BaseModel):
     api_key: str
     email_verified: bool = False
     status: str = "active"
+    registration_source: Optional[str] = "Direct"
+    source_channel: Optional[str] = "DIRECT"
+    country: Optional[str] = "XX"
+    landing_path: Optional[str] = "/"
     created_at: Optional[str] = None
 
 
@@ -55,7 +59,17 @@ class AuthService:
         )
         return key.hex()
 
-    def register(self, email: str, password: str, full_name: str) -> User:
+    def register(
+        self,
+        email: str,
+        password: str,
+        full_name: str,
+        registration_source: str = "Direct",
+        source_channel: str = "DIRECT",
+        country: str = "XX",
+        landing_path: str = "/",
+        ip_hash: Optional[str] = None
+    ) -> User:
         clean_email = email.strip().lower()
         if not clean_email or "@" not in clean_email:
             raise ValueError("INVALID_EMAIL")
@@ -74,20 +88,28 @@ class AuthService:
                 if self.db.is_pg:
                     cursor.execute(
                         """
-                        INSERT INTO users (email, password_hash, salt, full_name, credits, api_key, status, email_verified, verification_token)
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        INSERT INTO users (
+                            email, password_hash, salt, full_name, credits, api_key, status, email_verified, verification_token,
+                            registration_source, source_channel, country, landing_path, ip_hash
+                        )
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                         RETURNING id
                         """,
-                        (clean_email, pwd_hash, salt, full_name.strip(), initial_credits, api_key, "active", 0, verification_token),
+                        (clean_email, pwd_hash, salt, full_name.strip(), initial_credits, api_key, "active", 0, verification_token,
+                         registration_source, source_channel, country, landing_path, ip_hash),
                     )
                     user_id = cursor.fetchone()["id"]
                 else:
                     cursor.execute(
                         """
-                        INSERT INTO users (email, password_hash, salt, full_name, credits, api_key, status, email_verified, verification_token)
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        INSERT INTO users (
+                            email, password_hash, salt, full_name, credits, api_key, status, email_verified, verification_token,
+                            registration_source, source_channel, country, landing_path, ip_hash
+                        )
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                         """,
-                        (clean_email, pwd_hash, salt, full_name.strip(), initial_credits, api_key, "active", 0, verification_token),
+                        (clean_email, pwd_hash, salt, full_name.strip(), initial_credits, api_key, "active", 0, verification_token,
+                         registration_source, source_channel, country, landing_path, ip_hash),
                     )
                     user_id = cursor.lastrowid
             except Exception as e:
@@ -110,6 +132,10 @@ class AuthService:
             api_key=api_key,
             email_verified=False,
             status="active",
+            registration_source=registration_source,
+            source_channel=source_channel,
+            country=country,
+            landing_path=landing_path,
         )
 
     def authenticate(self, email: str, password: str) -> User:

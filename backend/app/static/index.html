@@ -6428,13 +6428,22 @@
 
       try {
 
+        const _regParams = new URLSearchParams(window.location.search);
         const res = await fetch("/v1/auth/register", {
 
           method: "POST",
 
           headers: { "Content-Type": "application/json" },
 
-          body: JSON.stringify({ full_name, email, password })
+          body: JSON.stringify({
+            full_name,
+            email,
+            password,
+            referrer: document.referrer,
+            landing_path: window.location.pathname,
+            session_id: localStorage.getItem('_cl_sid') || '',
+            utm_source: _regParams.get('utm_source') || ''
+          })
 
         });
 
