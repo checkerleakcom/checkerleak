@@ -580,37 +580,52 @@ class BillingService:
         payment_method: PaymentMethod,
     ) -> Dict[str, Any]:
         """
-        Polls mempool.space or EVM pending pools for newly broadcast transactions.
-        If a new transaction or test probe is detected, confirms the top-up with 0-conf finality.
+        Strict on-chain scanner. NEVER credits or auto-confirms without an authentic
+        uncredited cryptographic transaction arriving on-chain.
         """
         plan = BILLING_PLANS.get(plan_id)
         if not plan:
             raise ValueError(f"PLAN_NOT_FOUND: {plan_id}")
 
-        deposit_address = CRYPTO_NETWORKS_INFO[payment_method]["address"]
+        deposit_address = CRYPTO_NETWORKS_INFO.get(payment_method, {}).get("address")
+        if not deposit_address:
+            return {"detected": False, "status": "PENDING"}
 
-        # Check BTC via mempool.space txs
+        import time
+        now_sec = int(time.time())
+
+        # Check BTC via mempool.space for strictly unconfirmed (0-conf in mempool right now)
         if payment_method == PaymentMethod.CRYPTO_BTC:
-            stats = get_mempool_address_stats(deposit_address)
-            txs = stats.get("transactions", [])
-            if txs:
-                latest_txid = txs[0].get("txid")
-                return self.confirm_and_credit_wallet(
-                    user_id=user_id,
-                    plan_id=plan_id,
-                    payment_method=payment_method,
-                    tx_hash=latest_txid,
-                )
+            try:
+                stats = get_mempool_address_stats(deposit_address)
+                txs = stats.get("transactions", [])
+                for tx in txs:
+                    pays_us = any(out.get("scriptpubkey_address") == deposit_address for out in tx.get("vout", []))
+                    if not pays_us:
+                        continue
+                    is_confirmed = bool(tx.get("status", {}).get("confirmed"))
+                    block_time = int(tx.get("status", {}).get("block_time", 0))
+                    
+                    # Only accept if unconfirmed in mempool right now OR mined within the last 5 minutes
+                    if (not is_confirmed) or (block_time >= now_sec - 300):
+                        clean_txid = tx.get("txid")
+                        with self.db.get_connection() as conn:
+                            cursor = self.db.get_cursor(conn)
+                            cursor.execute("SELECT id FROM billing_transactions WHERE tx_hash = ?", (clean_txid,))
+                            if cursor.fetchone():
+                                continue  # Already processed and credited!
 
-        generated_tx = f"0conf_{uuid.uuid4().hex[:12]}_{payment_method.value.lower()}"
-        res = self.confirm_and_credit_wallet(
-            user_id=user_id,
-            plan_id=plan_id,
-            payment_method=payment_method,
-            tx_hash=generated_tx,
-        )
-        res["settlement"] = "INSTANT_0_CONF_MEMPOOL"
-        return res
+                        return self.confirm_and_credit_wallet(
+                            user_id=user_id,
+                            plan_id=plan_id,
+                            payment_method=payment_method,
+                            tx_hash=clean_txid,
+                        )
+            except Exception as e:
+                logger.error(f"Error checking on-chain BTC deposit: {e}")
+
+        # If no real new transaction is detected, strictly return PENDING
+        return {"detected": False, "status": "PENDING"}
 
 
     def get_user_transactions(self, user_id: int) -> List[BillingTransaction]:

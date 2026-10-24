@@ -222,14 +222,31 @@ class BeaconPayload(BaseModel):
 @telemetry_router.post("/beacon", status_code=204, include_in_schema=False)
 async def receive_beacon(
     request: Request,
-    payload: BeaconPayload,
     background_tasks: BackgroundTasks,
     response: Response
 ):
     """
     Fire-and-forget visitor telemetry endpoint.
+    Accepts application/json, text/plain (navigator.sendBeacon), or raw bytes.
     Returns 204 immediately; DB write happens in background.
     """
+    import json
+    data_dict = {}
+    try:
+        raw_body = await request.body()
+        if raw_body:
+            data_dict = json.loads(raw_body.decode("utf-8", errors="ignore"))
+    except Exception:
+        data_dict = {}
+
+    session_id = str(data_dict.get("session_id") or "")[:64]
+    referrer = str(data_dict.get("referrer") or "")[:512]
+    landing_path = str(data_dict.get("landing_path") or "/")[:255]
+    utm_source = str(data_dict.get("utm_source") or "")[:64] or None
+    utm_medium = str(data_dict.get("utm_medium") or "")[:64] or None
+    utm_campaign = str(data_dict.get("utm_campaign") or "")[:64] or None
+    utm_term = str(data_dict.get("utm_term") or "")[:128] or None
+
     # Get client IP from Cloudflare / Render proxy headers
     ip = (
         request.headers.get("CF-Connecting-IP") or
@@ -242,24 +259,26 @@ async def receive_beacon(
 
     # Country from Cloudflare header
     country = request.headers.get("CF-IPCountry", "XX")[:8]
+    if not country or country == "XX":
+        country = request.headers.get("X-Country", "XX")[:8]
 
     # User-Agent
     user_agent = request.headers.get("User-Agent", "")[:256]
 
     # Classify source from referrer
-    source_channel, source_engine = classify_referrer(payload.referrer or "")
+    source_channel, source_engine = classify_referrer(referrer)
 
     # Override channel if utm_source explicitly set
-    if payload.utm_source:
+    if utm_source:
         if source_channel == "DIRECT":
             source_channel = "CAMPAIGN"
-        source_engine = payload.utm_source
+        source_engine = utm_source
 
     # Extract search query
-    search_query = extract_search_query(payload.referrer, payload.utm_term)
+    search_query = extract_search_query(referrer, utm_term)
 
     # Extract product slug
-    product_slug = extract_product_slug(payload.landing_path)
+    product_slug = extract_product_slug(landing_path)
 
     # Device classification
     device_type = classify_device(user_agent)
@@ -271,28 +290,27 @@ async def receive_beacon(
 
     # Redact sensitive referrer data (strip query params except known safe ones)
     safe_referrer = None
-    if payload.referrer:
-        # Keep only scheme+domain+path, strip personal query params
+    if referrer:
         try:
             from urllib.parse import urlparse
-            parsed = urlparse(payload.referrer)
+            parsed = urlparse(referrer)
             safe_referrer = f"{parsed.scheme}://{parsed.netloc}{parsed.path}"[:255]
         except Exception:
-            safe_referrer = payload.referrer[:64]
+            safe_referrer = referrer[:64]
 
     data = {
-        "session_id": (payload.session_id or "")[:64],
+        "session_id": session_id,
         "ip_hash": ip_hash,
         "country": country,
         "source_channel": source_channel,
         "source_engine": source_engine,
         "referrer_url": safe_referrer,
-        "landing_path": payload.landing_path[:255],
+        "landing_path": landing_path,
         "product_slug": product_slug,
         "search_query": search_query,
-        "utm_source": payload.utm_source,
-        "utm_medium": payload.utm_medium,
-        "utm_campaign": payload.utm_campaign,
+        "utm_source": utm_source,
+        "utm_medium": utm_medium,
+        "utm_campaign": utm_campaign,
         "device_type": device_type,
         "user_agent": user_agent[:256],
     }
