@@ -8749,6 +8749,71 @@
 
 <script>
 
+    let currentCryptoMethod = 'USDT_TRC20';
+
+    const CRYPTO_METRIC_CONFIG = {
+      'USDT_TRC20': {
+        currency: 'USDT',
+        network: 'TRON NETWORK',
+        badgeClass: 'bg-emerald-100 text-emerald-800',
+        title: 'USDT (TRC-20) Deposit Address',
+        address: 'TT44hVQek5xLh7qz2FhpBdmbMziyBGyzPX',
+        qr: '/static/usdt_qr.png',
+        desc: 'Send USDT via Tron (TRC-20). Instant deposit confirmation on-chain.',
+        explorer: 'https://tronscan.org/address/TT44hVQek5xLh7qz2FhpBdmbMziyBGyzPX/transactions'
+      },
+      'USDT_BEP20': {
+        currency: 'USDT',
+        network: 'BNB SMART CHAIN',
+        badgeClass: 'bg-amber-100 text-amber-800',
+        title: 'USDT (BEP-20) Deposit Address',
+        address: '0x35dd60066ae6337b4D0273b129c0E222235B9F8C',
+        qr: '/static/bep20_qr.png',
+        desc: 'Send USDT via BNB Smart Chain (BSC BEP-20). Lowest transfer fees (~$0.15).',
+        explorer: 'https://bscscan.com/token/0x55d398326f99059fF775485246999027B3197955?a=0x35dd60066ae6337b4D0273b129c0E222235B9F8C#transactions'
+      },
+      'BTC': {
+        currency: 'BTC',
+        network: 'BITCOIN NATIVE',
+        badgeClass: 'bg-orange-100 text-orange-800',
+        title: 'Bitcoin (BTC) Deposit Address',
+        address: 'bc1q0v3g205psatdcj09ufzczahq50jusvvnlzsygu',
+        qr: '/static/btc_qr.png',
+        desc: 'Send Bitcoin (BTC) to this Native SegWit address. Verified on mempool.space.',
+        explorer: 'https://mempool.space/address/bc1q0v3g205psatdcj09ufzczahq50jusvvnlzsygu'
+      },
+      'ETH': {
+        currency: 'ETH',
+        network: 'ETHEREUM MAINNET',
+        badgeClass: 'bg-indigo-100 text-indigo-800',
+        title: 'Ethereum (ETH / ERC-20) Deposit Address',
+        address: '0x35dd60066ae6337b4D0273b129c0E222235B9F8C',
+        qr: '/static/eth_qr.png',
+        desc: 'Send native ETH or USDT (ERC-20) via Ethereum Mainnet. Verified on Etherscan.',
+        explorer: 'https://etherscan.io/address/0x35dd60066ae6337b4D0273b129c0E222235B9F8C'
+      },
+      'SOL': {
+        currency: 'SOL',
+        network: 'SOLANA NETWORK',
+        badgeClass: 'bg-purple-100 text-purple-800',
+        title: 'Solana (SOL) Deposit Address',
+        address: 't9QLb3arVUMcQ8JALe3Ptz318GfZkzmRAXvoM8yANFe',
+        qr: '/static/sol_qr.png',
+        desc: 'Send SOL or USDT-SPL. Finality under 1 second with near-zero gas fee.',
+        explorer: 'https://solscan.io/account/t9QLb3arVUMcQ8JALe3Ptz318GfZkzmRAXvoM8yANFe'
+      },
+      'LTC': {
+        currency: 'LTC',
+        network: 'LITECOIN NETWORK',
+        badgeClass: 'bg-blue-100 text-blue-800',
+        title: 'Litecoin (LTC) Deposit Address',
+        address: 'LVW74nrfMVpsTY7Kd62tkzfNF5aasM7ieS',
+        qr: '/static/ltc_qr.png',
+        desc: 'Send Litecoin (LTC). Global standard for low-fee micro payments (~$0.01 fee).',
+        explorer: 'https://litecoinspace.org/address/LVW74nrfMVpsTY7Kd62tkzfNF5aasM7ieS'
+      }
+    };
+
     let cryptoRates = {
 
       'BTC': 81000.0,
