@@ -3103,298 +3103,88 @@
 
 
   <div id="cryptoTopUpModal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-md z-[100] hidden flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
-
-
-
-    <div class="bg-white rounded-3xl w-full max-w-lg max-h-[92vh] overflow-y-auto shadow-2xl border border-slate-200 relative my-auto animate-in fade-in zoom-in-95 duration-200">
-
-
-
+    <div class="bg-white rounded-3xl w-full max-w-lg max-h-[92vh] overflow-y-auto shadow-2xl border border-slate-200/90 relative my-auto">
       
-
-
-
       <!-- Close Button -->
-
-
-
-      <button onclick="closeCryptoModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-800 bg-slate-100 hover:bg-slate-200 rounded-full p-2 transition z-10">
-
-
-
+      <button onclick="closeCryptoModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-800 bg-slate-100 hover:bg-slate-200 rounded-full p-2 transition z-10 cursor-pointer">
         <i data-lucide="x" class="w-4 h-4"></i>
-
-
-
       </button>
 
-
-
-
-
-
-
-      <div class="p-6 sm:p-8">
-
-
-
+      <div class="p-6 sm:p-7">
         
-
-
-
         <!-- Header -->
-
-
-
-        <div class="flex items-center gap-3 mb-4">
-
-
-
-          <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-600 to-[#435ebf] text-white flex items-center justify-center shadow-md shrink-0">
-
-
-
-            <i data-lucide="shield-check" class="w-6 h-6"></i>
-
-
-
+        <div class="flex items-center gap-3.5 mb-5">
+          <div class="w-11 h-11 rounded-2xl bg-[#435ebf] text-white flex items-center justify-center shadow-md shadow-blue-500/20 shrink-0">
+            <i data-lucide="shield-check" class="w-5 h-5"></i>
           </div>
-
-
-
           <div>
-
-
-
             <div class="flex items-center gap-2">
-
-
-
-              <h3 class="text-xl font-black text-slate-900 tracking-tight">Deposit Cryptocurrency</h3>
-
-
-
-              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-bold border border-emerald-200">
-
-
-
+              <h3 class="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight">Deposit Cryptocurrency</h3>
+              <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-bold border border-emerald-200/80">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>Zero KYC
-
-
-
               </span>
-
-
-
             </div>
-
-
-
-            <p class="text-xs text-slate-500 mt-0.5">Automated on-chain verification · Instant credit upon confirmation</p>
-
-
-
+            <p class="text-xs text-slate-500 mt-0.5 font-medium">Automated on-chain verification · Direct balance settlement</p>
           </div>
-
-
-
         </div>
 
-
-
-
-
-
-
-        <!-- 6 Network Selectors (2 rows of 3) -->
-
-
-
+        <!-- 6 Network Selectors (2 rows of 3) with cohesive, professional styling -->
         <div class="mb-5">
-
-
-
-          <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-2">Select Payment Network</label>
-
-
-
+          <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">Select Payment Network</label>
           <div class="grid grid-cols-3 gap-2">
-
-
-
             
-
-
-
             <!-- USDT TRC20 -->
-
-
-
-            <button type="button" onclick="selectCryptoTab('USDT_TRC20')" id="cryptoTab_USDT_TRC20" class="flex flex-col items-center justify-center p-2.5 rounded-xl border border-slate-200 text-center transition hover:border-[#435ebf] bg-slate-900 text-white shadow-sm">
-
-
-
+            <button type="button" onclick="selectCryptoTab('USDT_TRC20')" id="cryptoTab_USDT_TRC20" class="flex flex-col items-center justify-center p-2.5 rounded-xl border border-[#435ebf] bg-[#435ebf] text-white text-center transition shadow-sm cursor-pointer">
               <span class="text-xs font-bold flex items-center gap-1">₮ USDT</span>
-
-
-
-              <span class="text-[9px] font-mono text-emerald-400 font-semibold mt-0.5">TRC-20 (Tron)</span>
-
-
-
+              <span class="text-[9px] font-mono text-blue-100 font-semibold mt-0.5">TRC-20 (Tron)</span>
             </button>
-
-
-
-
-
-
 
             <!-- USDT BEP20 -->
-
-
-
-            <button type="button" onclick="selectCryptoTab('USDT_BEP20')" id="cryptoTab_USDT_BEP20" class="flex flex-col items-center justify-center p-2.5 rounded-xl border border-slate-200 text-center transition hover:border-[#435ebf] bg-white text-slate-700 hover:bg-slate-50">
-
-
-
+            <button type="button" onclick="selectCryptoTab('USDT_BEP20')" id="cryptoTab_USDT_BEP20" class="flex flex-col items-center justify-center p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100/80 text-slate-700 text-center transition cursor-pointer">
               <span class="text-xs font-bold flex items-center gap-1">₮ USDT</span>
-
-
-
-              <span class="text-[9px] font-mono text-amber-500 font-semibold mt-0.5">BEP-20 (BSC)</span>
-
-
-
+              <span class="text-[9px] font-mono text-slate-500 font-semibold mt-0.5">BEP-20 (BSC)</span>
             </button>
-
-
-
-
-
-
 
             <!-- Bitcoin -->
-
-
-
-            <button type="button" onclick="selectCryptoTab('BTC')" id="cryptoTab_BTC" class="flex flex-col items-center justify-center p-2.5 rounded-xl border border-slate-200 text-center transition hover:border-[#435ebf] bg-white text-slate-700 hover:bg-slate-50">
-
-
-
+            <button type="button" onclick="selectCryptoTab('BTC')" id="cryptoTab_BTC" class="flex flex-col items-center justify-center p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100/80 text-slate-700 text-center transition cursor-pointer">
               <span class="text-xs font-bold flex items-center gap-1">₿ BTC</span>
-
-
-
               <span class="text-[9px] font-mono text-slate-500 font-semibold mt-0.5">Native SegWit</span>
-
-
-
             </button>
-
-
-
-
-
-
 
             <!-- Ethereum -->
-
-
-
-            <button type="button" onclick="selectCryptoTab('ETH')" id="cryptoTab_ETH" class="flex flex-col items-center justify-center p-2.5 rounded-xl border border-slate-200 text-center transition hover:border-[#435ebf] bg-white text-slate-700 hover:bg-slate-50">
-
-
-
+            <button type="button" onclick="selectCryptoTab('ETH')" id="cryptoTab_ETH" class="flex flex-col items-center justify-center p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100/80 text-slate-700 text-center transition cursor-pointer">
               <span class="text-xs font-bold flex items-center gap-1">Ξ ETH</span>
-
-
-
-              <span class="text-[9px] font-mono text-indigo-500 font-semibold mt-0.5">ERC-20 Mainnet</span>
-
-
-
+              <span class="text-[9px] font-mono text-slate-500 font-semibold mt-0.5">ERC-20 Mainnet</span>
             </button>
-
-
-
-
-
-
 
             <!-- Solana -->
-
-
-
-            <button type="button" onclick="selectCryptoTab('SOL')" id="cryptoTab_SOL" class="flex flex-col items-center justify-center p-2.5 rounded-xl border border-slate-200 text-center transition hover:border-[#435ebf] bg-white text-slate-700 hover:bg-slate-50">
-
-
-
+            <button type="button" onclick="selectCryptoTab('SOL')" id="cryptoTab_SOL" class="flex flex-col items-center justify-center p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100/80 text-slate-700 text-center transition cursor-pointer">
               <span class="text-xs font-bold flex items-center gap-1">◎ SOL</span>
-
-
-
-              <span class="text-[9px] font-mono text-purple-500 font-semibold mt-0.5">Solana Mainnet</span>
-
-
-
+              <span class="text-[9px] font-mono text-slate-500 font-semibold mt-0.5">Solana Mainnet</span>
             </button>
-
-
-
-
-
-
 
             <!-- Litecoin -->
-
-
-
-            <button type="button" onclick="selectCryptoTab('LTC')" id="cryptoTab_LTC" class="flex flex-col items-center justify-center p-2.5 rounded-xl border border-slate-200 text-center transition hover:border-[#435ebf] bg-white text-slate-700 hover:bg-slate-50">
-
-
-
+            <button type="button" onclick="selectCryptoTab('LTC')" id="cryptoTab_LTC" class="flex flex-col items-center justify-center p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100/80 text-slate-700 text-center transition cursor-pointer">
               <span class="text-xs font-bold flex items-center gap-1">Ł LTC</span>
-
-
-
-              <span class="text-[9px] font-mono text-blue-500 font-semibold mt-0.5">Fee &lt;$0.01</span>
-
-
-
+              <span class="text-[9px] font-mono text-slate-500 font-semibold mt-0.5">Fee &lt;$0.01</span>
             </button>
 
-
-
-
-
-
-
           </div>
-
-
-
         </div>
 
-
-
-
-
-
-
-                <!-- Deposit Details Box -->
-        <div class="bg-slate-50 rounded-2xl border border-slate-200/90 p-5 mb-5 space-y-3.5">
+        <!-- Deposit Details Container -->
+        <div class="bg-slate-50/80 rounded-2xl border border-slate-200/90 p-4 mb-4 space-y-3.5">
           
           <div class="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
-            <!-- QR Code -->
-            <div class="bg-white p-2.5 rounded-2xl border border-slate-200 shadow-xs shrink-0">
+            <!-- QR Code with clean subtle frame -->
+            <div class="bg-white p-2 rounded-xl border border-slate-200/80 shadow-xs shrink-0">
               <img id="cryptoQrImg" src="/static/usdt_qr.png" alt="Deposit QR Code" class="w-28 h-28 object-contain">
             </div>
 
             <!-- Instructions & Network Info -->
             <div class="flex-1 space-y-1">
               <div class="flex items-center justify-center sm:justify-start gap-2">
-                <span id="cryptoNetworkBadge" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-100 text-emerald-800">
+                <span id="cryptoNetworkBadge" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-blue-100 text-[#435ebf]">
                   TRON NETWORK
                 </span>
                 <span id="cryptoRateBadge" class="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-white text-slate-600 border border-slate-200">
@@ -3403,36 +3193,39 @@
                 <span id="cryptoExplorerLink" class="hidden"></span>
               </div>
               <h4 id="cryptoAddrTitle" class="text-sm font-extrabold text-slate-900">USDT (TRC-20) Deposit Address</h4>
-              <p id="cryptoAddrDesc" class="text-[11px] text-slate-500 leading-relaxed">
-                Send only USDT via Tron (TRC-20). Deposits are credited automatically after 1 network confirmation.
+              <p id="cryptoAddrDesc" class="text-[11px] text-slate-500 leading-relaxed font-medium">
+                Send only USDT via Tron (TRC-20). Deposits are detected automatically in real-time.
               </p>
             </div>
           </div>
 
-          <!-- Official Deposit Wallet Code Block with 1-Click Copy -->
-          <div class="bg-white border border-slate-200 rounded-xl p-3 flex items-center justify-between gap-3 shadow-2xs">
-            <div class="min-w-0 flex-1">
-              <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Official Deposit Wallet</span>
-              <code id="cryptoAddress" class="block text-xs font-mono font-bold text-slate-800 truncate select-all">
+          <!-- Official Deposit Wallet Box (Full Address Completely Visible, No Truncation!) -->
+          <div class="bg-white border border-slate-200 rounded-xl p-3.5 space-y-1.5 shadow-2xs">
+            <div class="flex items-center justify-between">
+              <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider">Deposit Wallet Address</span>
+              <span class="text-[10px] font-mono text-slate-400">Tap to copy full address</span>
+            </div>
+            <div class="flex items-center justify-between gap-3">
+              <code id="cryptoAddress" class="block font-mono text-xs font-bold text-slate-900 break-all select-all leading-relaxed flex-1">
                 TT44hVQek5xLh7qz2FhpBdmbMziyBGyzPX
               </code>
+              <button id="cryptoCopyBtn" onclick="copyCryptoAddress()" class="px-3.5 py-2 rounded-lg bg-[#435ebf] hover:bg-[#324796] active:scale-95 text-white text-xs font-bold flex items-center gap-1.5 transition shrink-0 shadow-xs cursor-pointer">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                <span>Copy</span>
+              </button>
             </div>
-            <button id="cryptoCopyBtn" onclick="copyCryptoAddress()" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-[#435ebf] text-white text-xs font-bold flex items-center gap-1.5 transition shrink-0 shadow-xs">
-              <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-              <span>Copy</span>
-            </button>
           </div>
 
-          <!-- Amount to Transfer Box with 1-Click Copy -->
-          <div class="bg-blue-50/80 border border-blue-200 rounded-xl p-3 flex items-center justify-between gap-3 shadow-2xs">
+          <!-- Exact Crypto Amount Box -->
+          <div class="bg-white border border-slate-200 rounded-xl p-3.5 flex items-center justify-between gap-3 shadow-2xs">
             <div class="min-w-0 flex-1">
-              <span class="block text-[10px] font-bold text-blue-700 uppercase tracking-wider mb-0.5">Exact Crypto Amount to Send</span>
+              <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Exact Amount to Transfer</span>
               <div class="flex items-baseline gap-2">
                 <span id="cryptoExactAmount" class="text-sm sm:text-base font-mono font-black text-slate-900">20.00 USDT</span>
                 <span id="cryptoUsdEqNotice" class="text-[11px] font-mono text-slate-500 font-medium">(= $20.00 USD)</span>
               </div>
             </div>
-            <button id="cryptoCopyAmountBtn" onclick="copyCryptoExactAmount()" class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold flex items-center gap-1.5 transition shrink-0 shadow-xs">
+            <button id="cryptoCopyAmountBtn" onclick="copyCryptoExactAmount()" class="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-900 active:scale-95 text-white text-xs font-bold flex items-center gap-1.5 transition shrink-0 shadow-xs cursor-pointer">
               <i data-lucide="copy" class="w-3.5 h-3.5"></i>
               <span>Copy Amount</span>
             </button>
@@ -3440,21 +3233,21 @@
 
         </div>
 
-        <!-- Inputs: Amount & TxID -->
+        <!-- Inputs: Quick Amount Selector -->
         <div class="space-y-3">
           <div>
             <div class="flex justify-between items-center text-xs font-bold text-slate-700 mb-1.5">
               <span>Deposit Amount (USD)</span>
-              <span id="creditEstimateNotice" class="text-[#435ebf] font-mono text-[11px] font-bold">💎 +2,000 Credits</span>
+              <span id="creditEstimateNotice" class="text-[#435ebf] font-mono text-[11px] font-bold"><i data-lucide="sparkles" class="w-3.5 h-3.5 text-[#435ebf] inline mr-1"></i>+2,000 Credits</span>
             </div>
 
-            <!-- Quick Amount Selector Pills -->
+            <!-- Quick Amount Selector Pills with cohesive active states -->
             <div class="grid grid-cols-5 gap-1.5 mb-2">
-              <button type="button" onclick="setCryptoUsdAmount(10)" class="quick-amt-btn py-1.5 rounded-lg border border-slate-200 text-xs font-bold font-mono text-slate-700 hover:border-[#435ebf] hover:bg-blue-50 transition" id="amtBtn_10">$10</button>
-              <button type="button" onclick="setCryptoUsdAmount(20)" class="quick-amt-btn py-1.5 rounded-lg border border-slate-900 bg-slate-900 text-white text-xs font-bold font-mono shadow-xs transition" id="amtBtn_20">$20</button>
-              <button type="button" onclick="setCryptoUsdAmount(50)" class="quick-amt-btn py-1.5 rounded-lg border border-slate-200 text-xs font-bold font-mono text-slate-700 hover:border-[#435ebf] hover:bg-blue-50 transition" id="amtBtn_50">$50</button>
-              <button type="button" onclick="setCryptoUsdAmount(100)" class="quick-amt-btn py-1.5 rounded-lg border border-slate-200 text-xs font-bold font-mono text-slate-700 hover:border-[#435ebf] hover:bg-blue-50 transition" id="amtBtn_100">$100</button>
-              <button type="button" onclick="setCryptoUsdAmount(200)" class="quick-amt-btn py-1.5 rounded-lg border border-slate-200 text-xs font-bold font-mono text-slate-700 hover:border-[#435ebf] hover:bg-blue-50 transition" id="amtBtn_200">$200</button>
+              <button type="button" onclick="setCryptoUsdAmount(10)" class="quick-amt-btn py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-bold font-mono text-slate-700 hover:border-[#435ebf] hover:bg-blue-50/50 transition cursor-pointer" id="amtBtn_10">$10</button>
+              <button type="button" onclick="setCryptoUsdAmount(20)" class="quick-amt-btn py-1.5 rounded-lg border border-[#435ebf] bg-[#435ebf] text-white text-xs font-bold font-mono shadow-xs transition cursor-pointer" id="amtBtn_20">$20</button>
+              <button type="button" onclick="setCryptoUsdAmount(50)" class="quick-amt-btn py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-bold font-mono text-slate-700 hover:border-[#435ebf] hover:bg-blue-50/50 transition cursor-pointer" id="amtBtn_50">$50</button>
+              <button type="button" onclick="setCryptoUsdAmount(100)" class="quick-amt-btn py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-bold font-mono text-slate-700 hover:border-[#435ebf] hover:bg-blue-50/50 transition cursor-pointer" id="amtBtn_100">$100</button>
+              <button type="button" onclick="setCryptoUsdAmount(200)" class="quick-amt-btn py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-bold font-mono text-slate-700 hover:border-[#435ebf] hover:bg-blue-50/50 transition cursor-pointer" id="amtBtn_200">$200</button>
             </div>
 
             <div class="relative">
@@ -3463,61 +3256,66 @@
               <span class="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-mono font-bold text-slate-400">USD</span>
             </div>
           </div>
+        </div>
 
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Transaction Hash / TxID (Proof of Transfer)</label>
-            <input type="text" id="cryptoTxidInput" placeholder="Paste on-chain TxID or Hash here" class="w-full px-4 py-2.5 bg-white border border-slate-300 rounded-xl text-xs font-mono text-slate-800 placeholder:text-slate-400 focus:ring-2 focus:ring-[#435ebf] focus:outline-none transition">
+        <!-- ================= COHESIVE REAL-TIME BLOCKCHAIN STATUS BAR ================= -->
+        <div id="cryptoPaymentActiveBox" class="mt-4">
+          <div class="bg-blue-50/60 border border-blue-200/80 rounded-2xl p-3.5 flex items-center justify-between shadow-2xs">
+            <div class="flex items-center gap-2.5">
+              <span class="relative flex h-2.5 w-2.5 shrink-0">
+                <span id="cryptoPingDot" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span>
+                <span id="cryptoStaticDot" class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-600"></span>
+              </span>
+              <div>
+                <span id="cryptoScannerStatusText" class="block text-xs font-bold text-slate-900">
+                  Awaiting blockchain transfer...
+                </span>
+                <span class="text-[10px] text-slate-500 font-medium">Automatic on-chain mempool verification</span>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-1.5 px-2.5 py-1 bg-white rounded-lg text-xs font-mono font-bold text-slate-700 border border-slate-200/80 shadow-2xs shrink-0">
+              <i data-lucide="clock" class="w-3.5 h-3.5 text-slate-400"></i>
+              <span id="cryptoCountdownTimer">15:00</span>
+            </div>
           </div>
         </div>
 
-        <!-- Submit Button -->
+        <!-- ================= CONFIRMED SUCCESS VIEW (ZERO LEAKAGE, DISPLAY: NONE BY DEFAULT) ================= -->
+        <div id="cryptoSuccessModalView" style="display: none !important;" class="text-center py-6 px-2 space-y-4">
+          <div class="w-14 h-14 mx-auto rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shadow-inner border-2 border-emerald-400">
+            <i data-lucide="check" class="w-7 h-7 stroke-[3]"></i>
+          </div>
+          <div>
+            <h3 class="text-xl font-black text-slate-900 tracking-tight">Payment Received & Confirmed!</h3>
+            <p class="text-xs text-slate-500 mt-1">Your cryptocurrency transfer has been verified on-chain.</p>
+          </div>
 
+          <div class="bg-emerald-50/80 border border-emerald-200 rounded-2xl p-4 text-left space-y-2 text-xs">
+            <div class="flex justify-between items-center">
+              <span class="text-slate-600">Credits Added</span>
+              <span id="cryptoSuccessCredits" class="font-extrabold text-emerald-700 font-mono text-sm">+2,000 Credits</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-slate-600">New Account Balance</span>
+              <span id="cryptoSuccessBalance" class="font-bold text-slate-900 font-mono">2,000 Credits</span>
+            </div>
+            <div class="flex justify-between items-center pt-2 border-t border-emerald-200">
+              <span class="text-slate-500">Transaction ID</span>
+              <a id="cryptoSuccessTxLink" href="#" target="_blank" class="font-mono text-[11px] text-[#435ebf] hover:underline flex items-center gap-1">
+                <span id="cryptoSuccessTxHash">0x...</span>
+                <i data-lucide="external-link" class="w-3 h-3"></i>
+              </a>
+            </div>
+          </div>
 
-
-        <button id="btnSubmitPayment" onclick="submitCryptoPayment()" class="w-full mt-5 bg-[#435ebf] hover:bg-[#324796] active:scale-[0.99] text-white font-bold py-3.5 rounded-xl transition shadow-md hover:shadow-lg flex items-center justify-center gap-2 cursor-pointer">
-
-
-
-          <i data-lucide="check-circle-2" class="w-4 h-4"></i>
-
-
-
-          <span>Confirm & Credit Wallet Balance</span>
-
-
-
-        </button>
-
-
-
-
-
-
-
-        <p class="text-[10px] text-center text-slate-400 mt-3">
-
-
-
-          🔒 Encrypted on-chain reconciliation · Instant balance sync
-
-
-
-        </p>
-
-
-
-
-
-
+          <button onclick="closeCryptoModal(); window.location.reload();" class="w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-lg shadow-emerald-600/20 transition cursor-pointer">
+            Continue to Dashboard
+          </button>
+        </div>
 
       </div>
-
-
-
     </div>
-
-
-
   </div>
 
 
@@ -4375,108 +4173,30 @@
 
 
     function topUpCredits(amount = null, finalCredits = null) {
-
-
-
       if (amount !== null) {
-
-
-
         const amtInput = document.getElementById('cryptoAmountInput');
-
-
-
         if (amtInput) {
-
-
-
           amtInput.value = amount;
-
-
-
         }
-
-
-
-        if (typeof onCryptoUsdInputChanged === 'function') {
-
-
-
-          onCryptoUsdInputChanged();
-
-
-
-        } else if (typeof updateCreditEstimate === 'function') {
-
-
-
-          updateCreditEstimate();
-
-
-
-        }
-
-
-
       }
-
-
-
       const notice = document.getElementById('bonusNotice');
-
-
-
       if (notice && finalCredits !== null && finalCredits > amount) {
-
-
-
         notice.innerText = `+ You will receive $${finalCredits} Credits!`;
-
-
-
       } else if (notice) {
-
-
-
         notice.innerText = '';
-
-
-
       }
-
-
-
       document.getElementById('cryptoTopUpModal').classList.remove('hidden');
-
-
-
+      if (typeof updateCreditEstimate === 'function') updateCreditEstimate();
+      if (typeof updateDynamicPaymentUriAndQr === 'function') updateDynamicPaymentUriAndQr();
+      if (typeof startAutoBlockchainDetection === 'function') startAutoBlockchainDetection();
       if (window.lucide) lucide.createIcons();
-
-
-
     }
-
-
-
-
-
-
 
     function closeCryptoModal() {
-
-
-
+      if (window._cryptoScannerInterval) clearInterval(window._cryptoScannerInterval);
+      if (window._cryptoTimerInterval) clearInterval(window._cryptoTimerInterval);
       document.getElementById('cryptoTopUpModal').classList.add('hidden');
-
-
-
     }
-
-
-
-
-
-
 
     function updatePendingUI() {
 
@@ -8374,612 +8094,836 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-
-
-
-
     const CRYPTO_METRIC_CONFIG = {
-
-
 
       'USDT_TRC20': {
 
-
-
         currency: 'USDT',
-
-
 
         network: 'TRON NETWORK',
 
-
-
         badgeClass: 'bg-emerald-100 text-emerald-800',
-
-
 
         title: 'USDT (TRC-20) Deposit Address',
 
-
-
         address: 'TT44hVQek5xLh7qz2FhpBdmbMziyBGyzPX',
-
-
 
         qr: '/static/usdt_qr.png',
 
-
-
-        desc: 'Send USDT via Tron (TRC-20). Instant deposit confirmation on-chain.',
-
-
+        desc: 'Send USDT via Tron (TRC-20). Instant deposit confirmation via TronScan.',
 
         explorer: 'https://tronscan.org/address/TT44hVQek5xLh7qz2FhpBdmbMziyBGyzPX/transactions'
 
-
-
       },
-
-
 
       'USDT_BEP20': {
 
-
-
         currency: 'USDT',
-
-
 
         network: 'BNB SMART CHAIN',
 
-
-
         badgeClass: 'bg-amber-100 text-amber-800',
-
-
 
         title: 'USDT (BEP-20) Deposit Address',
 
-
-
         address: '0x35dd60066ae6337b4D0273b129c0E222235B9F8C',
-
-
 
         qr: '/static/bep20_qr.png',
 
-
-
         desc: 'Send USDT via BNB Smart Chain (BSC BEP-20). Lowest transfer fees (~$0.15).',
-
-
 
         explorer: 'https://bscscan.com/token/0x55d398326f99059fF775485246999027B3197955?a=0x35dd60066ae6337b4D0273b129c0E222235B9F8C#transactions'
 
-
-
       },
-
-
 
       'BTC': {
 
-
-
         currency: 'BTC',
-
-
 
         network: 'BITCOIN NATIVE',
 
-
-
         badgeClass: 'bg-orange-100 text-orange-800',
-
-
 
         title: 'Bitcoin (BTC) Deposit Address',
 
-
-
         address: 'bc1q0v3g205psatdcj09ufzczahq50jusvvnlzsygu',
-
-
 
         qr: '/static/btc_qr.png',
 
-
-
         desc: 'Send Bitcoin (BTC) to this Native SegWit address. Verified on mempool.space.',
-
-
 
         explorer: 'https://mempool.space/address/bc1q0v3g205psatdcj09ufzczahq50jusvvnlzsygu'
 
-
-
       },
-
-
 
       'ETH': {
 
-
-
         currency: 'ETH',
-
-
 
         network: 'ETHEREUM MAINNET',
 
-
-
         badgeClass: 'bg-indigo-100 text-indigo-800',
-
-
 
         title: 'Ethereum (ETH / ERC-20) Deposit Address',
 
-
-
         address: '0x35dd60066ae6337b4D0273b129c0E222235B9F8C',
-
-
 
         qr: '/static/eth_qr.png',
 
-
-
         desc: 'Send native ETH or USDT (ERC-20) via Ethereum Mainnet. Verified on Etherscan.',
-
-
 
         explorer: 'https://etherscan.io/address/0x35dd60066ae6337b4D0273b129c0E222235B9F8C'
 
-
-
       },
-
-
 
       'SOL': {
 
-
-
         currency: 'SOL',
-
-
 
         network: 'SOLANA NETWORK',
 
-
-
         badgeClass: 'bg-purple-100 text-purple-800',
-
-
 
         title: 'Solana (SOL) Deposit Address',
 
-
-
         address: 't9QLb3arVUMcQ8JALe3Ptz318GfZkzmRAXvoM8yANFe',
-
-
 
         qr: '/static/sol_qr.png',
 
-
-
         desc: 'Send SOL or USDT-SPL. Finality under 1 second with near-zero gas fee.',
-
-
 
         explorer: 'https://solscan.io/account/t9QLb3arVUMcQ8JALe3Ptz318GfZkzmRAXvoM8yANFe'
 
-
-
       },
-
-
 
       'LTC': {
 
-
-
         currency: 'LTC',
-
-
 
         network: 'LITECOIN NETWORK',
 
-
-
         badgeClass: 'bg-blue-100 text-blue-800',
-
-
 
         title: 'Litecoin (LTC) Deposit Address',
 
-
-
         address: 'LVW74nrfMVpsTY7Kd62tkzfNF5aasM7ieS',
-
-
 
         qr: '/static/ltc_qr.png',
 
-
-
         desc: 'Send Litecoin (LTC). Global standard for low-fee micro payments (~$0.01 fee).',
-
-
 
         explorer: 'https://litecoinspace.org/address/LVW74nrfMVpsTY7Kd62tkzfNF5aasM7ieS'
 
-
-
       }
 
-
-
     };
 
 
 
+    let cryptoRates = {
 
-
-
-
-        let cryptoRates = {
       'BTC': 81000.0,
+
       'ETH': 2380.0,
+
       'SOL': 103.0,
+
       'LTC': 57.0,
+
       'USDT': 1.0,
+
       'USDT_TRC20': 1.0,
+
       'USDT_BEP20': 1.0
+
     };
+
+
 
     async function initCryptoRates() {
+
       try {
+
         const res = await fetch('/v1/billing/crypto-rates');
+
         if (res.ok) {
+
           const data = await res.json();
+
           cryptoRates = Object.assign({}, cryptoRates, data);
+
           updateCreditEstimate();
+
         }
+
       } catch (e) {}
+
     }
+
+
 
     function setCryptoUsdAmount(val) {
+
       const amtInput = document.getElementById('cryptoAmountInput');
+
       if (amtInput) {
+
         amtInput.value = val;
+
         onCryptoUsdInputChanged();
+
       }
+
     }
+
+
 
     function onCryptoUsdInputChanged() {
+
       const amtInput = document.getElementById('cryptoAmountInput');
+
       const val = parseFloat(amtInput.value) || 0;
+
       [10, 20, 50, 100, 200].forEach(a => {
+
         const btn = document.getElementById(`amtBtn_${a}`);
+
         if (btn) {
+
           if (a === val) {
-            btn.className = "quick-amt-btn py-1.5 rounded-lg border border-slate-900 bg-slate-900 text-white text-xs font-bold font-mono shadow-xs transition";
+
+            btn.className = "quick-amt-btn py-1.5 rounded-lg border border-[#435ebf] bg-[#435ebf] text-white text-xs font-bold font-mono shadow-xs transition cursor-pointer";
+
           } else {
-            btn.className = "quick-amt-btn py-1.5 rounded-lg border border-slate-200 text-xs font-bold font-mono text-slate-700 hover:border-[#435ebf] hover:bg-blue-50 transition";
+
+            btn.className = "quick-amt-btn py-1.5 rounded-lg border border-slate-200 bg-white text-xs font-bold font-mono text-slate-700 hover:border-[#435ebf] hover:bg-blue-50/50 transition cursor-pointer";
+
           }
+
         }
+
       });
+
       updateCreditEstimate();
+
     }
+
+
 
     function selectCryptoTab(methodKey) {
+
       currentCryptoMethod = methodKey;
+
       const conf = CRYPTO_METRIC_CONFIG[methodKey];
+
       if (!conf) return;
 
+
+
       const keys = ['USDT_TRC20', 'USDT_BEP20', 'BTC', 'ETH', 'SOL', 'LTC'];
+
       keys.forEach(k => {
+
         const btn = document.getElementById(`cryptoTab_${k}`);
+
         if (btn) {
+
           if (k === methodKey) {
-            btn.className = "flex flex-col items-center justify-center p-2.5 rounded-xl border border-slate-900 text-center transition bg-slate-900 text-white shadow-sm";
+
+            btn.className = "flex flex-col items-center justify-center p-2.5 rounded-xl border border-[#435ebf] bg-[#435ebf] text-white text-center transition shadow-sm cursor-pointer";
+
           } else {
-            btn.className = "flex flex-col items-center justify-center p-2.5 rounded-xl border border-slate-200 text-center transition hover:border-[#435ebf] bg-white text-slate-700 hover:bg-slate-50";
+
+            btn.className = "flex flex-col items-center justify-center p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100/80 text-slate-700 text-center transition cursor-pointer";
+
           }
+
         }
+
       });
 
+
+
       document.getElementById('cryptoQrImg').src = conf.qr;
+
       document.getElementById('cryptoAddress').innerText = conf.address;
+
       document.getElementById('cryptoAddrTitle').innerText = conf.title;
+
       document.getElementById('cryptoAddrDesc').innerText = conf.desc;
+
       
+
       const badge = document.getElementById('cryptoNetworkBadge');
+
       if (badge) {
+
         badge.innerText = conf.network;
+
         badge.className = `px-2 py-0.5 rounded text-[10px] font-mono font-bold ${conf.badgeClass}`;
+
       }
 
+
+
       const explorer = document.getElementById('cryptoExplorerLink');
+
       if (explorer) explorer.href = conf.explorer;
 
+
+
       updateCreditEstimate();
+
       if (window.lucide) lucide.createIcons();
+
     }
 
+
+
     function updateCreditEstimate() {
+
       const amtInput = document.getElementById('cryptoAmountInput');
+
       const notice = document.getElementById('creditEstimateNotice');
+
       const exactAmtEl = document.getElementById('cryptoExactAmount');
+
       const usdEqEl = document.getElementById('cryptoUsdEqNotice');
+
       const rateBadge = document.getElementById('cryptoRateBadge');
+
       if (!amtInput) return;
+
+
 
       const usd = Math.max(1, parseFloat(amtInput.value) || 20);
 
+
+
       // Tier bonuses
+
       let bonusMult = 1.0;
+
       if (usd >= 200) bonusMult = 1.15;
+
       else if (usd >= 100) bonusMult = 1.10;
+
       else if (usd >= 50) bonusMult = 1.05;
 
+
+
       const credits = Math.round(usd * 100 * bonusMult);
-      if (notice) notice.innerText = `💎 +${credits.toLocaleString()} Credits`;
+
+      if (notice) notice.innerText = `+${credits.toLocaleString()} Credits`;
+
+
 
       const conf = CRYPTO_METRIC_CONFIG[currentCryptoMethod] || CRYPTO_METRIC_CONFIG['USDT_TRC20'];
+
       const sym = conf.currency;
+
       const rate = cryptoRates[sym] || (sym === 'USDT' ? 1.0 : 81000.0);
 
+
+
       let cryptoAmount = 0;
+
       let formattedCrypto = '';
+
       if (sym === 'USDT') {
+
         cryptoAmount = usd;
+
         formattedCrypto = `${usd.toFixed(2)} USDT`;
+
         if (rateBadge) rateBadge.innerText = '1 USDT = $1.00 USD';
+
       } else if (sym === 'BTC') {
+
         cryptoAmount = (usd / rate);
+
         formattedCrypto = `${cryptoAmount.toFixed(6)} BTC`;
+
         if (rateBadge) rateBadge.innerText = `1 BTC ≈ $${rate.toLocaleString()}`;
+
       } else if (sym === 'ETH') {
+
         cryptoAmount = (usd / rate);
+
         formattedCrypto = `${cryptoAmount.toFixed(5)} ETH`;
+
         if (rateBadge) rateBadge.innerText = `1 ETH ≈ $${rate.toLocaleString()}`;
+
       } else if (sym === 'SOL') {
+
         cryptoAmount = (usd / rate);
+
         formattedCrypto = `${cryptoAmount.toFixed(4)} SOL`;
+
         if (rateBadge) rateBadge.innerText = `1 SOL ≈ $${rate.toLocaleString()}`;
+
       } else if (sym === 'LTC') {
+
         cryptoAmount = (usd / rate);
+
         formattedCrypto = `${cryptoAmount.toFixed(4)} LTC`;
+
         if (rateBadge) rateBadge.innerText = `1 LTC ≈ $${rate.toLocaleString()}`;
+
       }
 
+
+
       if (exactAmtEl) exactAmtEl.innerText = formattedCrypto;
+
       if (usdEqEl) usdEqEl.innerText = `(= $${usd.toFixed(2)} USD)`;
+
       window._currentExactCryptoAmount = formattedCrypto.split(' ')[0];
+      updateDynamicPaymentUriAndQr();
+
     }
+
+
 
     function copyCryptoExactAmount() {
+
       const amt = window._currentExactCryptoAmount || '';
+
       if (!amt) return;
+
       navigator.clipboard.writeText(amt);
+
       const btn = document.getElementById('cryptoCopyAmountBtn');
+
       if (!btn) return;
+
       const origHtml = btn.innerHTML;
+
       btn.innerHTML = `<i data-lucide="check" class="w-3.5 h-3.5 text-emerald-200"></i><span>Copied!</span>`;
+
       btn.classList.add("bg-emerald-600");
+
       if (window.lucide) lucide.createIcons();
+
       setTimeout(() => {
+
         btn.innerHTML = origHtml;
+
         btn.classList.remove("bg-emerald-600");
+
         if (window.lucide) lucide.createIcons();
+
       }, 2000);
+
     }
+
+
 
     function copyCryptoAddress() {
+
       const addr = document.getElementById('cryptoAddress').innerText.trim();
+
       navigator.clipboard.writeText(addr);
+
       const btn = document.getElementById('cryptoCopyBtn');
+
       if (!btn) return;
+
       
+
       const origHtml = btn.innerHTML;
+
       btn.innerHTML = `<i data-lucide="check" class="w-3.5 h-3.5 text-emerald-300"></i><span>Copied!</span>`;
+
       btn.classList.add("bg-emerald-600");
+
       if (window.lucide) lucide.createIcons();
 
+
+
       setTimeout(() => {
+
         btn.innerHTML = origHtml;
+
         btn.classList.remove("bg-emerald-600");
+
         if (window.lucide) lucide.createIcons();
+
       }, 2000);
+
     }
 
 
 
+    
+    // =========================================================================
+    // REAL-TIME ON-CHAIN AUTOMATIC PAYMENT SCANNER & SOUND CHIME ENGINE
+    // =========================================================================
+    window._cryptoScannerInterval = null;
+    window._cryptoTimerInterval = null;
+    window._cryptoInvoiceStartTime = Date.now();
+    window._cryptoTimeLeftSeconds = 900;
+    window._isPaymentDetected = false;
 
+    function playPaymentSuccessChime() {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
+        const ctx = new AudioContext();
+        const now = ctx.currentTime;
+        const playTone = (freq, start, duration) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, start);
+          gain.gain.setValueAtTime(0.001, start);
+          gain.gain.exponentialRampToValueAtTime(0.25, start + 0.05);
+          gain.gain.exponentialRampToValueAtTime(0.001, start + duration);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(start);
+          osc.stop(start + duration);
+        };
+        playTone(523.25, now, 0.2);        // C5
+        playTone(659.25, now + 0.1, 0.2);  // E5
+        playTone(783.99, now + 0.2, 0.25); // G5
+        playTone(1046.5, now + 0.3, 0.45); // C6
+      } catch(e) {}
+    }
 
+    function updateDynamicPaymentUriAndQr() {
+      const conf = CRYPTO_METRIC_CONFIG[currentCryptoMethod] || CRYPTO_METRIC_CONFIG['USDT_TRC20'];
+      const exactAmt = window._currentExactCryptoAmount || '';
+      const addr = conf.address;
+      let uri = addr;
 
+      if (conf.currency === 'BTC') {
+        uri = `bitcoin:${addr}?amount=${exactAmt}`;
+      } else if (conf.currency === 'ETH') {
+        uri = `ethereum:${addr}?value=${exactAmt}`;
+      } else if (conf.currency === 'SOL') {
+        uri = `solana:${addr}?amount=${exactAmt}`;
+      } else if (conf.currency === 'LTC') {
+        uri = `litecoin:${addr}?amount=${exactAmt}`;
+      }
+
+      const qrImg = document.getElementById('cryptoQrImg');
+      if (qrImg) {
+        qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&margin=4&data=${encodeURIComponent(uri)}`;
+      }
+    }
+
+    function startAutoBlockchainDetection() {
+      window._cryptoInvoiceStartTime = Date.now();
+      window._cryptoTimeLeftSeconds = 900;
+      window._isPaymentDetected = false;
+
+      const activeBox = document.getElementById('cryptoPaymentActiveBox');
+      const successView = document.getElementById('cryptoSuccessModalView');
+      if (activeBox) activeBox.style.setProperty('display', 'block', 'important');
+      if (successView) successView.style.setProperty('display', 'none', 'important');
+
+      const statusText = document.getElementById('cryptoScannerStatusText');
+      if (statusText) statusText.innerText = "Awaiting blockchain transfer...";
+
+      const pingDot = document.getElementById('cryptoPingDot');
+      const staticDot = document.getElementById('cryptoStaticDot');
+      if (pingDot) {
+        pingDot.className = "animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75";
+      }
+      if (staticDot) {
+        staticDot.className = "relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-600";
+      }
+
+      // Start 15m Countdown Timer
+      clearInterval(window._cryptoTimerInterval);
+      window._cryptoTimerInterval = setInterval(() => {
+        if (window._isPaymentDetected) return;
+        window._cryptoTimeLeftSeconds--;
+        if (window._cryptoTimeLeftSeconds <= 0) {
+          clearInterval(window._cryptoTimerInterval);
+          window._cryptoTimeLeftSeconds = 0;
+          if (statusText) statusText.innerText = "Payment window expired. Refresh to generate new QR.";
+        }
+        const m = Math.floor(window._cryptoTimeLeftSeconds / 60);
+        const s = window._cryptoTimeLeftSeconds % 60;
+        const timerEl = document.getElementById('cryptoCountdownTimer');
+        if (timerEl) {
+          timerEl.innerText = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+        }
+      }, 1000);
+
+      // Start Blockchain Scanner Poller every 5 seconds
+      clearInterval(window._cryptoScannerInterval);
+      window._cryptoScannerInterval = setInterval(scanBlockchainForIncomingPayment, 5000);
+    }
+
+    async function scanBlockchainForIncomingPayment() {
+      if (window._isPaymentDetected) return;
+
+      const conf = CRYPTO_METRIC_CONFIG[currentCryptoMethod];
+      if (!conf || !conf.address) return;
+      const addr = conf.address;
+      // Strict cutoff: only accept transactions arriving AFTER modal was opened!
+      const invoiceStartTime = window._cryptoInvoiceStartTime || Date.now();
+
+      try {
+        if (conf.currency === 'BTC') {
+          const res = await fetch(`https://mempool.space/api/address/${encodeURIComponent(addr)}/txs`, { cache: 'no-store' });
+          if (!res.ok) return;
+          const txs = await res.json();
+          if (Array.isArray(txs) && txs.length > 0) {
+            for (const tx of txs) {
+              const paysUs = tx.vout?.some(out => out.scriptpubkey_address === addr);
+              if (!paysUs) continue;
+              const isConfirmed = !!tx.status?.confirmed;
+              const blockTimeMs = (tx.status?.block_time || 0) * 1000;
+
+              // Strictly 0-conf in mempool right now OR mined after invoice creation!
+              if (!isConfirmed || (blockTimeMs >= invoiceStartTime - 30000)) {
+                onOnchainPaymentDetected(tx.txid, 'BTC');
+                return;
+              }
+            }
+          }
+        } else if (conf.currency === 'LTC') {
+          const res = await fetch(`https://litecoinspace.org/api/address/${encodeURIComponent(addr)}/txs`, { cache: 'no-store' });
+          if (!res.ok) return;
+          const txs = await res.json();
+          if (Array.isArray(txs) && txs.length > 0) {
+            for (const tx of txs) {
+              const paysUs = tx.vout?.some(out => out.scriptpubkey_address === addr);
+              if (!paysUs) continue;
+              const isConfirmed = !!tx.status?.confirmed;
+              const blockTimeMs = (tx.status?.block_time || 0) * 1000;
+
+              if (!isConfirmed || (blockTimeMs >= invoiceStartTime - 30000)) {
+                onOnchainPaymentDetected(tx.txid, 'LTC');
+                return;
+              }
+            }
+          }
+        } else if (currentCryptoMethod === 'USDT_TRC20') {
+          const res = await fetch(`https://api.trongrid.io/v1/accounts/${encodeURIComponent(addr)}/transactions/trc20?limit=3`, { cache: 'no-store' });
+          if (!res.ok) return;
+          const data = await res.json();
+          const txs = data?.data;
+          if (Array.isArray(txs) && txs.length > 0) {
+            for (const tx of txs) {
+              if (tx.to === addr && tx.block_timestamp >= (invoiceStartTime - 30000)) {
+                onOnchainPaymentDetected(tx.transaction_id, 'USDT_TRC20');
+                return;
+              }
+            }
+          }
+        } else {
+          // For USDT_BEP20, ETH, SOL: Query local backend auto-detector strictly
+          const stored = localStorage.getItem("checkerleak_client");
+          let userId = 1;
+          if (stored) {
+            try { userId = JSON.parse(stored).id || 1; } catch(e) {}
+          }
+          const res = await fetch('/v1/billing/crypto/auto-detect', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              user_id: userId,
+              plan_id: 'starter',
+              payment_method: `CRYPTO_${currentCryptoMethod}`
+            })
+          });
+          if (res.ok) {
+            const data = await res.json();
+            // ONLY accept if status is COMPLETED, detected is true, and tx_hash is an authentic on-chain hash!
+            if (data.status === 'COMPLETED' && data.detected === true && data.tx_hash && !data.tx_hash.startsWith('0conf_')) {
+              onOnchainPaymentDetected(data.tx_hash, currentCryptoMethod);
+              return;
+            }
+          }
+        }
+      } catch(err) {
+        // Keep waiting in silence
+      }
+    }
+
+    async function onOnchainPaymentDetected(txid, currency) {
+      if (window._isPaymentDetected) return;
+      window._isPaymentDetected = true;
+      clearInterval(window._cryptoScannerInterval);
+      clearInterval(window._cryptoTimerInterval);
+
+      const statusText = document.getElementById('cryptoScannerStatusText');
+      if (statusText) {
+        statusText.innerText = "⚡ Payment detected on-chain! Crediting wallet...";
+      }
+
+      const pingDot = document.getElementById('cryptoPingDot');
+      const staticDot = document.getElementById('cryptoStaticDot');
+      if (pingDot) pingDot.className = "animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75";
+      if (staticDot) staticDot.className = "relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-500";
+
+      const amtInput = document.getElementById('cryptoAmountInput');
+      const usd = Math.max(1, parseFloat(amtInput?.value) || 20);
+
+      const stored = localStorage.getItem("checkerleak_client");
+      let currentUserObj = null;
+      let email = 'unknown';
+      let userId = null;
+      if (stored) {
+        try {
+          currentUserObj = JSON.parse(stored);
+          email = currentUserObj.email || 'unknown';
+          userId = currentUserObj.id || null;
+        } catch(e) {}
+      }
+
+      try {
+        const response = await fetch('/v1/billing/submit-txid', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            amount: usd,
+            crypto_amount: parseFloat(window._currentExactCryptoAmount) || null,
+            txid: txid,
+            client_email: email,
+            user_id: userId,
+            currency: currency
+          })
+        });
+
+        const data = await response.json();
+        playPaymentSuccessChime();
+
+        const addedCredits = data.credits_added || Math.round(usd * 100);
+        let newBalance = addedCredits;
+
+        if (currentUserObj) {
+          currentUserObj.credits = (currentUserObj.credits || 0) + addedCredits;
+          newBalance = currentUserObj.credits;
+          localStorage.setItem("checkerleak_client", JSON.stringify(currentUserObj));
+        }
+
+        const portalCount = document.getElementById('portalCreditCount');
+        if (portalCount) {
+          portalCount.innerText = `${newBalance.toLocaleString()} Credits`;
+        }
+
+        // Switch to Confirmed Success View (completely hidden until now)
+        const activeBox = document.getElementById('cryptoPaymentActiveBox');
+        const successView = document.getElementById('cryptoSuccessModalView');
+        if (activeBox) activeBox.style.setProperty('display', 'none', 'important');
+        if (successView) {
+          successView.style.setProperty('display', 'block', 'important');
+          const crEl = document.getElementById('cryptoSuccessCredits');
+          const balEl = document.getElementById('cryptoSuccessBalance');
+          const hashEl = document.getElementById('cryptoSuccessTxHash');
+          const linkEl = document.getElementById('cryptoSuccessTxLink');
+
+          if (crEl) crEl.innerText = `+${addedCredits.toLocaleString()} Credits`;
+          if (balEl) balEl.innerText = `${newBalance.toLocaleString()} Credits`;
+          if (hashEl) hashEl.innerText = `${txid.slice(0, 10)}...${txid.slice(-8)}`;
+          
+          const conf = CRYPTO_METRIC_CONFIG[currentCryptoMethod] || CRYPTO_METRIC_CONFIG['BTC'];
+          if (linkEl) {
+            linkEl.href = conf.explorer || `https://mempool.space/tx/${txid}`;
+          }
+        }
+
+        if (window.lucide) lucide.createIcons();
+      } catch(err) {
+        console.error("Auto deposit submit error:", err);
+      }
+    }
 
     async function submitCryptoPayment() {
 
-
-
       const amt = parseFloat(document.getElementById('cryptoAmountInput').value) || 0;
-
-
 
       const txid = document.getElementById('cryptoTxidInput').value.trim();
 
-
-
       const btn = document.getElementById('btnSubmitPayment');
-
-
 
       
 
-
-
       if (!amt || amt <= 0) {
-
-
 
         showToast("Please enter the amount sent.", 'error');
 
-
-
         return;
 
-
-
       }
-
-
 
       if (!txid) {
 
-
-
         showToast("Please paste your transaction TxID or Hash.", 'error');
-
-
 
         return;
 
-
-
       }
-
-
-
-
 
 
 
       const origBtn = btn.innerHTML;
 
-
-
       btn.disabled = true;
 
-
-
       btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i><span>Confirming with Blockchain...</span>`;
-
-
 
       lucide.createIcons();
 
 
 
-
-
-
-
       const stored = localStorage.getItem("checkerleak_client");
-
-
 
       let currentUserObj = null;
 
-
-
       let email = 'unknown';
-
-
 
       let userId = null;
 
 
 
-
-
-
-
       if (stored) {
-
-
 
         try {
 
-
-
           currentUserObj = JSON.parse(stored);
-
-
 
           email = currentUserObj.email || 'unknown';
 
-
-
           userId = currentUserObj.id || null;
 
-
-
         } catch(e) {}
-
-
 
       }
 
 
 
-
-
-
-
       try {
-
-
 
         const response = await fetch('/v1/billing/submit-txid', {
 
-
-
           method: 'POST',
-
-
 
           headers: { 'Content-Type': 'application/json' },
 
-
-
           body: JSON.stringify({
-
-
 
             amount: amt,
 
-
+            crypto_amount: parseFloat(window._currentExactCryptoAmount) || null,
 
             txid: txid,
 
-
-
             client_email: email,
-
-
 
             user_id: userId,
 
-
-
             currency: currentCryptoMethod
-
-
 
           })
 
-
-
         });
-
-
-
-
 
 
 
@@ -8987,131 +8931,65 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-
-
-
-
         if (response.ok && data.success) {
-
-
 
           // Instantly credit client local session
 
-
-
           if (currentUserObj) {
-
-
 
             currentUserObj.credits = (currentUserObj.credits || 0) + (data.credits_added || Math.round(amt * 100));
 
-
-
             localStorage.setItem("checkerleak_client", JSON.stringify(currentUserObj));
 
-
-
           }
-
-
-
-
 
 
 
           // Update header / portal counters live
 
-
-
           const portalCount = document.getElementById('portalCreditCount');
-
-
 
           if (portalCount && currentUserObj) {
 
-
-
             portalCount.innerText = `${currentUserObj.credits.toLocaleString()} Credits`;
-
-
 
           }
 
 
 
-
-
-
-
           showToast(`✅ Payment Verified! +${(data.credits_added || Math.round(amt * 100)).toLocaleString()} credits added to your balance!`, 'success');
-
-
 
           
 
-
-
           closeCryptoModal();
-
-
 
           setTimeout(() => {
 
-
-
             window.location.reload();
-
-
 
           }, 1200);
 
-
-
         } else {
-
-
 
           showToast(data.detail || data.message || "Error confirming payment. Please check your TxID.", 'error');
 
-
-
           btn.disabled = false;
-
-
 
           btn.innerHTML = origBtn;
 
-
-
           lucide.createIcons();
-
-
 
         }
 
-
-
       } catch (err) {
-
-
 
         showToast("Verification request submitted. Balance updating shortly.", 'success');
 
-
-
         closeCryptoModal();
-
-
 
       }
 
-
-
     }
-
-
-
-
 
 
 
