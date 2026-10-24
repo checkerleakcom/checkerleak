@@ -4,12 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>{{ service.name }} - Verification API & Bulk Validator | CheckerLeak</title>
-  <meta name="description" content="Verify {{ service.name }} accounts in bulk or via real-time REST API. Passive, zero-retention verification without contacting the user. Only {{ service.cost_credits }} credit per query.">
+  <title>{{ service.name }} - Verification API & Contact Validator | CheckerLeak</title>
+  <meta name="description" content="Verify {{ service.name }} accounts, registered footprints, and reachability in real time. Passive zero-retention API & bulk list validator. Zero KYC.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="{{ canonical_url }}">
 
-  <!-- Schema.org SoftwareApplication & Product Metadata -->
+  <!-- OpenGraph Metadata -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{ service.name }} Verification API | CheckerLeak">
+  <meta property="og:description" content="Instant passive verification for {{ service.name }}. High-throughput REST API & bulk CSV lookup. Zero data retention.">
+  <meta property="og:url" content="{{ canonical_url }}">
+  <meta property="og:site_name" content="CheckerLeak">
+  <meta property="og:image" content="https://www.checkerleak.com/static/checkerleak-brand-logo.png">
+
+  <!-- Twitter Card Metadata -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@CheckerLeak">
+  <meta name="twitter:title" content="{{ service.name }} Verification API | CheckerLeak">
+  <meta name="twitter:description" content="Verify {{ service.name }} accounts silently without contacting the user. Zero KYC crypto payments.">
+  <meta name="twitter:image" content="https://www.checkerleak.com/static/checkerleak-brand-logo.png">
+
+  <!-- Schema.org SoftwareApplication, BreadcrumbList, and FAQPage Metadata -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -27,6 +42,29 @@
           "priceCurrency": "USD",
           "availability": "https://schema.org/OnlineOnly"
         }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://checkerleak.com"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "{{ category_name }}",
+            "item": "https://checkerleak.com/categories/{{ category_slug }}"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "{{ service.name }}",
+            "item": "{{ canonical_url }}"
+          }
+        ]
       },
       {
         "@type": "FAQPage",
@@ -81,7 +119,7 @@
   <style>
     body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; }
     .wdes-hero {
-      background-color: #0f172a;
+      background-color: #0c1524;
       background-image: 
         radial-gradient(ellipse at top right, rgba(67, 94, 191, 0.45) 0%, transparent 60%),
         radial-gradient(ellipse at bottom left, rgba(16, 185, 129, 0.15) 0%, transparent 60%),
@@ -95,15 +133,15 @@
       content: '';
       position: absolute;
       inset: 0;
-      background-image: radial-gradient(rgba(99, 102, 241, 0.15) 1px, transparent 1px);
-      background-size: 28px 28px;
+      background-image: radial-gradient(rgba(99, 102, 241, 0.12) 1px, transparent 1px);
+      background-size: 24px 24px;
       pointer-events: none;
-      opacity: 0.7;
+      opacity: 0.6;
     }
     html { scroll-behavior: smooth; }
   </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col antialiased">
 
   <!-- TOP BANNER -->
   <div class="bg-slate-950 text-slate-200 text-[11px] font-medium py-2 px-4 border-b border-slate-800 tracking-wide text-center">
@@ -114,406 +152,460 @@
   </div>
 
   <!-- HEADER -->
-  <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+  <header class="bg-white/95 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 h-16 py-3 flex items-center justify-between">
       <a href="/" class="flex items-center gap-2.5">
-        <div class="w-8 h-8 rounded-lg bg-[#435ebf] flex items-center justify-center text-white font-bold">
+        <div class="w-8 h-8 rounded-lg bg-[#435ebf] flex items-center justify-center text-white font-bold shadow-xs">
           <i data-lucide="shield-check" class="w-5 h-5"></i>
         </div>
         <span class="text-xl font-bold tracking-tight text-slate-900">CheckerLeak</span>
       </a>
       <nav class="hidden md:flex gap-6 text-sm font-medium text-slate-600">
-        <a href="/" class="hover:text-[#435ebf]">Home</a>
-        <a href="/categories/{{ category_slug }}" class="hover:text-[#435ebf]">&larr; Back to {{ category_name }}</a>
-        <a href="#test-section" class="hover:text-[#435ebf]">Try It Out</a>
-        <a href="#api-section" class="hover:text-[#435ebf]">API Docs</a>
-        <a href="/#pricing" class="hover:text-[#435ebf]">Pricing</a>
+        <a href="/" class="hover:text-[#435ebf] transition">Home</a>
+        <a href="/categories/{{ category_slug }}" class="hover:text-[#435ebf] transition">&larr; Back to {{ category_name }}</a>
+        <a href="#test-section" class="hover:text-[#435ebf] transition">Try It Out</a>
+        <a href="#api-section" class="hover:text-[#435ebf] transition">API Docs</a>
+        <a href="/#pricing" class="hover:text-[#435ebf] transition">Pricing</a>
       </nav>
       <div id="authHeaderArea" class="flex items-center gap-3">
         <!-- Injected via JavaScript -->
-        <a href="/?login=1" class="text-xs font-semibold px-3 py-1.5 text-slate-700 hover:text-[#435ebf]">Log In</a>
-        <a href="/?login=1" class="text-xs font-bold px-3.5 py-1.5 rounded-lg bg-[#435ebf] hover:bg-[#324796] text-white shadow-xs">Sign Up</a>
+        <a href="/?login=1" class="text-xs font-semibold px-3 py-1.5 text-slate-700 hover:text-[#435ebf] transition">Log In</a>
+        <a href="/?login=1" class="text-xs font-bold px-3.5 py-1.5 rounded-lg bg-[#435ebf] hover:bg-[#324796] text-white shadow-xs transition">Sign Up</a>
       </div>
     </div>
   </header>
 
-  <!-- ==================== PRODUCT HERO ==================== -->
-  <section class="wdes-hero pt-10 pb-16 px-4 relative overflow-hidden">
-    <div class="max-w-4xl mx-auto text-center space-y-5 relative z-10">
-      
-      <!-- Badges -->
-      <div class="flex items-center justify-center gap-2 flex-wrap">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 border border-slate-700/80 text-slate-200 text-xs font-semibold backdrop-blur-md shadow-lg">
-          <span class="text-amber-400 font-bold">OFFICIAL ENGINE</span>
-          <span class="text-slate-500">•</span>
-          <span class="text-slate-300 font-mono text-[11px]">{{ category_name }}</span>
+  <main class="flex-1">
+    
+    <!-- ==================== PRODUCT HERO ==================== -->
+    <section class="wdes-hero pt-8 pb-16 px-4 relative overflow-hidden">
+      <div class="max-w-4xl mx-auto text-center space-y-5 relative z-10">
+        
+        <!-- Breadcrumbs Navigation (Visual & SEO) -->
+        <nav class="flex items-center justify-center gap-2 text-xs text-slate-400 font-medium">
+          <a href="/" class="hover:text-white transition">Home</a>
+          <span>/</span>
+          <a href="/categories/{{ category_slug }}" class="hover:text-white transition">{{ category_name }}</a>
+          <span>/</span>
+          <span class="text-slate-200 font-semibold">{{ service.name }}</span>
+        </nav>
+
+        <!-- Badges -->
+        <div class="flex items-center justify-center gap-2 flex-wrap pt-1">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 border border-slate-700/80 text-slate-200 text-xs font-semibold backdrop-blur-md shadow-lg">
+            <span class="text-amber-400 font-bold">OFFICIAL ENGINE</span>
+            <span class="text-slate-500">•</span>
+            <span class="text-slate-300 font-mono text-[11px]">{{ category_name }}</span>
+          </div>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>100% Passive & Silent
+          </span>
         </div>
-        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>100% Passive & Silent
-        </span>
-      </div>
 
-      <!-- Icon & Title -->
-      <div class="flex items-center justify-center gap-3.5 pt-2">
-        <div class="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 p-2.5 flex items-center justify-center shadow-xl">
-          <img src="/static/logos/{{ service.icon_brand }}.svg" class="w-9 h-9 object-contain" alt="{{ service.name }}" onerror="this.onerror=null; this.src='/static/logos/{{ service.icon_brand }}.png';" />
+        <!-- Icon & Title -->
+        <div class="flex items-center justify-center gap-3.5 pt-2">
+          <div class="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 p-2.5 flex items-center justify-center shadow-xl">
+            <img src="/static/logos/{{ service.icon_brand }}.svg" class="w-9 h-9 object-contain" alt="{{ service.name }}" onerror="this.onerror=null; this.src='/static/logos/{{ service.icon_brand }}.png';" />
+          </div>
+          <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight">{{ service.name }}</h1>
         </div>
-        <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight">{{ service.name }}</h1>
-      </div>
 
-      <!-- High-Converting Summary (Kholassa) -->
-      <p class="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed font-normal">
-        Stop generalizing your contact lists. Verify active <strong>{{ service.name }}</strong> registrations, linked profiles, and deliverability footprints in real time. Pinpoint verified users with higher spending potential and eliminate dead leads before outreach.
-      </p>
-
-      <!-- Transparent Pricing Box -->
-      <div class="inline-flex flex-wrap items-center justify-center gap-3 bg-slate-900/90 border border-slate-700/80 rounded-2xl px-5 py-3 backdrop-blur-md shadow-xl my-2">
-        <div class="flex items-center gap-2">
-          <span class="text-slate-400 text-xs font-medium">Price per query:</span>
-          <span class="text-white font-mono font-extrabold text-base">{{ service.cost_credits }} Credit{{ 's' if service.cost_credits > 1 else '' }}</span>
-          <span class="text-emerald-400 text-xs font-mono font-bold bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">~${{ "%.2f"|format(service.cost_credits * 0.01) }} USD</span>
-        </div>
-        <span class="text-slate-600 hidden sm:inline">•</span>
-        <div class="text-[11px] text-slate-300 font-medium">
-          Pay-as-you-go · Credits never expire · No monthly subscriptions
-        </div>
-      </div>
-
-      <!-- Action Buttons: [Try it out] & API Docs -->
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-3">
-        <a href="#test-section" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 active:scale-95 text-slate-950 font-black text-sm shadow-lg shadow-emerald-500/25 transition cursor-pointer flex items-center justify-center gap-2 group">
-          <i data-lucide="play" class="w-4 h-4 fill-slate-950 group-hover:translate-x-0.5 transition"></i>
-          <span>Try it out</span>
-        </a>
-        <a href="#api-section" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 active:scale-95 text-white font-bold text-sm border border-white/20 backdrop-blur-md transition flex items-center justify-center gap-2">
-          <i data-lucide="code-2" class="w-4 h-4"></i>
-          <span>API Documentation</span>
-        </a>
-      </div>
-
-      <!-- Trust Note: No SIM or account required -->
-      <div class="max-w-xl mx-auto pt-2 text-center">
-        <span class="text-xs text-slate-400 flex items-center justify-center gap-1.5">
-          <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400 inline"></i>
-          No phone number, account, or SIM required. Every check runs on our zero-log infrastructure.
-        </span>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ==================== WHAT IT DETECTS (3 VALUE CARDS) ==================== -->
-  <section class="py-14 px-4 max-w-6xl mx-auto">
-    <div class="text-center mb-10">
-      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-[#435ebf] text-xs font-bold font-mono tracking-wider mb-2">
-        <i data-lucide="scan" class="w-3.5 h-3.5"></i> DETECTION SIGNALS
-      </div>
-      <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">What {{ service.name }} Detects</h2>
-      <p class="text-slate-500 text-xs sm:text-sm mt-1 max-w-xl mx-auto">
-        Read live registration status, account presence, and footprint indicators without messaging the target or logging in to any personal account.
-      </p>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      
-      <!-- Card 1 -->
-      <div class="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-xs hover:border-[#435ebf] transition group">
-        <div class="w-12 h-12 rounded-xl bg-blue-50 text-[#435ebf] flex items-center justify-center mb-4 group-hover:scale-105 transition">
-          <i data-lucide="user-check" class="w-6 h-6"></i>
-        </div>
-        <h3 class="font-extrabold text-slate-900 text-base mb-2">Registration Status</h3>
-        <p class="text-slate-600 text-xs leading-relaxed">
-          Confirms whether the phone number, email, or handle is actively registered on <strong>{{ service.name }}</strong> (yes or no verdict), allowing you to filter out unlinked contacts before launching outreach.
+        <!-- High-Converting Summary (Kholassa) -->
+        <p class="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed font-normal">
+          Stop generalizing your contact lists. Verify active <strong>{{ service.name }}</strong> registrations, linked profiles, and deliverability footprints in real time. Pinpoint verified users with higher spending potential and eliminate dead leads before outreach.
         </p>
-      </div>
 
-      <!-- Card 2 -->
-      <div class="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-xs hover:border-[#435ebf] transition group">
-        <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4 group-hover:scale-105 transition">
-          <i data-lucide="layers" class="w-6 h-6"></i>
+        <!-- Transparent Pricing Box -->
+        <div class="inline-flex flex-wrap items-center justify-center gap-3 bg-slate-900/90 border border-slate-700/80 rounded-2xl px-5 py-3 backdrop-blur-md shadow-xl my-2">
+          <div class="flex items-center gap-2">
+            <span class="text-slate-400 text-xs font-medium">Price per query:</span>
+            <span class="text-white font-mono font-extrabold text-base">{{ service.cost_credits }} Credit{{ 's' if service.cost_credits > 1 else '' }}</span>
+            <span class="text-emerald-400 text-xs font-mono font-bold bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">~${{ "%.2f"|format(service.cost_credits * 0.01) }} USD</span>
+          </div>
+          <span class="text-slate-600 hidden sm:inline">•</span>
+          <div class="text-[11px] text-slate-300 font-medium">
+            Pay-as-you-go · Credits never expire · No monthly subscriptions
+          </div>
         </div>
-        <h3 class="font-extrabold text-slate-900 text-base mb-2">Ecosystem Signal</h3>
-        <p class="text-slate-600 text-xs leading-relaxed">
-          Reveals verified platform presence and financial/app engagement. Helps your sales desk prioritize high-intent users and active digital spenders.
-        </p>
-      </div>
 
-      <!-- Card 3 -->
-      <div class="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-xs hover:border-[#435ebf] transition group">
-        <div class="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mb-4 group-hover:scale-105 transition">
-          <i data-lucide="eye-off" class="w-6 h-6"></i>
+        <!-- Action Buttons: [Try it out] & API Docs -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-3">
+          <a href="#test-section" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 active:scale-[0.98] text-slate-950 font-black text-sm shadow-lg shadow-emerald-500/25 transition cursor-pointer flex items-center justify-center gap-2 group">
+            <i data-lucide="play" class="w-4 h-4 fill-slate-950 group-hover:translate-x-0.5 transition"></i>
+            <span>Try it out</span>
+          </a>
+          <a href="#api-section" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 active:scale-[0.98] text-white font-bold text-sm border border-white/20 backdrop-blur-md transition flex items-center justify-center gap-2">
+            <i data-lucide="code-2" class="w-4 h-4"></i>
+            <span>API Documentation</span>
+          </a>
         </div>
-        <h3 class="font-extrabold text-slate-900 text-base mb-2">100% Passive & Stealth</h3>
-        <p class="text-slate-600 text-xs leading-relaxed">
-          Our check reads public presence signals non-intrusively. Nothing is sent to the target contact, and the account holder is never contacted, called, or alerted.
-        </p>
+
+        <!-- Trust Note: No SIM or account required -->
+        <div class="max-w-xl mx-auto pt-2 text-center">
+          <span class="text-xs text-slate-400 flex items-center justify-center gap-1.5">
+            <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400 inline"></i>
+            No phone number, account, or SIM required. Every check runs on our zero-log infrastructure.
+          </span>
+        </div>
+
       </div>
+    </section>
 
-    </div>
-  </section>
-
-  <!-- ==================== HOW IT WORKS (3-STEP USER WORKFLOW) ==================== -->
-  <section class="py-14 px-4 bg-slate-100/70 border-y border-slate-200">
-    <div class="max-w-6xl mx-auto">
-      
+    <!-- ==================== WHAT IT DETECTS (3 VALUE CARDS) ==================== -->
+    <section class="py-14 px-4 max-w-6xl mx-auto">
       <div class="text-center mb-10">
-        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-200 text-slate-700 text-xs font-bold font-mono tracking-wider mb-2">
-          <i data-lucide="workflow" class="w-3.5 h-3.5"></i> SIMPLE INTEGRATION
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-[#435ebf] text-xs font-bold font-mono tracking-wider mb-2">
+          <i data-lucide="scan" class="w-3.5 h-3.5"></i> DETECTION SIGNALS
         </div>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">How {{ service.name }} Works</h2>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">What {{ service.name }} Detects</h2>
         <p class="text-slate-500 text-xs sm:text-sm mt-1 max-w-xl mx-auto">
-          From single manual probes to high-volume automated batch processing in three effortless steps.
+          Read live registration status, account presence, and footprint indicators without messaging the target or logging in to any personal account.
         </p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         
-        <!-- Step 1 -->
-        <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-2xs relative">
-          <div class="w-8 h-8 rounded-full bg-slate-900 text-white font-mono font-bold text-xs flex items-center justify-center mb-4">
-            01
+        <!-- Card 1 -->
+        <div class="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-xs hover:border-[#435ebf] transition group">
+          <div class="w-12 h-12 rounded-xl bg-blue-50 text-[#435ebf] flex items-center justify-center mb-4 group-hover:scale-105 transition">
+            <i data-lucide="user-check" class="w-6 h-6"></i>
           </div>
-          <h3 class="font-extrabold text-slate-900 text-sm mb-1.5">Provide Target or Upload List</h3>
-          <p class="text-xs text-slate-500 leading-relaxed">
-            Enter a single target (E.164 phone or email) or upload a CSV containing up to hundreds of thousands of contacts into our studio.
+          <h3 class="font-extrabold text-slate-900 text-base mb-2">Registration Status</h3>
+          <p class="text-slate-600 text-xs leading-relaxed">
+            Confirms whether the phone number, email, or handle is actively registered on <strong>{{ service.name }}</strong> (yes or no verdict), allowing you to filter out unlinked contacts before launching outreach.
           </p>
         </div>
 
-        <!-- Step 2 -->
-        <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-2xs relative">
-          <div class="w-8 h-8 rounded-full bg-[#435ebf] text-white font-mono font-bold text-xs flex items-center justify-center mb-4">
-            02
+        <!-- Card 2 -->
+        <div class="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-xs hover:border-[#435ebf] transition group">
+          <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4 group-hover:scale-105 transition">
+            <i data-lucide="layers" class="w-6 h-6"></i>
           </div>
-          <h3 class="font-extrabold text-slate-900 text-sm mb-1.5">Automated High-Speed Probe</h3>
-          <p class="text-xs text-slate-500 leading-relaxed">
-            CheckerLeak's cloud verifies registration signals across <strong>{{ service.name }}</strong> in under 150ms with zero KYC or rate throttling.
+          <h3 class="font-extrabold text-slate-900 text-base mb-2">Ecosystem Signal</h3>
+          <p class="text-slate-600 text-xs leading-relaxed">
+            Reveals verified platform presence and financial/app engagement. Helps your sales desk prioritize high-intent users and active digital spenders.
           </p>
         </div>
 
-        <!-- Step 3 -->
-        <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-2xs relative">
-          <div class="w-8 h-8 rounded-full bg-emerald-600 text-white font-mono font-bold text-xs flex items-center justify-center mb-4">
-            03
+        <!-- Card 3 -->
+        <div class="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-xs hover:border-[#435ebf] transition group">
+          <div class="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mb-4 group-hover:scale-105 transition">
+            <i data-lucide="eye-off" class="w-6 h-6"></i>
           </div>
-          <h3 class="font-extrabold text-slate-900 text-sm mb-1.5">Export Clean Segments or Webhook</h3>
-          <p class="text-xs text-slate-500 leading-relaxed">
-            Download your validated contact list with clear active/unregistered verdicts, or stream JSON payloads directly via REST API.
+          <h3 class="font-extrabold text-slate-900 text-base mb-2">100% Passive & Stealth</h3>
+          <p class="text-slate-600 text-xs leading-relaxed">
+            Our check reads public presence signals non-intrusively. Nothing is sent to the target contact, and the account holder is never contacted, called, or alerted.
           </p>
         </div>
 
       </div>
+    </section>
 
-    </div>
-  </section>
-
-  <!-- ==================== WHERE TEAMS USE IT (USE CASES) ==================== -->
-  <section class="py-14 px-4 max-w-6xl mx-auto">
-    <div class="text-center mb-10">
-      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-[#435ebf] text-xs font-bold font-mono tracking-wider mb-2">
-        <i data-lucide="briefcase" class="w-3.5 h-3.5"></i> PRODUCTION USE CASES
-      </div>
-      <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Where Teams Use {{ service.name }}</h2>
-      <p class="text-slate-500 text-xs sm:text-sm mt-1 max-w-xl mx-auto">
-        Designed for outbound sales teams, marketing agencies, fintech platforms, and fraud prevention desks.
-      </p>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      
-      <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs">
-        <div class="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center mb-3 text-sm font-bold">
-          <i data-lucide="filter" class="w-5 h-5"></i>
-        </div>
-        <h3 class="font-bold text-slate-900 text-sm mb-1.5">List Cleaning & Deliverability</h3>
-        <p class="text-xs text-slate-600 leading-relaxed">
-          Scrub marketing pipelines and cold outreach lists before sending SMS or messages. Eliminate dead numbers and reduce carrier bounce rates by over 40%.
-        </p>
-      </div>
-
-      <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs">
-        <div class="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center mb-3 text-sm font-bold">
-          <i data-lucide="trending-up" class="w-5 h-5"></i>
-        </div>
-        <h3 class="font-bold text-slate-900 text-sm mb-1.5">High-Value Audience Segmentation</h3>
-        <p class="text-xs text-slate-600 leading-relaxed">
-          Differentiate high-intent customers who actively use <strong>{{ service.name }}</strong> to personalize messaging and optimize customer acquisition costs (CAC).
-        </p>
-      </div>
-
-      <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs">
-        <div class="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center mb-3 text-sm font-bold">
-          <i data-lucide="shield-alert" class="w-5 h-5"></i>
-        </div>
-        <h3 class="font-bold text-slate-900 text-sm mb-1.5">Fraud & Onboarding Verification</h3>
-        <p class="text-xs text-slate-600 leading-relaxed">
-          Detect throwaway VoIP burner numbers and synthetic identities during customer sign-up or checkout without adding intrusive friction for legitimate users.
-        </p>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ==================== REST API INTEGRATION ==================== -->
-  <section id="api-section" class="py-14 px-4 bg-slate-900 text-white">
-    <div class="max-w-5xl mx-auto">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+    <!-- ==================== HOW IT WORKS (3-STEP USER WORKFLOW) ==================== -->
+    <section class="py-14 px-4 bg-slate-100/70 border-y border-slate-200">
+      <div class="max-w-6xl mx-auto">
         
-        <div>
-          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-800 text-blue-400 text-xs font-mono font-bold mb-3">
-            <i data-lucide="terminal" class="w-3.5 h-3.5"></i> DEVELOPER API
+        <div class="text-center mb-10">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-200 text-slate-700 text-xs font-bold font-mono tracking-wider mb-2">
+            <i data-lucide="workflow" class="w-3.5 h-3.5"></i> SIMPLE INTEGRATION
           </div>
-          <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-3">REST API Integration</h2>
-          <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-5">
-            Integrate <strong>{{ service.name }}</strong> into your Python, Node.js, Go, or cURL pipelines. Sub-150ms response latency with unified JSON schema.
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">How {{ service.name }} Works</h2>
+          <p class="text-slate-500 text-xs sm:text-sm mt-1 max-w-xl mx-auto">
+            From single manual probes to high-volume automated batch processing in three effortless steps.
           </p>
-          <ul class="space-y-2 text-xs text-slate-300 mb-6 font-mono">
-            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Bearer token authentication</li>
-            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Strict zero data retention</li>
-            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> High-concurrency bulk endpoints</li>
-          </ul>
-          <a href="/#pricing" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#435ebf] hover:bg-[#324796] text-white text-xs font-bold transition shadow-md">
-            <span>Get API Key & Top Up Credits</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <!-- Step 1 -->
+          <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-2xs relative">
+            <div class="w-8 h-8 rounded-full bg-slate-900 text-white font-mono font-bold text-xs flex items-center justify-center mb-4">
+              01
+            </div>
+            <h3 class="font-extrabold text-slate-900 text-sm mb-1.5">Provide Target or Upload List</h3>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              Enter a single target (E.164 phone or email) or upload a CSV containing up to hundreds of thousands of contacts into our studio.
+            </p>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-2xs relative">
+            <div class="w-8 h-8 rounded-full bg-[#435ebf] text-white font-mono font-bold text-xs flex items-center justify-center mb-4">
+              02
+            </div>
+            <h3 class="font-extrabold text-slate-900 text-sm mb-1.5">Automated High-Speed Probe</h3>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              CheckerLeak's cloud verifies registration signals across <strong>{{ service.name }}</strong> in under 150ms with zero KYC or rate throttling.
+            </p>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-2xs relative">
+            <div class="w-8 h-8 rounded-full bg-emerald-600 text-white font-mono font-bold text-xs flex items-center justify-center mb-4">
+              03
+            </div>
+            <h3 class="font-extrabold text-slate-900 text-sm mb-1.5">Export Clean Segments or Webhook</h3>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              Download your validated contact list with clear active/unregistered verdicts, or stream JSON payloads directly via REST API.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== WHERE TEAMS USE IT (USE CASES) ==================== -->
+    <section class="py-14 px-4 max-w-6xl mx-auto">
+      <div class="text-center mb-10">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-[#435ebf] text-xs font-bold font-mono tracking-wider mb-2">
+          <i data-lucide="briefcase" class="w-3.5 h-3.5"></i> PRODUCTION USE CASES
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Where Teams Use {{ service.name }}</h2>
+        <p class="text-slate-500 text-xs sm:text-sm mt-1 max-w-xl mx-auto">
+          Designed for outbound sales teams, marketing agencies, fintech platforms, and fraud prevention desks.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs">
+          <div class="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center mb-3 text-sm font-bold">
+            <i data-lucide="filter" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-bold text-slate-900 text-sm mb-1.5">List Cleaning & Deliverability</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Scrub marketing pipelines and cold outreach lists before sending SMS or messages. Eliminate dead numbers and reduce carrier bounce rates by over 40%.
+          </p>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs">
+          <div class="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center mb-3 text-sm font-bold">
+            <i data-lucide="trending-up" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-bold text-slate-900 text-sm mb-1.5">High-Value Audience Segmentation</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Differentiate high-intent customers who actively use <strong>{{ service.name }}</strong> to personalize messaging and optimize customer acquisition costs (CAC).
+          </p>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs">
+          <div class="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center mb-3 text-sm font-bold">
+            <i data-lucide="shield-alert" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-bold text-slate-900 text-sm mb-1.5">Fraud & Onboarding Verification</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Detect throwaway VoIP burner numbers and synthetic identities during customer sign-up or checkout without adding intrusive friction for legitimate users.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== RELATED CHECKERS (INTERNAL SEO MESH) ==================== -->
+    {% if related_services and related_services|length > 0 %}
+    <section class="py-14 px-4 bg-slate-50 border-t border-slate-200">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
+          <div>
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-200 text-slate-700 text-xs font-mono font-bold mb-1">
+              <i data-lucide="network" class="w-3.5 h-3.5"></i> ECOSYSTEM SUITE
+            </div>
+            <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">Related {{ category_name }} Checkers</h2>
+          </div>
+          <a href="/categories/{{ category_slug }}" class="text-xs font-bold text-[#435ebf] hover:underline flex items-center gap-1">
+            <span>View All {{ category_name }} Engines</span>
             <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
           </a>
         </div>
 
-        <div class="bg-slate-950 rounded-2xl p-5 border border-slate-800 shadow-2xl">
-          <div class="flex items-center justify-between pb-3 border-b border-slate-800 text-xs font-mono text-slate-400">
-            <span>cURL Single Check</span>
-            <span class="text-emerald-400">POST /v1/verify/service</span>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {% for r in related_services %}
+          <a href="/products/{{ r.slug }}" class="bg-white border border-slate-200 hover:border-[#435ebf] rounded-2xl p-4 transition shadow-2xs hover:shadow-sm group flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="w-10 h-10 rounded-xl bg-slate-100 p-2 flex items-center justify-center group-hover:scale-105 transition">
+                  <img src="/static/logos/{{ r.icon }}.svg" class="w-6 h-6 object-contain" alt="{{ r.name }}" onerror="this.onerror=null; this.src='/static/logos/{{ r.icon }}.png';" />
+                </div>
+                <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-blue-50 text-[#435ebf]">{{ r.cost }} Credit{{ 's' if r.cost > 1 else '' }}</span>
+              </div>
+              <h3 class="font-bold text-slate-900 text-sm group-hover:text-[#435ebf] transition mb-1">{{ r.name }}</h3>
+              <p class="text-[11px] text-slate-500 line-clamp-2 leading-relaxed">{{ r.desc }}</p>
+            </div>
+            <div class="pt-3 mt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-[#435ebf]">
+              <span>Verify target</span>
+              <span class="group-hover:translate-x-1 transition">&rarr;</span>
+            </div>
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+    {% endif %}
+
+    <!-- ==================== REST API INTEGRATION ==================== -->
+    <section id="api-section" class="py-14 px-4 bg-slate-900 text-white">
+      <div class="max-w-5xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          
+          <div>
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-800 text-blue-400 text-xs font-mono font-bold mb-3">
+              <i data-lucide="terminal" class="w-3.5 h-3.5"></i> DEVELOPER API
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-3">REST API Integration</h2>
+            <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-5">
+              Integrate <strong>{{ service.name }}</strong> into your Python, Node.js, Go, or cURL pipelines. Sub-150ms response latency with unified JSON schema.
+            </p>
+            <ul class="space-y-2 text-xs text-slate-300 mb-6 font-mono">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Bearer token authentication</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> Strict zero data retention</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-400"></i> High-concurrency bulk endpoints</li>
+            </ul>
+            <a href="/#pricing" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#435ebf] hover:bg-[#324796] text-white text-xs font-bold transition shadow-md">
+              <span>Get API Key & Top Up Credits</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </a>
           </div>
-          <pre class="mt-3 font-mono text-[11px] text-blue-300 overflow-x-auto leading-relaxed p-2"><code>curl -X POST "https://api.checkerleak.com/v1/verify/service" \
+
+          <div class="bg-slate-950 rounded-2xl p-5 border border-slate-800 shadow-2xl">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-800 text-xs font-mono text-slate-400">
+              <span>cURL Single Check</span>
+              <span class="text-emerald-400">POST /v1/verify/service</span>
+            </div>
+            <pre class="mt-3 font-mono text-[11px] text-blue-300 overflow-x-auto leading-relaxed p-2"><code>curl -X POST "https://api.checkerleak.com/v1/verify/service" \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
     "service_id": "{{ service_id }}",
     "target": "+212661123456"
   }'</code></pre>
-          <div class="mt-3 pt-3 border-t border-slate-800/80 text-[10px] font-mono text-slate-400 flex justify-between">
-            <span>Cost: {{ service.cost_credits }} Credit{{ 's' if service.cost_credits > 1 else '' }} (~${{ "%.2f"|format(service.cost_credits * 0.01) }})</span>
-            <span class="text-emerald-400">Latency: ~120ms</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== INTERACTIVE & BULK STUDIO (#test-section) ==================== -->
-  <section id="test-section" class="py-16 px-4 max-w-5xl mx-auto border-t border-slate-200">
-    <div class="text-center mb-8">
-      <div class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold mb-2 border border-emerald-200">
-        <i data-lucide="sparkles" class="w-3.5 h-3.5 text-emerald-600"></i> INTERACTIVE STUDIO
-      </div>
-      <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900">Try {{ service.name }} Live</h2>
-      <p class="text-slate-500 text-xs sm:text-sm mt-1 max-w-lg mx-auto">
-        Execute a single test query or upload a batch list to verify active presence in real time.
-      </p>
-    </div>
-
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      
-      <!-- Single Check -->
-      <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between">
-        <div>
-          <div class="flex items-center justify-between mb-3 text-[#435ebf] font-bold">
-            <div class="flex items-center gap-2">
-              <i data-lucide="search" class="w-4 h-4"></i>
-              <h3 class="text-sm font-bold text-slate-900">Single Account Probe</h3>
+            <div class="mt-3 pt-3 border-t border-slate-800/80 text-[10px] font-mono text-slate-400 flex justify-between">
+              <span>Cost: {{ service.cost_credits }} Credit{{ 's' if service.cost_credits > 1 else '' }} (~${{ "%.2f"|format(service.cost_credits * 0.01) }})</span>
+              <span class="text-emerald-400">Latency: ~120ms</span>
             </div>
-            <span class="text-[11px] font-mono font-bold px-2 py-0.5 rounded bg-blue-50 text-[#435ebf]">{{ service.cost_credits }} Credit{{ 's' if service.cost_credits > 1 else '' }} (~${{ "%.2f"|format(service.cost_credits * 0.01) }})</span>
           </div>
-          <p class="text-xs text-slate-500 mb-4">Run an instant live probe against {{ service.name }}. Requires active account and funded balance.</p>
-          <div class="space-y-2">
-            <input type="text" id="singleCheckInput" placeholder="Enter target (e.g. +212661... or email)" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-[#435ebf] focus:outline-none font-mono">
-            <button onclick="runSingleCheck()" class="w-full py-2.5 rounded-lg bg-[#435ebf] hover:bg-[#324796] text-white text-xs sm:text-sm font-bold transition shadow-xs flex items-center justify-center gap-2 cursor-pointer">
-              <i data-lucide="play" class="w-3.5 h-3.5"></i>
-              <span>Verify {{ service.name }}</span>
-            </button>
-          </div>
-          <div id="singleCheckResult" class="mt-4 hidden p-3 rounded-xl text-xs font-mono"></div>
+
         </div>
       </div>
+    </section>
 
-      <!-- Bulk CSV Upload Dropzone -->
-      <div class="bg-slate-50 rounded-2xl border-2 border-dashed border-slate-300 p-6 flex flex-col items-center justify-center text-center hover:border-[#435ebf] transition group">
-        <input type="file" id="csvFileInput" class="hidden" accept=".csv,.txt" onchange="handleFileUpload(event)">
-        <div class="w-12 h-12 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-400 group-hover:text-[#435ebf] mb-3 shadow-xs">
-          <i data-lucide="upload-cloud" class="w-6 h-6"></i>
+    <!-- ==================== INTERACTIVE & BULK STUDIO (#test-section) ==================== -->
+    <section id="test-section" class="py-16 px-4 max-w-5xl mx-auto border-t border-slate-200">
+      <div class="text-center mb-8">
+        <div class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold mb-2 border border-emerald-200">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-emerald-600"></i> INTERACTIVE STUDIO
         </div>
-        <h4 class="font-bold text-slate-900 text-sm mb-1">Bulk CSV List Upload</h4>
-        <p class="text-xs text-slate-500 max-w-xs mb-4">
-          Drop a CSV or TXT list with up to 500,000 targets to run high-throughput batch validation.
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900">Try {{ service.name }} Live</h2>
+        <p class="text-slate-500 text-xs sm:text-sm mt-1 max-w-lg mx-auto">
+          Execute a single test query or upload a batch list to verify active presence in real time.
         </p>
-        <button onclick="triggerBulkUpload()" class="px-5 py-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition shadow-xs cursor-pointer">
-          Upload Contact List
-        </button>
       </div>
 
-    </div>
-  </section>
-
-  <!-- ==================== FAQ SECTION ==================== -->
-  <section class="py-14 px-4 bg-white border-t border-slate-200">
-    <div class="max-w-4xl mx-auto">
-      <div class="text-center mb-10">
-        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-bold font-mono tracking-wider mb-2">
-          <i data-lucide="help-circle" class="w-3.5 h-3.5"></i> FREQUENTLY ASKED QUESTIONS
-        </div>
-        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">{{ service.name }} FAQ</h2>
-      </div>
-
-      <div class="space-y-4">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         
-        <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50/50">
-          <h3 class="font-extrabold text-slate-900 text-sm mb-1.5">Can I check phone numbers or emails against {{ service.name }} in bulk?</h3>
-          <p class="text-xs text-slate-600 leading-relaxed">
-            Yes. You can upload a CSV list of up to hundreds of thousands of contacts in our interactive studio or call our high-speed REST API. Results are exported with confirmed registration signals for every record.
-          </p>
+        <!-- Single Check -->
+        <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3 text-[#435ebf] font-bold">
+              <div class="flex items-center gap-2">
+                <i data-lucide="search" class="w-4 h-4"></i>
+                <h3 class="text-sm font-bold text-slate-900">Single Account Probe</h3>
+              </div>
+              <span class="text-[11px] font-mono font-bold px-2 py-0.5 rounded bg-blue-50 text-[#435ebf]">{{ service.cost_credits }} Credit{{ 's' if service.cost_credits > 1 else '' }} (~${{ "%.2f"|format(service.cost_credits * 0.01) }})</span>
+            </div>
+            <p class="text-xs text-slate-500 mb-4">Run an instant live probe against {{ service.name }}. Requires active account and funded balance.</p>
+            <div class="space-y-2">
+              <input type="text" id="singleCheckInput" placeholder="Enter target (e.g. +212661... or email)" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-[#435ebf] focus:outline-none font-mono">
+              <button onclick="runSingleCheck()" class="w-full py-2.5 rounded-lg bg-[#435ebf] hover:bg-[#324796] active:scale-[0.98] text-white text-xs sm:text-sm font-bold transition shadow-xs flex items-center justify-center gap-2 cursor-pointer">
+                <i data-lucide="play" class="w-3.5 h-3.5"></i>
+                <span>Verify {{ service.name }}</span>
+              </button>
+            </div>
+            <div id="singleCheckResult" class="mt-4 hidden p-3 rounded-xl text-xs font-mono"></div>
+          </div>
         </div>
 
-        <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50/50">
-          <h3 class="font-extrabold text-slate-900 text-sm mb-1.5">Does the check message or notify the person?</h3>
-          <p class="text-xs text-slate-600 leading-relaxed">
-            No. The verification is 100% passive and silent. Nothing is ever sent to the target contact, and the account holder receives zero notifications, SMS alerts, or calls.
+        <!-- Bulk CSV Upload Dropzone -->
+        <div class="bg-slate-50 rounded-2xl border-2 border-dashed border-slate-300 p-6 flex flex-col items-center justify-center text-center hover:border-[#435ebf] transition group">
+          <input type="file" id="csvFileInput" class="hidden" accept=".csv,.txt" onchange="handleFileUpload(event)">
+          <div class="w-12 h-12 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-slate-400 group-hover:text-[#435ebf] mb-3 shadow-xs">
+            <i data-lucide="upload-cloud" class="w-6 h-6"></i>
+          </div>
+          <h4 class="font-bold text-slate-900 text-sm mb-1">Bulk CSV List Upload</h4>
+          <p class="text-xs text-slate-500 max-w-xs mb-4">
+            Drop a CSV or TXT list with up to 500,000 targets to run high-throughput batch validation.
           </p>
-        </div>
-
-        <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50/50">
-          <h3 class="font-extrabold text-slate-900 text-sm mb-1.5">How much does each check cost?</h3>
-          <p class="text-xs text-slate-600 leading-relaxed">
-            Each query costs only <strong>{{ service.cost_credits }} credit{{ 's' if service.cost_credits > 1 else '' }}</strong> (approx. ${{ "%.2f"|format(service.cost_credits * 0.01) }} USD). Billing is strictly pay-as-you-go with instant crypto deposits, and your credits never expire.
-          </p>
-        </div>
-
-        <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50/50">
-          <h3 class="font-extrabold text-slate-900 text-sm mb-1.5">Do I need my own SIM card, phone number, or account?</h3>
-          <p class="text-xs text-slate-600 leading-relaxed">
-            No account, SIM card, or personal number is required. All checks run through CheckerLeak's private cloud infrastructure, keeping your identity and operations completely isolated and secure.
-          </p>
+          <button onclick="triggerBulkUpload()" class="px-5 py-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 active:scale-[0.98] text-white text-xs font-bold transition shadow-xs cursor-pointer">
+            Upload Contact List
+          </button>
         </div>
 
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ==================== FINAL CALL TO ACTION ==================== -->
-  <section class="py-14 px-4 bg-slate-950 text-white text-center border-t border-slate-800">
-    <div class="max-w-3xl mx-auto space-y-4">
-      <h2 class="text-2xl sm:text-3xl font-black tracking-tight">Ready to run {{ service.name }} at scale?</h2>
-      <p class="text-xs sm:text-sm text-slate-400 max-w-lg mx-auto leading-relaxed">
-        Compare pricing, review API options, or upload your first contact list in our secure zero-retention portal.
-      </p>
-      <div class="flex items-center justify-center gap-3 pt-2">
-        <a href="#test-section" class="px-7 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs shadow-lg transition">
-          Try it out
-        </a>
-        <a href="/#pricing" class="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs border border-slate-700 transition">
-          Top Up Credits
-        </a>
+    <!-- ==================== FAQ SECTION ==================== -->
+    <section class="py-14 px-4 bg-white border-t border-slate-200">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-10">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-bold font-mono tracking-wider mb-2">
+            <i data-lucide="help-circle" class="w-3.5 h-3.5"></i> FREQUENTLY ASKED QUESTIONS
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">{{ service.name }} FAQ</h2>
+        </div>
+
+        <div class="space-y-4">
+          
+          <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50/50">
+            <h3 class="font-extrabold text-slate-900 text-sm mb-1.5">Can I check phone numbers or emails against {{ service.name }} in bulk?</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Yes. You can upload a CSV list of up to hundreds of thousands of contacts in our interactive studio or call our high-speed REST API. Results are exported with confirmed registration signals for every record.
+            </p>
+          </div>
+
+          <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50/50">
+            <h3 class="font-extrabold text-slate-900 text-sm mb-1.5">Does the check message or notify the person?</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              No. The verification is 100% passive and silent. Nothing is ever sent to the target contact, and the account holder receives zero notifications, SMS alerts, or calls.
+            </p>
+          </div>
+
+          <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50/50">
+            <h3 class="font-extrabold text-slate-900 text-sm mb-1.5">How much does each check cost?</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Each query costs only <strong>{{ service.cost_credits }} credit{{ 's' if service.cost_credits > 1 else '' }}</strong> (approx. ${{ "%.2f"|format(service.cost_credits * 0.01) }} USD). Billing is strictly pay-as-you-go with instant crypto deposits, and your credits never expire.
+            </p>
+          </div>
+
+          <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50/50">
+            <h3 class="font-extrabold text-slate-900 text-sm mb-1.5">Do I need my own SIM card, phone number, or account?</h3>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              No account, SIM card, or personal number is required. All checks run through CheckerLeak's private cloud infrastructure, keeping your identity and operations completely isolated and secure.
+            </p>
+          </div>
+
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <!-- ==================== FINAL CALL TO ACTION ==================== -->
+    <section class="py-14 px-4 bg-slate-950 text-white text-center border-t border-slate-800">
+      <div class="max-w-3xl mx-auto space-y-4">
+        <h2 class="text-2xl sm:text-3xl font-black tracking-tight">Ready to run {{ service.name }} at scale?</h2>
+        <p class="text-xs sm:text-sm text-slate-400 max-w-lg mx-auto leading-relaxed">
+          Compare pricing, review API options, or upload your first contact list in our secure zero-retention portal.
+        </p>
+        <div class="flex items-center justify-center gap-3 pt-2">
+          <a href="#test-section" class="px-7 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 active:scale-[0.98] text-slate-950 font-bold text-xs shadow-lg transition">
+            Try it out
+          </a>
+          <a href="/#pricing" class="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 active:scale-[0.98] text-white font-semibold text-xs border border-slate-700 transition">
+            Top Up Credits
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
 
   <!-- ==================== FOOTER ==================== -->
   <footer class="bg-slate-950 text-slate-400 py-10 px-4 border-t border-slate-800/80 text-xs">
@@ -523,9 +615,9 @@
       </div>
       <p class="text-slate-500 text-[11px]">Zero-Retention Telecom & Contact Footprint Intelligence Platform.</p>
       <div class="flex gap-4 text-slate-400">
-        <a href="/privacy" class="hover:text-white">Privacy</a>
-        <a href="/terms" class="hover:text-white">Terms</a>
-        <a href="/blog" class="hover:text-white">Blog</a>
+        <a href="/privacy" class="hover:text-white transition">Privacy</a>
+        <a href="/terms" class="hover:text-white transition">Terms</a>
+        <a href="/blog" class="hover:text-white transition">Blog</a>
       </div>
     </div>
   </footer>
@@ -663,11 +755,12 @@
         
         if (data.is_registered) {
           resEl.classList.add('bg-emerald-50', 'text-emerald-700');
-          resEl.innerHTML = `<strong>✅ REGISTERED:</strong> ${data.status_summary || 'Account footprint confirmed on {{ service.name }}.'} (Confidence: ${data.confidence_score}%)`;
+          resEl.innerHTML = `<span class="inline-flex items-center gap-1.5 font-bold"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i> REGISTERED:</span> ${data.status_summary || 'Account footprint confirmed on {{ service.name }}.'} (Confidence: ${data.confidence_score}%)`;
         } else {
           resEl.classList.add('bg-rose-50', 'text-rose-700');
-          resEl.innerHTML = `<strong>❌ NOT FOUND:</strong> ${data.status_summary || 'No account footprint detected on {{ service.name }}.'}`;
+          resEl.innerHTML = `<span class="inline-flex items-center gap-1.5 font-bold"><i data-lucide="x-circle" class="w-4 h-4 text-rose-600"></i> NOT FOUND:</span> ${data.status_summary || 'No account footprint detected on {{ service.name }}.'}`;
         }
+        lucide.createIcons();
 
         if (currentUser && currentUser.credits) {
           currentUser.credits = Math.max(0, currentUser.credits - {{ service.cost_credits }});

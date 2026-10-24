@@ -92,6 +92,21 @@ async def seo_product_page(request: Request, service_slug: str):
     product_slug = slugify(target_service.name)
     canonical_url = f"https://checkerleak.com/products/{product_slug}"
 
+    # Related services in same category for internal linking SEO mesh
+    related_services = []
+    for sid, s in engine._services_map.items():
+        if s.category == target_service.category and sid != target_id:
+            related_services.append({
+                "id": sid,
+                "name": s.name,
+                "slug": slugify(s.name),
+                "icon": s.icon_brand,
+                "cost": s.cost_credits,
+                "desc": s.description
+            })
+            if len(related_services) >= 4:
+                break
+
     return templates.TemplateResponse(
         request,
         "product_page.html",
@@ -101,7 +116,8 @@ async def seo_product_page(request: Request, service_slug: str):
             "category_name": target_service.category.name.replace("_", " ").title(),
             "category_slug": slugify(target_service.category.name),
             "product_slug": product_slug,
-            "canonical_url": canonical_url
+            "canonical_url": canonical_url,
+            "related_services": related_services
         }
     )
 
