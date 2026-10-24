@@ -3534,39 +3534,57 @@
           <div class="grid grid-cols-3 gap-2">
             
             <!-- USDT TRC20 -->
-            <button type="button" onclick="selectCryptoTab('USDT_TRC20')" id="cryptoTab_USDT_TRC20" class="flex flex-col items-center justify-center p-2.5 rounded-xl border border-[#435ebf] bg-[#435ebf] text-white text-center transition shadow-sm cursor-pointer">
-              <span class="text-xs font-bold flex items-center gap-1">₮ USDT</span>
-              <span class="text-[9px] font-mono text-blue-100 font-semibold mt-0.5">TRC-20 (Tron)</span>
+            <button type="button" onclick="selectCryptoTab('USDT_TRC20')" id="cryptoTab_USDT_TRC20" class="flex flex-col items-center justify-center p-2.5 rounded-xl border border-[#435ebf] bg-[#435ebf] text-white text-center transition shadow-sm cursor-pointer group">
+              <div class="flex items-center gap-1.5">
+                <img src="/static/logos/crypto/usdt.svg" class="w-4 h-4 shrink-0 pointer-events-none" alt="USDT">
+                <span class="text-xs font-bold">USDT</span>
+              </div>
+              <span class="crypto-sub-label text-[9px] font-mono text-blue-100 font-semibold mt-0.5">TRC-20 (Tron)</span>
             </button>
 
             <!-- USDT BEP20 -->
-            <button type="button" onclick="selectCryptoTab('USDT_BEP20')" id="cryptoTab_USDT_BEP20" class="flex flex-col items-center justify-center p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100/80 text-slate-700 text-center transition cursor-pointer">
-              <span class="text-xs font-bold flex items-center gap-1">₮ USDT</span>
-              <span class="text-[9px] font-mono text-slate-500 font-semibold mt-0.5">BEP-20 (BSC)</span>
+            <button type="button" onclick="selectCryptoTab('USDT_BEP20')" id="cryptoTab_USDT_BEP20" class="flex flex-col items-center justify-center p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100/80 text-slate-700 text-center transition cursor-pointer group">
+              <div class="flex items-center gap-1.5">
+                <img src="/static/logos/crypto/usdt-bep20.svg" class="w-4 h-4 shrink-0 pointer-events-none" alt="USDT">
+                <span class="text-xs font-bold">USDT</span>
+              </div>
+              <span class="crypto-sub-label text-[9px] font-mono text-slate-500 font-semibold mt-0.5">BEP-20 (BSC)</span>
             </button>
 
             <!-- Bitcoin -->
-            <button type="button" onclick="selectCryptoTab('BTC')" id="cryptoTab_BTC" class="flex flex-col items-center justify-center p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100/80 text-slate-700 text-center transition cursor-pointer">
-              <span class="text-xs font-bold flex items-center gap-1">₿ BTC</span>
-              <span class="text-[9px] font-mono text-slate-500 font-semibold mt-0.5">Native SegWit</span>
+            <button type="button" onclick="selectCryptoTab('BTC')" id="cryptoTab_BTC" class="flex flex-col items-center justify-center p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100/80 text-slate-700 text-center transition cursor-pointer group">
+              <div class="flex items-center gap-1.5">
+                <img src="/static/logos/crypto/btc.svg" class="w-4 h-4 shrink-0 pointer-events-none" alt="BTC">
+                <span class="text-xs font-bold">BTC</span>
+              </div>
+              <span class="crypto-sub-label text-[9px] font-mono text-slate-500 font-semibold mt-0.5">Native SegWit</span>
             </button>
 
             <!-- Ethereum -->
-            <button type="button" onclick="selectCryptoTab('ETH')" id="cryptoTab_ETH" class="flex flex-col items-center justify-center p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100/80 text-slate-700 text-center transition cursor-pointer">
-              <span class="text-xs font-bold flex items-center gap-1">Ξ ETH</span>
-              <span class="text-[9px] font-mono text-slate-500 font-semibold mt-0.5">ERC-20 Mainnet</span>
+            <button type="button" onclick="selectCryptoTab('ETH')" id="cryptoTab_ETH" class="flex flex-col items-center justify-center p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100/80 text-slate-700 text-center transition cursor-pointer group">
+              <div class="flex items-center gap-1.5">
+                <img src="/static/logos/crypto/eth.svg" class="w-4 h-4 shrink-0 pointer-events-none" alt="ETH">
+                <span class="text-xs font-bold">ETH</span>
+              </div>
+              <span class="crypto-sub-label text-[9px] font-mono text-slate-500 font-semibold mt-0.5">ERC-20 Mainnet</span>
             </button>
 
             <!-- Solana -->
-            <button type="button" onclick="selectCryptoTab('SOL')" id="cryptoTab_SOL" class="flex flex-col items-center justify-center p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100/80 text-slate-700 text-center transition cursor-pointer">
-              <span class="text-xs font-bold flex items-center gap-1">◎ SOL</span>
-              <span class="text-[9px] font-mono text-slate-500 font-semibold mt-0.5">Solana Mainnet</span>
+            <button type="button" onclick="selectCryptoTab('SOL')" id="cryptoTab_SOL" class="flex flex-col items-center justify-center p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100/80 text-slate-700 text-center transition cursor-pointer group">
+              <div class="flex items-center gap-1.5">
+                <img src="/static/logos/crypto/sol.svg" class="w-4 h-4 shrink-0 pointer-events-none" alt="SOL">
+                <span class="text-xs font-bold">SOL</span>
+              </div>
+              <span class="crypto-sub-label text-[9px] font-mono text-slate-500 font-semibold mt-0.5">Solana Mainnet</span>
             </button>
 
             <!-- Litecoin -->
-            <button type="button" onclick="selectCryptoTab('LTC')" id="cryptoTab_LTC" class="flex flex-col items-center justify-center p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100/80 text-slate-700 text-center transition cursor-pointer">
-              <span class="text-xs font-bold flex items-center gap-1">Ł LTC</span>
-              <span class="text-[9px] font-mono text-slate-500 font-semibold mt-0.5">Fee &lt;$0.01</span>
+            <button type="button" onclick="selectCryptoTab('LTC')" id="cryptoTab_LTC" class="flex flex-col items-center justify-center p-2.5 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100/80 text-slate-700 text-center transition cursor-pointer group">
+              <div class="flex items-center gap-1.5">
+                <img src="/static/logos/crypto/ltc.svg" class="w-4 h-4 shrink-0 pointer-events-none" alt="LTC">
+                <span class="text-xs font-bold">LTC</span>
+              </div>
+              <span class="crypto-sub-label text-[9px] font-mono text-slate-500 font-semibold mt-0.5">Fee &lt;$0.01</span>
             </button>
 
           </div>
@@ -3592,7 +3610,10 @@
                 </span>
                 <span id="cryptoExplorerLink" class="hidden"></span>
               </div>
-              <h4 id="cryptoAddrTitle" class="text-sm font-extrabold text-slate-900">USDT (TRC-20) Deposit Address</h4>
+              <div class="flex items-center justify-center sm:justify-start gap-2 pt-0.5">
+                <img id="cryptoActiveLogoImg" src="/static/logos/crypto/usdt.svg" class="w-5 h-5 shrink-0 object-contain" alt="Coin Logo">
+                <h4 id="cryptoAddrTitle" class="text-sm font-extrabold text-slate-900">USDT (TRC-20) Deposit Address</h4>
+              </div>
               <p id="cryptoAddrDesc" class="text-[11px] text-slate-500 leading-relaxed font-medium">
                 Send only USDT via Tron (TRC-20). Deposits are detected automatically in real-time.
               </p>
@@ -3620,7 +3641,8 @@
           <div class="bg-white border border-slate-200 rounded-xl p-3.5 flex items-center justify-between gap-3 shadow-2xs">
             <div class="min-w-0 flex-1">
               <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Exact Amount to Transfer</span>
-              <div class="flex items-baseline gap-2">
+              <div class="flex items-center gap-2">
+                <img id="cryptoExactAmountLogo" src="/static/logos/crypto/usdt.svg" class="w-4 h-4 shrink-0 object-contain" alt="Coin">
                 <span id="cryptoExactAmount" class="text-sm sm:text-base font-mono font-black text-slate-900">20.00 USDT</span>
                 <span id="cryptoUsdEqNotice" class="text-[11px] font-mono text-slate-500 font-medium">(= $20.00 USD)</span>
               </div>
