@@ -163,14 +163,14 @@
       <nav class="hidden md:flex gap-6 text-sm font-medium text-slate-600">
         <a href="/" class="hover:text-[#435ebf] transition">Home</a>
         <a href="/categories/{{ category_slug }}" class="hover:text-[#435ebf] transition">&larr; Back to {{ category_name }}</a>
-        <a href="#test-section" class="hover:text-[#435ebf] transition">Try It Out</a>
+        <a href="javascript:void(0)" onclick="handleTryItOut(event)" class="hover:text-[#435ebf] transition cursor-pointer">Try It Out</a>
         <a href="#api-section" class="hover:text-[#435ebf] transition">API Docs</a>
         <a href="/#pricing" class="hover:text-[#435ebf] transition">Pricing</a>
       </nav>
       <div id="authHeaderArea" class="flex items-center gap-3">
         <!-- Injected via JavaScript -->
         <a href="/?login=1" class="text-xs font-semibold px-3 py-1.5 text-slate-700 hover:text-[#435ebf] transition">Log In</a>
-        <a href="/?login=1" class="text-xs font-bold px-3.5 py-1.5 rounded-lg bg-[#435ebf] hover:bg-[#324796] text-white shadow-xs transition">Sign Up</a>
+        <a href="/?register=1" class="text-xs font-bold px-3.5 py-1.5 rounded-lg bg-[#435ebf] hover:bg-[#324796] text-white shadow-xs transition">Sign Up</a>
       </div>
     </div>
   </header>
@@ -230,10 +230,10 @@
 
         <!-- Action Buttons: [Try it out] & API Docs -->
         <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-3">
-          <a href="#test-section" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 active:scale-[0.98] text-slate-950 font-black text-sm shadow-lg shadow-emerald-500/25 transition cursor-pointer flex items-center justify-center gap-2 group">
+          <button type="button" onclick="handleTryItOut(event)" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 active:scale-[0.98] text-slate-950 font-black text-sm shadow-lg shadow-emerald-500/25 transition cursor-pointer flex items-center justify-center gap-2 group">
             <i data-lucide="play" class="w-4 h-4 fill-slate-950 group-hover:translate-x-0.5 transition"></i>
             <span>Try it out</span>
-          </a>
+          </button>
           <a href="#api-section" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 active:scale-[0.98] text-white font-bold text-sm border border-white/20 backdrop-blur-md transition flex items-center justify-center gap-2">
             <i data-lucide="code-2" class="w-4 h-4"></i>
             <span>API Documentation</span>
@@ -595,9 +595,9 @@
           Compare pricing, review API options, or upload your first contact list in our secure zero-retention portal.
         </p>
         <div class="flex items-center justify-center gap-3 pt-2">
-          <a href="#test-section" class="px-7 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 active:scale-[0.98] text-slate-950 font-bold text-xs shadow-lg transition">
+          <button type="button" onclick="handleTryItOut(event)" class="px-7 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 active:scale-[0.98] text-slate-950 font-bold text-xs shadow-lg transition cursor-pointer">
             Try it out
-          </a>
+          </button>
           <a href="/#pricing" class="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 active:scale-[0.98] text-white font-semibold text-xs border border-slate-700 transition">
             Top Up Credits
           </a>
@@ -670,7 +670,7 @@
       
       area.innerHTML = `
         <a href="/?login=1" class="text-xs font-semibold px-3 py-1.5 text-slate-700 hover:text-[#435ebf]">Log In</a>
-        <a href="/?login=1" class="text-xs font-bold px-3.5 py-1.5 rounded-lg bg-[#435ebf] hover:bg-[#324796] text-white shadow-xs">Sign Up</a>
+        <a href="/?register=1" class="text-xs font-bold px-3.5 py-1.5 rounded-lg bg-[#435ebf] hover:bg-[#324796] text-white shadow-xs">Sign Up</a>
       `;
     }
 
@@ -686,10 +686,10 @@
       if (type === 'auth') {
         icon.className = "w-12 h-12 rounded-full bg-blue-50 text-[#435ebf] flex items-center justify-center mx-auto";
         icon.innerHTML = `<i data-lucide="lock" class="w-6 h-6"></i>`;
-        title.innerText = "Sign In Required";
+        title.innerText = "Sign Up Required";
         msg.innerText = "You must create an account or sign in to verify targets against {{ service.name }}.";
-        btn.innerText = "Sign In / Register";
-        btn.href = "/?login=1";
+        btn.innerText = "Create Account / Register";
+        btn.href = "/?register=1";
       } else {
         icon.className = "w-12 h-12 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center mx-auto";
         icon.innerHTML = `<i data-lucide="coins" class="w-6 h-6"></i>`;
@@ -705,6 +705,31 @@
 
     function closeGuardModal() {
       document.getElementById("guardModal").classList.add("hidden");
+    }
+
+    function handleTryItOut(e) {
+      if (e && e.preventDefault) e.preventDefault();
+      const stored = localStorage.getItem("checkerleak_client");
+      if (stored) {
+        try {
+          const u = JSON.parse(stored);
+          if (u && u.id) {
+            if (!u.credits || u.credits <= 0) {
+              window.location.href = "/billing";
+              return;
+            }
+            const testSec = document.getElementById("test-section");
+            if (testSec) {
+              testSec.scrollIntoView({ behavior: "smooth" });
+            } else {
+              window.location.href = "/dashboard";
+            }
+            return;
+          }
+        } catch(err) {}
+      }
+      // Accelerated conversion funnel: rush guest directly to registration
+      window.location.href = "/?register=1";
     }
 
     function checkAuthAndBalance() {
