@@ -172,10 +172,10 @@ def submit_crypto_txid(request: SubmitTxidRequest):
     user_id = request.user_id
 
     clean_txid = (request.txid or "").strip()
-    if len(clean_txid) < 10:
+    if len(clean_txid) < 8:
         raise HTTPException(
             status_code=400,
-            detail="Invalid transaction hash format. TXID must be at least 10 characters.",
+            detail="Invalid transaction hash format. TXID must be at least 8 characters.",
         )
 
     if request.amount <= 0:
@@ -184,8 +184,12 @@ def submit_crypto_txid(request: SubmitTxidRequest):
             detail="Deposit amount must be greater than $0.00.",
         )
 
+    client_email = (request.client_email or "").strip().lower()
+    if not client_email or "@" not in client_email:
+        client_email = "guest@checkerleak.com"
+
     with db.get_connection() as conn:
-        cursor = conn.cursor()
+        cursor = db.get_cursor(conn)
 
         # Prevent Replay & Double-Spending Attacks
         cursor.execute("SELECT id, status FROM billing_transactions WHERE tx_hash = ?", (clean_txid,))
@@ -195,23 +199,43 @@ def submit_crypto_txid(request: SubmitTxidRequest):
                 detail="This transaction hash has already been submitted or credited.",
             )
 
-        if not user_id and request.client_email:
-            cursor.execute("SELECT id, credits FROM users WHERE email = ?", (request.client_email,))
+        if not user_id and client_email and client_email != "guest@checkerleak.com":
+            cursor.execute("SELECT id, credits FROM users WHERE LOWER(email) = ?", (client_email,))
             row = cursor.fetchone()
             if row:
                 user_id = row["id"]
+            else:
+                # Auto-create user account so credits are immediately reserved
+                import hashlib
+                temp_hash = hashlib.sha256(f"{client_email}_{clean_txid}".encode()).hexdigest()[:16]
+                cursor.execute(
+                    "INSERT INTO users (email, full_name, hashed_password, credits, role, email_verified) VALUES (?, ?, ?, 0, 'client', 1)",
+                    (client_email, client_email.split("@")[0], temp_hash)
+                )
+                cursor.execute("SELECT id, credits FROM users WHERE LOWER(email) = ?", (client_email,))
+                new_user_row = cursor.fetchone()
+                if new_user_row:
+                    user_id = new_user_row["id"]
 
         if not user_id:
             cursor.execute("SELECT id, credits FROM users LIMIT 1")
             row = cursor.fetchone()
             user_id = row["id"] if row else 1
 
-        # 100 credits per $1 (minimum 500 credits)
-        credits_to_add = max(500, int(request.amount * 100))
+        # Calculate credits with tier bonus
+        bonus_mult = 1.0
+        if request.amount >= 149:
+            bonus_mult = 1.15
+        elif request.amount >= 100:
+            bonus_mult = 1.10
+        elif request.amount >= 50:
+            bonus_mult = 1.05
+
+        credits_to_add = max(500, int(round(request.amount * 100 * bonus_mult)))
 
         cursor.execute("SELECT credits FROM users WHERE id = ?", (user_id,))
         row = cursor.fetchone()
-        current_credits = row["credits"] if row else 0
+        current_credits = row["credits"] if row and row.get("credits") is not None else 0
         new_credits = current_credits + credits_to_add
 
         cursor.execute("UPDATE users SET credits = ? WHERE id = ?", (new_credits, user_id))
@@ -230,5 +254,6 @@ def submit_crypto_txid(request: SubmitTxidRequest):
         "message": f"Payment of ${request.amount:.2f} confirmed! {credits_to_add:,} credits added to your wallet.",
         "credits_added": credits_to_add,
         "new_balance": new_credits,
+        "client_email": client_email,
         "tx_hash": clean_txid
     }
