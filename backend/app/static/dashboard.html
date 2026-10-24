@@ -4382,7 +4382,39 @@
 
 
 
-        document.getElementById('cryptoAmountInput').value = amount;
+        const amtInput = document.getElementById('cryptoAmountInput');
+
+
+
+        if (amtInput) {
+
+
+
+          amtInput.value = amount;
+
+
+
+        }
+
+
+
+        if (typeof onCryptoUsdInputChanged === 'function') {
+
+
+
+          onCryptoUsdInputChanged();
+
+
+
+        } else if (typeof updateCreditEstimate === 'function') {
+
+
+
+          updateCreditEstimate();
+
+
+
+        }
 
 
 
@@ -4415,6 +4447,10 @@
 
 
       document.getElementById('cryptoTopUpModal').classList.remove('hidden');
+
+
+
+      if (window.lucide) lucide.createIcons();
 
 
 
@@ -8283,6 +8319,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
       refreshUserProfile();
+
+
+
+      const _urlParams = new URLSearchParams(window.location.search);
+
+
+
+      const _topupAmt = _urlParams.get('topup');
+
+
+
+      if (_topupAmt) {
+
+
+
+        setTimeout(() => {
+
+
+
+          topUpCredits(parseFloat(_topupAmt) || 49);
+
+
+
+        }, 350);
+
+
+
+      }
 
 
 

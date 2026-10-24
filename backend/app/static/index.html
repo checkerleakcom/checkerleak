@@ -5658,6 +5658,18 @@
 
       }
 
+      const topupParam = urlParams.get('topup');
+
+      if (topupParam) {
+
+        setTimeout(() => {
+
+          openTopUpModal(topupParam);
+
+        }, 400);
+
+      }
+
       loadUserSession();
 
       renderServicesDirectory();
@@ -6020,7 +6032,19 @@
 
         renderHeaderAuth();
 
-        window.location.href = "/dashboard";
+        const pendingTopup = sessionStorage.getItem('_cl_pending_deposit');
+
+        if (pendingTopup) {
+
+          sessionStorage.removeItem('_cl_pending_deposit');
+
+          window.location.href = `/dashboard?topup=${encodeURIComponent(pendingTopup)}`;
+
+        } else {
+
+          window.location.href = "/dashboard";
+
+        }
 
       } catch (err) {
 
@@ -6094,7 +6118,19 @@
 
         renderHeaderAuth();
 
-        window.location.href = "/dashboard";
+        const pendingTopup = sessionStorage.getItem('_cl_pending_deposit');
+
+        if (pendingTopup) {
+
+          sessionStorage.removeItem('_cl_pending_deposit');
+
+          window.location.href = `/dashboard?topup=${encodeURIComponent(pendingTopup)}`;
+
+        } else {
+
+          window.location.href = "/dashboard";
+
+        }
 
       } catch (err) {
 
@@ -6816,33 +6852,77 @@
 
     function openTopUpModal(planId = 'pro') {
 
+      let amount = 49;
+
+      if (planId === 'starter' || planId === 19 || planId === '19') {
+
+        amount = 19;
+
+      } else if (planId === 'pro' || planId === 49 || planId === '49') {
+
+        amount = 49;
+
+      } else if (planId === 'enterprise' || planId === 149 || planId === '149' || planId === 199 || planId === '199') {
+
+        amount = 149;
+
+      } else if (typeof planId === 'number' && !isNaN(planId) && planId > 0) {
+
+        amount = planId;
+
+      }
+
       if (!currentUser) {
 
-        openAuthModal('login');
+        sessionStorage.setItem('_cl_pending_deposit', String(amount));
 
-        showAlert("Please log in or create an account to top up verification credits.", false);
+        openAuthModal('register');
+
+        showAlert("Please create a free account or sign in to deposit $" + amount + " and claim your verification credits.", false);
 
         return;
 
       }
 
-      selectPlan(planId);
+      const amtInput = document.getElementById('cryptoAmountInput');
 
-      selectPaymentMethod('CRYPTO_USDT_TRC20');
+      if (amtInput) {
 
-      document.getElementById("modalCurrentCredits").innerText = Number(currentUser.credits || 0).toLocaleString();
+        amtInput.value = amount;
 
-      hideTopUpAlert();
+      }
 
-      document.getElementById("topUpModal").classList.remove("hidden");
+      if (typeof onCryptoUsdInputChanged === 'function') {
 
-      lucide.createIcons();
+        onCryptoUsdInputChanged();
+
+      } else if (typeof updateCreditEstimate === 'function') {
+
+        updateCreditEstimate();
+
+      }
+
+      const modal = document.getElementById('cryptoTopUpModal');
+
+      if (modal) {
+
+        modal.classList.remove('hidden');
+
+      }
+
+      if (window.lucide) lucide.createIcons();
 
     }
 
     function closeTopUpModal() {
 
-      document.getElementById("topUpModal").classList.add("hidden");
+      closeCryptoModal();
+
+    }
+
+    function openCryptoModal(amount = 20) {
+
+      openTopUpModal(amount);
 
     }
 
