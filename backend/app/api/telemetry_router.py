@@ -270,9 +270,18 @@ async def receive_beacon(
 
     # Override channel if utm_source explicitly set
     if utm_source:
-        if source_channel == "DIRECT":
-            source_channel = "CAMPAIGN"
-        source_engine = utm_source
+        utm_lower = utm_source.lower()
+        matched_ai = False
+        for domain, engine_name in AI_ENGINES.items():
+            if domain in utm_lower:
+                source_channel = "AI_SEARCH"
+                source_engine = engine_name
+                matched_ai = True
+                break
+        if not matched_ai:
+            if source_channel == "DIRECT":
+                source_channel = "CAMPAIGN"
+            source_engine = utm_source
 
     # Extract search query
     search_query = extract_search_query(referrer, utm_term)
