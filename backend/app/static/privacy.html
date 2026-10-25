@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Privacy Policy & Zero-Retention Charter — CheckerLeak.com</title>
-  <meta name="description" content="CheckerLeak is a pure infrastructure verification service. We never store, log, retain, harvest, or monetize searched phone numbers, emails, or verification results. 100% ephemeral RAM pipeline.">
+  <title>Privacy Policy — CheckerLeak</title>
+  <meta name="description" content="CheckerLeak Privacy Policy. Details on how verification queries are processed ephemerally, account security, and our data protection standards.">
   <link rel="icon" type="image/svg+xml" href="/static/logos/carrier.svg">
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   
   <!-- Tailwind CSS & Lucide Icons -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -30,7 +30,7 @@
             }
           },
           fontFamily: {
-            sans: ['Inter', 'sans-serif'],
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
             mono: ['JetBrains Mono', 'monospace'],
           }
         }
@@ -39,245 +39,167 @@
   </script>
   
   <style>
-    body { font-family: 'Inter', sans-serif; background-color: #fafbfc; color: #0f172a; }
-    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background-color: #f8fafc; color: #1e293b; }
+    .legal-content h2 { font-size: 1.25rem; font-weight: 700; color: #0f172a; margin-top: 2rem; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid #e2e8f0; }
+    .legal-content h3 { font-size: 1rem; font-weight: 600; color: #1e293b; margin-top: 1.25rem; margin-bottom: 0.5rem; }
+    .legal-content p { margin-bottom: 1rem; line-height: 1.7; font-size: 0.9375rem; color: #334155; }
+    .legal-content ul, .legal-content ol { margin-bottom: 1rem; padding-left: 1.5rem; }
+    .legal-content li { margin-bottom: 0.5rem; line-height: 1.6; font-size: 0.9375rem; color: #334155; }
+    .legal-content ul { list-style-type: disc; }
+    .legal-content ol { list-style-type: decimal; }
   </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased selection:bg-brand-500 selection:text-white">
-
-  <!-- TOP ANNOUNCEMENT BANNER -->
-  <div class="bg-slate-900 text-slate-200 text-xs py-2 px-4 border-b border-slate-800">
-    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
-      <div class="flex items-center gap-2">
-        <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">PURE UTILITY SERVICE</span>
-        <span class="text-slate-300 font-medium">Zero-Retention Guarantee: We never store, log, or harvest searched phone numbers or query results.</span>
-      </div>
-      <a href="/" class="text-blue-400 hover:text-blue-300 font-medium inline-flex items-center gap-1">
-        Back to CheckerLeak <i data-lucide="arrow-right" class="w-3 h-3"></i>
-      </a>
-    </div>
-  </div>
+<body class="min-h-screen flex flex-col antialiased">
 
   <!-- NAVBAR -->
-  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200/80">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-      <a href="/" class="flex items-center gap-2.5 group">
-        <div class="w-9 h-9 rounded-xl bg-brand-500 flex items-center justify-center text-white shadow-sm shadow-brand-500/30 group-hover:bg-brand-600 transition">
-          <i data-lucide="shield-check" class="w-5 h-5"></i>
+  <header class="sticky top-0 z-40 bg-white border-b border-slate-200">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center text-white font-bold text-sm">
+          CL
         </div>
-        <div class="flex flex-col">
-          <span class="text-lg font-extrabold tracking-tight text-slate-900">Checker<span class="text-brand-500">Leak</span></span>
-          <span class="text-[9px] font-mono text-slate-400 -mt-1 tracking-wider uppercase">Verification Infrastructure</span>
-        </div>
+        <span class="text-base font-bold tracking-tight text-slate-900">Checker<span class="text-blue-600">Leak</span></span>
       </a>
 
-      <div class="flex items-center gap-4 text-xs font-medium">
-        <a href="/#servicesDirectorySection" class="text-slate-600 hover:text-slate-900 hidden sm:inline-block">102 Checkers</a>
-        <a href="/docs" target="_blank" class="text-slate-600 hover:text-slate-900 hidden sm:inline-block">API Reference</a>
-        <a href="/dashboard" class="px-4 py-2 rounded-lg bg-slate-900 text-white hover:bg-slate-800 transition font-mono">Client Portal</a>
+      <div class="flex items-center gap-6 text-sm text-slate-600">
+        <a href="/" class="hover:text-slate-900 transition">Home</a>
+        <a href="/docs" target="_blank" class="hover:text-slate-900 transition">API Docs</a>
+        <a href="/dashboard" class="px-3.5 py-1.5 rounded-lg bg-slate-900 text-white hover:bg-slate-800 transition text-xs font-medium">Dashboard</a>
       </div>
     </div>
   </header>
 
-  <!-- MAIN CONTENT -->
-  <main class="flex-1 max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+  <!-- MAIN CONTAINER -->
+  <main class="flex-1 max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-16 w-full">
 
-    <!-- HERO HEADER -->
-    <div class="text-center mb-12 sm:mb-16">
-      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-mono font-semibold mb-4">
-        <i data-lucide="lock" class="w-3.5 h-3.5 text-blue-600"></i>
-        ENTERPRISE ZERO-RETENTION CHARTER
+    <div class="bg-white border border-slate-200 rounded-xl p-8 sm:p-12 shadow-xs">
+      
+      <!-- HEADER -->
+      <div class="mb-10 pb-6 border-b border-slate-100">
+        <h1 class="text-3xl font-bold tracking-tight text-slate-900">Privacy Policy</h1>
+        <p class="text-sm text-slate-500 mt-2 font-mono">Last modified: October 2026</p>
       </div>
-      <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 mb-4 leading-tight">
-        We Are A Pure Service Provider.<br>
-        <span class="text-brand-500">We Retain Absolutely Zero Query Data.</span>
-      </h1>
-      <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
-        CheckerLeak operates strictly as high-speed verification infrastructure. We do not store, log, harvest, archive, or monetize searched phone numbers, target emails, or probe outcomes.
-      </p>
-      <div class="flex items-center justify-center gap-4 mt-6 text-xs font-mono text-slate-400">
-        <span>Effective Date: October 2026</span>
-        <span>•</span>
-        <span>Version 2.4 (Pure Utility Charter)</span>
-        <span>•</span>
-        <span class="text-emerald-600 font-semibold flex items-center gap-1"><i data-lucide="check-circle" class="w-3.5 h-3.5"></i> 100% RAM-Only</span>
-      </div>
-    </div>
 
-    <!-- POLICY CLAUSES -->
-    <div class="space-y-8 text-slate-700 leading-relaxed text-sm">
+      <!-- LEGAL BODY -->
+      <div class="legal-content">
 
-      <!-- SECTION 1 -->
-      <section class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8">
-        <div class="flex items-center gap-2 text-xs font-mono font-bold text-brand-600 uppercase mb-2">
-          <span class="px-2 py-0.5 bg-brand-50 rounded">ARTICLE 1</span>
-          <span>Core Operating Philosophy: Utility as a Service</span>
-        </div>
-        <h3 class="text-xl font-bold text-slate-900 mb-3">Pure Infrastructure Provider</h3>
-        <p class="mb-3">
-          CheckerLeak.com is engineered exclusively as a high-throughput, technical verification engine. Our relationship with our users is that of a <strong>pure utility service provider</strong>, analogous to a telecom switch or a DNS resolver.
+        <p>
+          At CheckerLeak (accessible from <a href="https://www.checkerleak.com" class="text-blue-600 hover:underline">checkerleak.com</a>), we provide programmatic verification services and developer APIs. This Privacy Policy outlines the types of information we process, how that information is handled, and the principles governing our infrastructure.
+        </p>
+
+        <p>
+          By accessing CheckerLeak, using our API endpoints, or registering an account, you agree to the collection and handling of information in accordance with this document.
+        </p>
+
+        <h2>1. Verification Requests and Ephemeral Processing</h2>
+        <p>
+          CheckerLeak provides technical validation tools that inspect phone numbers, email addresses, and public network protocols.
         </p>
         <p>
-          We do not operate as a data broker, marketing list aggregator, or leak intelligence repository. Our revenue is generated entirely and transparently through subscription and pay-as-you-go verification credits. We have zero commercial interest in, and actively oppose, the tracking or monetization of your queries.
+          When you execute a verification request through our web interface or REST API:
         </p>
-      </section>
-
-      <!-- SECTION 2 -->
-      <section class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8">
-        <div class="flex items-center gap-2 text-xs font-mono font-bold text-brand-600 uppercase mb-2">
-          <span class="px-2 py-0.5 bg-brand-50 rounded">ARTICLE 2</span>
-          <span>Ephemeral RAM Execution Architecture</span>
-        </div>
-        <h3 class="text-xl font-bold text-slate-900 mb-3">How Your Verification Queries Are Processed</h3>
-        <p class="mb-4">
-          When you submit a phone number or email for verification via our Web Portal or REST API:
-        </p>
-        <ol class="list-decimal pl-5 space-y-2 mb-4">
-          <li><strong>Encrypted Ingress:</strong> Your request arrives over an encrypted TLS 1.3 channel.</li>
-          <li><strong>Volatile Memory Ingestion:</strong> The payload is held solely in volatile Random Access Memory (RAM) within our backend runtime.</li>
-          <li><strong>Protocol Signaling:</strong> The selected engine (e.g. WhatsApp status probe, Apple iMessage APNs ping, HLR carrier routing) performs the real-time handshake.</li>
-          <li><strong>Client Response Delivery:</strong> The structured JSON verification response is transmitted directly back to your client session.</li>
-          <li><strong>Immediate Memory Purge:</strong> The queried phone number and verification payload are instantly dereferenced and purged by memory garbage collection. No trace is committed to disk, relational databases, persistent caching, or log aggregators.</li>
-        </ol>
-        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 font-mono text-xs text-slate-600">
-          <div class="flex items-center gap-2 text-slate-900 font-bold mb-1">
-            <i data-lucide="cpu" class="w-4 h-4 text-brand-500"></i> Technical Guarantee:
-          </div>
-          <code>Target Persistence Duration: &lt; 150 milliseconds (RAM only). Disk Persistence: 0.0000%</code>
-        </div>
-      </section>
-
-      <!-- SECTION 3 -->
-      <section class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8">
-        <div class="flex items-center gap-2 text-xs font-mono font-bold text-brand-600 uppercase mb-2">
-          <span class="px-2 py-0.5 bg-brand-50 rounded">ARTICLE 3</span>
-          <span>Categorical List of Data We NEVER Collect</span>
-        </div>
-        <h3 class="text-xl font-bold text-slate-900 mb-3">Absolute Non-Collection Guarantee</h3>
-        <p class="mb-4">
-          To provide total peace of mind for financial institutions, cyber security analysts, investigative journalists, and CRM managers, we explicitly declare that <strong>under no circumstances do we collect, log, or retain:</strong>
-        </p>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 font-mono text-xs">
-          <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center gap-2">
-            <i data-lucide="shield-alert" class="w-4 h-4 text-rose-500 shrink-0"></i>
-            <span>Searched Phone Numbers (MSISDN)</span>
-          </div>
-          <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center gap-2">
-            <i data-lucide="shield-alert" class="w-4 h-4 text-rose-500 shrink-0"></i>
-            <span>Queried Email Addresses</span>
-          </div>
-          <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center gap-2">
-            <i data-lucide="shield-alert" class="w-4 h-4 text-rose-500 shrink-0"></i>
-            <span>Query Results & Platform Associations</span>
-          </div>
-          <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center gap-2">
-            <i data-lucide="shield-alert" class="w-4 h-4 text-rose-500 shrink-0"></i>
-            <span>Target User Profile Photos or Metadata</span>
-          </div>
-          <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center gap-2">
-            <i data-lucide="shield-alert" class="w-4 h-4 text-rose-500 shrink-0"></i>
-            <span>Bulk CSV / Batch Verification Files</span>
-          </div>
-          <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center gap-2">
-            <i data-lucide="shield-alert" class="w-4 h-4 text-rose-500 shrink-0"></i>
-            <span>Historical Target Dossiers</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- SECTION 4 -->
-      <section class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8">
-        <div class="flex items-center gap-2 text-xs font-mono font-bold text-brand-600 uppercase mb-2">
-          <span class="px-2 py-0.5 bg-brand-50 rounded">ARTICLE 4</span>
-          <span>Information We Legitimate Retain for Account Management</span>
-        </div>
-        <h3 class="text-xl font-bold text-slate-900 mb-3">What We Do Store (Purely Operational)</h3>
-        <p class="mb-3">
-          To maintain your account, authenticate API calls, and credit your balance, we store only the minimal operational data required:
-        </p>
-        <ul class="list-disc pl-5 space-y-2">
-          <li><strong>User Account Data:</strong> Your registration email address and salted bcrypt password hash (or Google OAuth identifier).</li>
-          <li><strong>API Credentials:</strong> Your unique alphanumeric API key for request authentication.</li>
-          <li><strong>Billing Ledger:</strong> Blockchain transaction hashes (BTC, USDT, ETH, SOL) and credit balance count to prove deposit settlement. We do not store credit card numbers.</li>
-          <li><strong>Aggregated Platform Telemetry:</strong> Anonymized platform performance counters (e.g. total volume of WhatsApp queries run across all users today, average response latency in milliseconds, engine uptime rates).</li>
+        <ul>
+          <li><strong>Real-Time Execution:</strong> Queries are processed in temporary volatile memory (RAM) to communicate with the relevant network nodes and assemble the response.</li>
+          <li><strong>No Retention of Targets:</strong> The query targets (such as phone numbers, emails, or usernames) submitted to our endpoints are not written to persistent databases, log aggregators, or permanent disk storage.</li>
+          <li><strong>Purge upon Delivery:</strong> Once the response payload is returned to your client session, the operational variables in memory are cleared. We do not maintain searchable histories or secondary directories of targets queried by our users.</li>
         </ul>
-      </section>
 
-      <!-- SECTION 5 -->
-      <section class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8">
-        <div class="flex items-center gap-2 text-xs font-mono font-bold text-brand-600 uppercase mb-2">
-          <span class="px-2 py-0.5 bg-brand-50 rounded">ARTICLE 5</span>
-          <span>Regulatory Alignment: GDPR, CCPA, and Enterprise NDAs</span>
-        </div>
-        <h3 class="text-xl font-bold text-slate-900 mb-3">Enterprise Legal Compliance</h3>
-        <p class="mb-3">
-          Under the <strong>General Data Protection Regulation (GDPR - EU 2016/679)</strong> and the <strong>California Consumer Privacy Act (CCPA)</strong>:
+        <h2>2. Information We Collect for Account Operations</h2>
+        <p>
+          To manage user accounts, authenticate API requests, and process subscription credits, we collect the minimum information required for regular platform operation:
         </p>
-        <p class="mb-3">
-          Because CheckerLeak acts as a data pipeline conduit and does not maintain a database of personal query records, we inherently fulfill the principles of <em>Data Minimization (Article 5(1)(c))</em>, <em>Storage Limitation (Article 5(1)(e))</em>, and <em>Right to Erasure (Article 17)</em> by immediate technical design.
+        <ul>
+          <li><strong>Account Information:</strong> When you register, we collect your email address and an encrypted hash of your password. If you authenticate via third-party providers (such as Google), we receive your basic profile identifier as permitted by your provider settings.</li>
+          <li><strong>API Credentials:</strong> Each registered account receives an API token used to authenticate calls made to our services.</li>
+          <li><strong>Billing Records:</strong> For cryptocurrency deposits (such as BTC, USDT, ETH, or SOL), we record the associated public blockchain transaction hash and the resulting balance credit. We do not collect or store credit card details or bank account credentials.</li>
+        </ul>
+
+        <h2>3. Usage Metrics and Technical Logs</h2>
+        <p>
+          Like most web services, our web servers collect standard technical information automatically to maintain security, optimize routing, and protect against abusive traffic:
+        </p>
+        <ul>
+          <li>Browser user-agent, operating system category, and approximate geographic region (country level).</li>
+          <li>HTTP response codes, response latency, and aggregated endpoint volume counters.</li>
+          <li>IP addresses may be temporarily evaluated by firewall and DDoS protection systems (such as Cloudflare) to prevent brute-force attacks and rate-limit violations, after which they are handled according to standard transit retention rules.</li>
+        </ul>
+
+        <h2>4. Data Security</h2>
+        <p>
+          We employ industry-standard administrative and technical safeguards to secure our infrastructure and your account credentials:
+        </p>
+        <ul>
+          <li>All communication between your client and our services is encrypted in transit via modern Transport Layer Security (TLS).</li>
+          <li>User passwords are hashed using salt-based cryptographic functions (bcrypt) and are never stored in plaintext.</li>
+          <li>Administrative access to backend infrastructure is restricted via multi-factor authentication and strict access controls.</li>
+        </ul>
+
+        <h2>5. Third-Party Services and Data Sharing</h2>
+        <p>
+          CheckerLeak does not sell, rent, or trade your personal information, account data, or inquiry records to marketers, advertising brokers, or data resellers.
         </p>
         <p>
-          Corporate teams using our API can execute mission-critical investigations without creating secondary sub-processor reporting burdens or compromising confidential investigation leads.
+          Information is shared only under the following standard operational circumstances:
         </p>
-      </section>
+        <ul>
+          <li><strong>Infrastructure Providers:</strong> We rely on reputable cloud hosting, network edge providers, and upstream telecommunication networks to deliver network routing and high availability.</li>
+          <li><strong>Legal Obligations:</strong> We may disclose account details if formally required to comply with a valid legal process, applicable law, or enforceable government order. Because verification targets are not retained on disk, our response to data requests is naturally limited to account registration and billing records.</li>
+        </ul>
 
-      <!-- SECTION 6 -->
-      <section class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8">
-        <div class="flex items-center gap-2 text-xs font-mono font-bold text-brand-600 uppercase mb-2">
-          <span class="px-2 py-0.5 bg-brand-50 rounded">ARTICLE 6</span>
-          <span>Contact & Legal Inquiries</span>
-        </div>
-        <h3 class="text-xl font-bold text-slate-900 mb-3">Questions & Compliance Verification</h3>
-        <p class="mb-4">
-          For technical architecture audits, enterprise Data Processing Addendums (DPAs), or security inquiries, contact our engineering and compliance office:
+        <h2>6. Your Rights and Data Management</h2>
+        <p>
+          Depending on your jurisdiction (including the European Economic Area under GDPR and the state of California under CCPA), you may have specific rights regarding your personal information:
         </p>
-        <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono text-slate-700 space-y-1">
-          <div>Email: <a href="mailto:support@checkerleak.com" class="text-brand-500 hover:underline">support@checkerleak.com</a></div>
-          <div>Telegram Legal Desk: <a href="https://t.me/checkerleak" target="_blank" class="text-brand-500 hover:underline">@checkerleak</a></div>
-          <div>Official Platform: <a href="https://www.checkerleak.com" class="text-brand-500 hover:underline">https://www.checkerleak.com</a></div>
-        </div>
-      </section>
+        <ul>
+          <li><strong>Access and Portability:</strong> You may request a summary of the account information we hold associated with your profile.</li>
+          <li><strong>Correction:</strong> You may update your account settings and credentials directly through the client dashboard.</li>
+          <li><strong>Deletion:</strong> You may request the permanent deletion of your account and associated billing records by contacting our support desk.</li>
+        </ul>
 
-    </div>
+        <h2>7. Cookies</h2>
+        <p>
+          CheckerLeak uses minimal first-party session cookies and browser local storage strictly necessary for authentication state and user preferences (such as maintaining your login session across page views). We do not use intrusive third-party cross-site advertising trackers.
+        </p>
 
-    <!-- BOTTOM CTA -->
-    <div class="mt-12 text-center bg-slate-900 text-white rounded-3xl p-8 sm:p-10 shadow-lg">
-      <div class="w-12 h-12 rounded-2xl bg-brand-500/20 text-brand-400 mx-auto flex items-center justify-center mb-4 border border-brand-500/30">
-        <i data-lucide="shield" class="w-6 h-6"></i>
+        <h2>8. Updates to This Policy</h2>
+        <p>
+          We may update this Privacy Policy from time to time to reflect changes in our infrastructure, service offerings, or legal obligations. The date of the latest revision will always be displayed at the top of this document. Continued use of CheckerLeak after revisions constitute your acceptance of the updated terms.
+        </p>
+
+        <h2>9. Contact Us</h2>
+        <p>
+          If you have questions, feedback, or data requests regarding this Privacy Policy, please reach out to us:
+        </p>
+        <ul>
+          <li>Email: <a href="mailto:support@checkerleak.com" class="text-blue-600 hover:underline">support@checkerleak.com</a></li>
+          <li>Telegram: <a href="https://t.me/checkerleak" target="_blank" class="text-blue-600 hover:underline">@checkerleak</a></li>
+          <li>Official Website: <a href="https://www.checkerleak.com" class="text-blue-600 hover:underline">https://www.checkerleak.com</a></li>
+        </ul>
+
       </div>
-      <h3 class="text-2xl font-bold mb-2">Experience True Zero-Retention Verification</h3>
-      <p class="text-sm text-slate-400 max-w-xl mx-auto mb-6">
-        Test any of our 102 checkers knowing your queries are ephemeral, secure, and never logged.
-      </p>
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-        <a href="/" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-semibold text-sm transition">
-          Open Live Checkers
-        </a>
-        <a href="/docs" target="_blank" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm transition font-mono">
-          View API Docs
-        </a>
-      </div>
+
     </div>
 
   </main>
 
   <!-- FOOTER -->
   <footer class="border-t border-slate-200 bg-white py-8 text-xs text-slate-500">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-2">
-        <i data-lucide="shield-check" class="w-4 h-4 text-brand-500"></i>
-        <span>© 2026 CheckerLeak.com. All rights reserved. Pure verification infrastructure.</span>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <span>© 2026 CheckerLeak.com. All rights reserved.</span>
       </div>
       <div class="flex items-center gap-6">
-        <a href="/privacy" class="text-brand-600 font-bold hover:underline">Privacy & Zero-Retention Charter</a>
-        <a href="/#servicesDirectorySection" class="hover:text-slate-900 transition">Directory</a>
-        <a href="/docs" target="_blank" class="hover:text-slate-900 transition">Swagger API</a>
+        <a href="/privacy" class="text-slate-900 font-medium">Privacy Policy</a>
+        <a href="/#pricing" class="hover:text-slate-900 transition">Pricing</a>
+        <a href="/docs" target="_blank" class="hover:text-slate-900 transition">API Documentation</a>
       </div>
     </div>
   </footer>
 
   <script>
-    lucide.createIcons();
+    if (window.lucide) {
+      lucide.createIcons();
+    }
   </script>
 </body>
 </html>
