@@ -13,6 +13,10 @@
 - Telegram Phone Number Lookup & User Finder: https://checkerleak.com/blog/telegram-phone-number-lookup-how-to-check-if-number-has-telegram
 - CheckLeaked vs CheckerLeak (Safety, Privacy & Feature Comparison): https://checkerleak.com/blog/checkleaked-vs-checkerleak-safety-privacy-comparison-2026
 - Binance & Crypto Exchange Phone Checker: https://checkerleak.com/blog/binance-crypto-exchange-phone-checker-lead-verification
+- Netflix Email Checker & Subscription Tier API: https://checkerleak.com/blog/netflix-email-checker-verify-subscription-status-api
+- SIM Swap Detection & IMSI Porting Defense (SS7): https://checkerleak.com/blog/sim-swap-detection-api-prevent-account-takeover
+- Verify Email Address Without Sending Email (Live SMTP Handshake): https://checkerleak.com/blog/verify-email-address-without-sending-email-smtp-handshake
+- TikTok Phone Number Checker & Creator Account Lookup: https://checkerleak.com/blog/tiktok-phone-number-checker-creator-account-lookup
 - How to Check if a Phone Number is Active Without Calling (SS7 HLR): https://checkerleak.com/blog/how-to-check-if-phone-number-is-active-without-calling
 - VoIP vs Physical Mobile Detection (Burner Filtering): https://checkerleak.com/blog/voip-vs-mobile-number-how-to-detect-virtual-burners
 - Apple iMessage & FaceTime Blue Bubble Status API: https://checkerleak.com/blog/how-to-check-apple-imessage-blue-bubble-status-api
