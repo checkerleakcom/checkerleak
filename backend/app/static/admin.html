@@ -48,7 +48,7 @@
   <!-- ==================================================== -->
   <!-- AUTH WALL / MASTER KEY LOGIN MODAL -->
   <!-- ==================================================== -->
-  <div id="auth-wall" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-md px-4 hidden">
+  <div id="auth-wall" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-lg px-4">
     <div class="w-full max-w-md bg-white border border-slate-200 rounded-2xl p-8 shadow-2xl relative overflow-hidden">
       <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 via-indigo-500 to-cyan-500"></div>
       
@@ -92,7 +92,7 @@
   <!-- ==================================================== -->
   <!-- DASHBOARD APPLICATION (SHOWN ON AUTH) -->
   <!-- ==================================================== -->
-  <div id="dashboard-app" class="flex-1 flex flex-col">
+  <div id="dashboard-app" class="flex-1 flex flex-col hidden">
     
     <!-- TOP NAVIGATION & STATUS BAR -->
     <header class="bg-white/95 backdrop-blur-md border-b border-slate-200 sticky top-0 z-40 px-6 sm:px-10 py-3.5 flex flex-wrap items-center justify-between gap-4">
@@ -725,7 +725,9 @@
   <!-- JAVASCRIPT LOGIC & API CONSUMER -->
   <!-- ==================================================== -->
   <script>
-    let adminToken = localStorage.getItem('checkerleak_admin_token') || '';
+    // Strict Session-only Auth - Purge legacy cached keys
+      localStorage.removeItem('checkerleak_admin_token');
+      let adminToken = sessionStorage.getItem('cl_admin_session_key_v2') || '';
     let currentSearchDebounce = null;
     let cachedUsers = [];
     let cachedTransactions = [];
@@ -756,6 +758,7 @@
 
       if (!adminToken) {
         authWall.classList.remove('hidden');
+        dashboardApp.classList.add('hidden');
         return;
       }
 
@@ -766,14 +769,22 @@
 
         if (res.ok) {
           authWall.classList.add('hidden');
-          dashboardApp.classList.remove('opacity-25');
+          dashboardApp.classList.remove('hidden');
           refreshAllData();
           setInterval(() => { refreshAllData(false); }, 15000);
         } else {
+          adminToken = '';
+          sessionStorage.removeItem('cl_admin_session_key_v2');
+          localStorage.removeItem('checkerleak_admin_token');
           authWall.classList.remove('hidden');
+          dashboardApp.classList.add('hidden');
         }
       } catch(err) {
+        adminToken = '';
+        sessionStorage.removeItem('cl_admin_session_key_v2');
+        localStorage.removeItem('checkerleak_admin_token');
         authWall.classList.remove('hidden');
+        dashboardApp.classList.add('hidden');
       }
     }
 
@@ -797,8 +808,10 @@
         if (!res.ok) throw new Error('Invalid Admin Secret Key.');
 
         adminToken = key;
-        localStorage.setItem('checkerleak_admin_token', adminToken);
+        sessionStorage.setItem('cl_admin_session_key_v2', adminToken);
+        localStorage.removeItem('checkerleak_admin_token');
         document.getElementById('auth-wall').classList.add('hidden');
+        document.getElementById('dashboard-app').classList.remove('hidden');
         refreshAllData();
       } catch(err) {
         errBox.classList.remove('hidden');
@@ -810,10 +823,17 @@
       }
     }
 
-    function handleAdminLogout() {
+    async function handleAdminLogout() {
+      try {
+        await fetch('/v1/admin/logout', { method: 'POST' });
+      } catch(e) {}
       adminToken = '';
+      sessionStorage.removeItem('cl_admin_session_key_v2');
       localStorage.removeItem('checkerleak_admin_token');
+      const input = document.getElementById('admin-key-input');
+      if (input) input.value = '';
       document.getElementById('auth-wall').classList.remove('hidden');
+      document.getElementById('dashboard-app').classList.add('hidden');
     }
 
     function getAuthHeaders() {
