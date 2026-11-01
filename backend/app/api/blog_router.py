@@ -17,6 +17,7 @@ templates = Jinja2Templates(directory=TEMPLATES_DIR)
 ARTICLES = [
     {
         "slug": "how-to-check-if-phone-number-is-active-without-calling",
+        "image": "/static/blog_images/how-to-check-if-phone-number-is-active-without-calling.jpg",
         "gradient": "from-blue-600 via-indigo-700 to-slate-900",
         "badge_icon": "radio",
         "tags": ['hlr lookup', 'ss7 telecom', 'carrier verification'],
@@ -104,6 +105,7 @@ Response delivers instant line verification:
     },
     {
         "slug": "voip-vs-mobile-number-how-to-detect-virtual-burners",
+        "image": "/static/blog_images/voip-vs-mobile-number-how-to-detect-virtual-burners.jpg",
         "gradient": "from-amber-600 via-rose-700 to-slate-900",
         "badge_icon": "shield-alert",
         "tags": ['burner numbers', 'voip detection', 'fraud prevention'],
@@ -167,6 +169,7 @@ curl -X POST "https://www.checkerleak.com/v1/verify/service" \\<br>
     },
     {
         "slug": "how-to-check-apple-imessage-blue-bubble-status-api",
+        "image": "/static/blog_images/how-to-check-apple-imessage-blue-bubble-status-api.jpg",
         "gradient": "from-sky-500 via-blue-600 to-indigo-950",
         "badge_icon": "smartphone",
         "tags": ['imessage test', 'blue bubble', 'apple ids'],
@@ -228,6 +231,7 @@ curl -X POST "https://www.checkerleak.com/v1/verify/service" \\<br>
     },
     {
         "slug": "phone-number-osint-investigation-footprint-guide",
+        "image": "/static/blog_images/phone-number-osint-investigation-footprint-guide.jpg",
         "gradient": "from-emerald-600 via-teal-700 to-slate-900",
         "badge_icon": "search",
         "tags": ['phone osint', 'digital footprint', 'investigation'],
@@ -283,6 +287,7 @@ curl -X POST "https://www.checkerleak.com/v1/verify/single" \\<br>
 ,
     {
         "slug": "whatsapp-number-checker-online-verify-without-saving-contacts",
+        "image": "/static/blog_images/whatsapp-number-checker-online-verify-without-saving-contacts.jpg",
         "gradient": "from-emerald-500 via-green-600 to-teal-950",
         "badge_icon": "message-circle",
         "tags": ['whatsapp checker', 'whatsapp business', 'bulk verify'],
@@ -375,6 +380,7 @@ Sending marketing messages or SMS codes to inactive numbers ruins campaign deliv
     },
     {
         "slug": "telegram-phone-number-lookup-how-to-check-if-number-has-telegram",
+        "image": "/static/blog_images/telegram-phone-number-lookup-how-to-check-if-number-has-telegram.jpg",
         "gradient": "from-sky-500 via-blue-700 to-slate-900",
         "badge_icon": "send",
         "tags": ['telegram lookup', 'username finder', 'mtproto'],
@@ -432,6 +438,7 @@ In crypto marketing and customer onboarding, leads without a Telegram account ha
     },
     {
         "slug": "checkleaked-vs-checkerleak-safety-privacy-comparison-2026",
+        "image": "/static/blog_images/checkleaked-vs-checkerleak-safety-privacy-comparison-2026.jpg",
         "gradient": "from-indigo-600 via-purple-700 to-slate-900",
         "badge_icon": "scale",
         "tags": ['checkleaked review', 'privacy comparison', 'zero retention'],
@@ -517,6 +524,7 @@ If an investigator or compliance officer queries sensitive fraud leads on a plat
     },
     {
         "slug": "binance-crypto-exchange-phone-checker-lead-verification",
+        "image": "/static/blog_images/binance-crypto-exchange-phone-checker-lead-verification.jpg",
         "gradient": "from-amber-500 via-yellow-600 to-slate-900",
         "badge_icon": "coins",
         "tags": ['binance lookup', 'crypto leads', 'trader verification'],
@@ -572,6 +580,7 @@ Traditional attempts to verify crypto users involve sending cold emails or calli
     },
     {
         "slug": "netflix-email-checker-verify-subscription-status-api",
+        "image": "/static/blog_images/netflix-email-checker-verify-subscription-status-api.jpg",
         "gradient": "from-rose-600 via-red-700 to-slate-900",
         "badge_icon": "film",
         "tags": ['netflix checker', 'subscription tier', 'email osint'],
@@ -709,6 +718,7 @@ Sample structured JSON response delivered in ~180 milliseconds:
     },
     {
         "slug": "sim-swap-detection-api-prevent-account-takeover",
+        "image": "/static/blog_images/sim-swap-detection-api-prevent-account-takeover.jpg",
         "gradient": "from-purple-600 via-indigo-800 to-slate-900",
         "badge_icon": "cpu",
         "tags": ['sim swap api', 'imsi change', 'ato defense'],
@@ -829,6 +839,7 @@ The API returns instant risk indicators:
     },
     {
         "slug": "verify-email-address-without-sending-email-smtp-handshake",
+        "image": "/static/blog_images/verify-email-address-without-sending-email-smtp-handshake.jpg",
         "gradient": "from-blue-600 via-cyan-700 to-slate-900",
         "badge_icon": "mail",
         "tags": ['smtp handshake', 'verify email', 'zero bounce'],
@@ -929,6 +940,7 @@ Certain corporate mail servers are configured as <strong>Catch-All (Accept-All)<
     },
     {
         "slug": "tiktok-phone-number-checker-creator-account-lookup",
+        "image": "/static/blog_images/tiktok-phone-number-checker-creator-account-lookup.jpg",
         "gradient": "from-slate-900 via-pink-600 to-rose-700",
         "badge_icon": "music",
         "tags": ['tiktok checker', 'creator accounts', 'social commerce'],
@@ -1021,6 +1033,7 @@ Structured response format:
 
     {
         "slug": "hlr-lookup-vs-carrier-lookup-which-check-does-phone-list-need",
+        "image": "/static/blog_images/hlr-lookup-vs-carrier-lookup-which-check-does-phone-list-need.jpg",
         "gradient": "from-indigo-700 via-blue-800 to-slate-950",
         "badge_icon": "activity",
         "tags": ['hlr vs carrier', 'mcc mnc', 'list cleaning'],
@@ -1147,6 +1160,7 @@ curl -X POST "https://www.checkerleak.com/v1/services/check" \\<br>
     },
     {
         "slug": "best-numberchecker-alternatives-bulk-phone-verification",
+        "image": "/static/blog_images/best-numberchecker-alternatives-bulk-phone-verification.jpg",
         "gradient": "from-violet-600 via-indigo-700 to-slate-900",
         "badge_icon": "zap",
         "tags": ['numberchecker alternative', '102 checkers', 'benchmark'],
@@ -1288,6 +1302,7 @@ Phone number verification has expanded beyond simple carrier lookups. Modern gro
     },
     {
         "slug": "indonesia-brazil-india-phone-number-carrier-lookup-bulk",
+        "image": "/static/blog_images/indonesia-brazil-india-phone-number-carrier-lookup-bulk.jpg",
         "gradient": "from-teal-600 via-emerald-700 to-slate-900",
         "badge_icon": "globe",
         "tags": ['indonesia 62', 'brazil 55', 'india 91'],

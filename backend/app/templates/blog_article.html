@@ -179,6 +179,13 @@
           {{ article.title }}
         </h1>
 
+        {% if article.image %}
+        <!-- Featured Real Article Image -->
+        <div class="mt-8 rounded-2xl overflow-hidden border border-slate-200 shadow-sm aspect-[16/9] w-full bg-slate-900">
+          <img src="{{ article.image }}" alt="{{ article.title }}" class="w-full h-full object-cover">
+        </div>
+        {% endif %}
+
         <div class="mt-6 flex items-center gap-3">
           <div class="w-10 h-10 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold text-xs">
             CL
