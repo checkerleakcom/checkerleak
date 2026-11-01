@@ -6,6 +6,7 @@ import pytest
 from fastapi.testclient import TestClient
 from app.main import app
 from app.core.database import DatabaseService
+from app.api.admin_router import ADMIN_SECRET_KEY
 from app.core.auth import AuthService
 
 client = TestClient(app)
@@ -70,7 +71,7 @@ def test_registration_and_email_verification_lifecycle():
     assert reuse_res.status_code == 400
 
     # 6. Admin user list should report email_verified=True
-    admin_res = client.get("/v1/admin/users", headers={"X-Admin-Key": "checkerleak_admin_master_2025"})
+    admin_res = client.get("/v1/admin/users", headers={"X-Admin-Key": ADMIN_SECRET_KEY})
     assert admin_res.status_code == 200
     admin_users = admin_res.json()["users"]
     target_admin_u = next((u for u in admin_users if u["email"] == email), None)
@@ -80,7 +81,7 @@ def test_registration_and_email_verification_lifecycle():
     # 7. Admin manual override: toggle unverify and re-verify
     override_res = client.post(
         f"/v1/admin/users/{user_id}/verify-email",
-        headers={"X-Admin-Key": "checkerleak_admin_master_2025"},
+        headers={"X-Admin-Key": ADMIN_SECRET_KEY},
         json={"verified": False}
     )
     assert override_res.status_code == 200
@@ -88,7 +89,7 @@ def test_registration_and_email_verification_lifecycle():
 
     reverify_res = client.post(
         f"/v1/admin/users/{user_id}/verify-email",
-        headers={"X-Admin-Key": "checkerleak_admin_master_2025"},
+        headers={"X-Admin-Key": ADMIN_SECRET_KEY},
         json={"verified": True}
     )
     assert reverify_res.status_code == 200

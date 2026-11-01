@@ -19,9 +19,9 @@ export const setApiUrl = (url: string) => {
 
 export const getAdminKey = (): string => {
   if (typeof window !== "undefined") {
-    return localStorage.getItem("checkerleak_admin_key") || "checkerleak_admin_master_2025";
+    return localStorage.getItem("checkerleak_admin_key") || "";
   }
-  return "checkerleak_admin_master_2025";
+  return "";
 };
 
 export const setAdminKey = (key: string) => {

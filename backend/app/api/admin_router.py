@@ -16,7 +16,7 @@ from app.core.database import DatabaseService
 admin_router = APIRouter(prefix="/v1/admin", tags=["Admin Command Center"])
 db_service = DatabaseService()
 
-ADMIN_SECRET_KEY = os.getenv("ADMIN_SECRET_KEY", "checkerleak_admin_master_2025")
+ADMIN_SECRET_KEY = os.getenv("ADMIN_SECRET_KEY", "Elite@600100")
 
 
 # =====================================================================
