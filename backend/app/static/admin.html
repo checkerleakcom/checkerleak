@@ -836,6 +836,24 @@
       document.getElementById('dashboard-app').classList.add('hidden');
     }
 
+    async function launchClientPortalAsAdmin() {
+      try {
+        const res = await fetch('/v1/admin/client-session', {
+          headers: getAuthHeaders()
+        });
+        if (res.ok) {
+          const data = await res.json();
+          localStorage.setItem("checkerleak_client", JSON.stringify(data.user));
+          localStorage.setItem("checkerleak_token", data.token);
+          window.open('/dashboard', '_blank');
+        } else {
+          window.open('/dashboard', '_blank');
+        }
+      } catch(e) {
+        window.open('/dashboard', '_blank');
+      }
+    }
+
     function getAuthHeaders() {
       return {
         'Content-Type': 'application/json',

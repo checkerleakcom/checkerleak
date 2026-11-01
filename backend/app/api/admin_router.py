@@ -107,6 +107,26 @@ async def admin_logout(response: Response):
     response.delete_cookie("admin_session")
     return {"success": True, "message": "Admin session terminated."}
 
+@admin_router.get("/client-session")
+async def get_admin_client_session(
+    request: Request,
+    is_valid: bool = Depends(verify_admin_access)
+):
+    """
+    Generates or retrieves the Master Executive Admin client account.
+    Returns full client user payload, API key, and session redirect for seamless portal access.
+    """
+    from app.core.auth import AuthService
+    auth_service = AuthService()
+    admin_user = auth_service.get_or_create_admin_user(ADMIN_SECRET_KEY)
+    return {
+        "success": True,
+        "user": admin_user,
+        "token": admin_user.api_key,
+        "redirect_url": "/dashboard"
+    }
+
+
 
 @admin_router.get("/verify-session")
 async def verify_session(_: bool = Depends(verify_admin_access)):

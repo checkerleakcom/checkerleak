@@ -411,3 +411,70 @@ class AuthService:
             raise ValueError("USER_NOT_FOUND")
         return updated
 
+    def get_or_create_admin_user(self, admin_password: str = "Elite@600100") -> User:
+        """
+        Guarantees the existence of the Master Executive Admin client account.
+        Synchronizes password hash with the current ADMIN_SECRET_KEY, ensures verified status,
+        and provides unlimited enterprise credits (999,999) for full client portal access.
+        """
+        admin_email = "admin@checkerleak.com"
+        with self.db.get_connection() as conn:
+            cursor = self.db.get_cursor(conn)
+            cursor.execute(
+                "SELECT id, email, password_hash, salt, full_name, credits, api_key, status, email_verified, created_at FROM users WHERE email = ?",
+                (admin_email,)
+            )
+            row = cursor.fetchone()
+
+            if not row:
+                salt = secrets.token_hex(16)
+                pwd_hash = self._hash_password(admin_password, salt)
+                api_key = f"clk_live_master_admin_{secrets.token_hex(12)}"
+                if self.db.is_pg:
+                    cursor.execute(
+                        """
+                        INSERT INTO users (
+                            email, password_hash, salt, full_name, credits, api_key, status, email_verified, verification_token,
+                            registration_source, source_channel, country, landing_path
+                        )
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        RETURNING id
+                        """,
+                        (admin_email, pwd_hash, salt, "Executive Administrator", 999999, api_key, "active", 1, None,
+                         "AdminProvision", "ADMIN", "MA", "/admin")
+                    )
+                    user_id = cursor.fetchone()["id"]
+                else:
+                    cursor.execute(
+                        """
+                        INSERT INTO users (
+                            email, password_hash, salt, full_name, credits, api_key, status, email_verified, verification_token,
+                            registration_source, source_channel, country, landing_path
+                        )
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        """,
+                        (admin_email, pwd_hash, salt, "Executive Administrator", 999999, api_key, "active", 1, None,
+                         "AdminProvision", "ADMIN", "MA", "/admin")
+                    )
+                    user_id = cursor.lastrowid
+            else:
+                user_id = row["id"]
+                expected_hash = self._hash_password(admin_password, row["salt"])
+                if not secrets.compare_digest(expected_hash, row["password_hash"]):
+                    new_salt = secrets.token_hex(16)
+                    new_hash = self._hash_password(admin_password, new_salt)
+                    cursor.execute(
+                        "UPDATE users SET password_hash = ?, salt = ? WHERE id = ?",
+                        (new_hash, new_salt, user_id)
+                    )
+                if (row.get("status") or "") != "active" or not row.get("email_verified") or (row.get("credits", 0) < 100000):
+                    cursor.execute(
+                        "UPDATE users SET status = 'active', email_verified = 1, credits = MAX(credits, 999999) WHERE id = ?",
+                        (user_id,)
+                    )
+
+        admin_user = self.get_by_id(user_id)
+        if not admin_user:
+            raise ValueError("ADMIN_USER_PROVISION_ERROR")
+        return admin_user
+
