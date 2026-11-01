@@ -17,6 +17,9 @@
 - SIM Swap Detection & IMSI Porting Defense (SS7): https://checkerleak.com/blog/sim-swap-detection-api-prevent-account-takeover
 - Verify Email Address Without Sending Email (Live SMTP Handshake): https://checkerleak.com/blog/verify-email-address-without-sending-email-smtp-handshake
 - TikTok Phone Number Checker & Creator Account Lookup: https://checkerleak.com/blog/tiktok-phone-number-checker-creator-account-lookup
+- HLR Lookup vs Carrier Lookup (SS7 Signaling vs Static MCC/MNC): https://checkerleak.com/blog/hlr-lookup-vs-carrier-lookup-which-check-does-phone-list-need
+- Best NumberChecker.AI Alternatives (102+ Deep Engines Review): https://checkerleak.com/blog/best-numberchecker-alternatives-bulk-phone-verification
+- International Carrier Lookup (+62 Indonesia, +55 Brazil, +91 India): https://checkerleak.com/blog/indonesia-brazil-india-phone-number-carrier-lookup-bulk
 - How to Check if a Phone Number is Active Without Calling (SS7 HLR): https://checkerleak.com/blog/how-to-check-if-phone-number-is-active-without-calling
 - VoIP vs Physical Mobile Detection (Burner Filtering): https://checkerleak.com/blog/voip-vs-mobile-number-how-to-detect-virtual-burners
 - Apple iMessage & FaceTime Blue Bubble Status API: https://checkerleak.com/blog/how-to-check-apple-imessage-blue-bubble-status-api

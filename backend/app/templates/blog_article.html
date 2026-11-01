@@ -85,6 +85,28 @@
   }
   </script>
 
+  {% if article.faq_items %}
+  <!-- Schema.org FAQPage for Google Rich Snippets -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {% for faq in article.faq_items %}
+      {
+        "@type": "Question",
+        "name": "{{ faq.q }}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "{{ faq.a }}"
+        }
+      }{% if not loop.last %},{% endif %}
+      {% endfor %}
+    ]
+  }
+  </script>
+  {% endif %}
+
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
