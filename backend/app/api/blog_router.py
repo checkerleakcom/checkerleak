@@ -17,6 +17,9 @@ templates = Jinja2Templates(directory=TEMPLATES_DIR)
 ARTICLES = [
     {
         "slug": "how-to-check-if-phone-number-is-active-without-calling",
+        "gradient": "from-blue-600 via-indigo-700 to-slate-900",
+        "badge_icon": "radio",
+        "tags": ['hlr lookup', 'ss7 telecom', 'carrier verification'],
         "title": "How to Check if a Phone Number is Active Without Calling (2026 Telecom Guide)",
         "summary": "Discover how SS7 and Diameter HLR network lookups verify live SIM connections, carrier routing, and active roaming without ringing or sending an SMS.",
         "author": "CheckerLeak Telecom Engineering",
@@ -101,6 +104,9 @@ Response delivers instant line verification:
     },
     {
         "slug": "voip-vs-mobile-number-how-to-detect-virtual-burners",
+        "gradient": "from-amber-600 via-rose-700 to-slate-900",
+        "badge_icon": "shield-alert",
+        "tags": ['burner numbers', 'voip detection', 'fraud prevention'],
         "title": "VoIP vs Mobile Numbers: How to Detect Fake and Disposable Burner Numbers",
         "summary": "Learn how fraudsters use virtual VoIP services like Google Voice, TextNow, and Twilio to bypass verification, and how to detect them before payout or onboarding.",
         "author": "CheckerLeak Fraud Prevention Team",
@@ -161,6 +167,9 @@ curl -X POST "https://www.checkerleak.com/v1/verify/service" \\<br>
     },
     {
         "slug": "how-to-check-apple-imessage-blue-bubble-status-api",
+        "gradient": "from-sky-500 via-blue-600 to-indigo-950",
+        "badge_icon": "smartphone",
+        "tags": ['imessage test', 'blue bubble', 'apple ids'],
         "title": "How to Verify Apple iMessage and FaceTime Status Programmatically via API",
         "summary": "A deep dive into Apple's Identity Services (IDS) and how enterprises verify iOS blue-bubble status, APNs routing, and Apple IDs silently without SMS.",
         "author": "CheckerLeak Hardware & Telecom R&D",
@@ -219,6 +228,9 @@ curl -X POST "https://www.checkerleak.com/v1/verify/service" \\<br>
     },
     {
         "slug": "phone-number-osint-investigation-footprint-guide",
+        "gradient": "from-emerald-600 via-teal-700 to-slate-900",
+        "badge_icon": "search",
+        "tags": ['phone osint', 'digital footprint', 'investigation'],
         "title": "Phone Number OSINT: How to Trace Digital Footprints Across 102+ Platforms",
         "summary": "The definitive guide to Open Source Intelligence (OSINT) phone number tracing across messengers, cryptocurrency exchanges, and fintech neobanks without leaving traces.",
         "author": "CheckerLeak Security Intelligence",
@@ -271,6 +283,9 @@ curl -X POST "https://www.checkerleak.com/v1/verify/single" \\<br>
 ,
     {
         "slug": "whatsapp-number-checker-online-verify-without-saving-contacts",
+        "gradient": "from-emerald-500 via-green-600 to-teal-950",
+        "badge_icon": "message-circle",
+        "tags": ['whatsapp checker', 'whatsapp business', 'bulk verify'],
         "title": "WhatsApp Number Checker Online: How to Verify WhatsApp Accounts Without Saving Contacts (2026 Guide)",
         "summary": "Step-by-step technical guide to checking if a phone number has an active WhatsApp or WhatsApp Business account in real time without adding contacts or sending an SMS.",
         "author": "CheckerLeak Messaging Protocols Team",
@@ -360,6 +375,9 @@ Sending marketing messages or SMS codes to inactive numbers ruins campaign deliv
     },
     {
         "slug": "telegram-phone-number-lookup-how-to-check-if-number-has-telegram",
+        "gradient": "from-sky-500 via-blue-700 to-slate-900",
+        "badge_icon": "send",
+        "tags": ['telegram lookup', 'username finder', 'mtproto'],
         "title": "Telegram Phone Number Lookup: How to Check If a Number Has Telegram & Find Usernames",
         "summary": "Explore how to verify whether a phone number is registered on Telegram, retrieve associated public handles, and calculate account seniority without intrusive pings.",
         "author": "CheckerLeak OSINT & Protocol Desk",
@@ -414,6 +432,9 @@ In crypto marketing and customer onboarding, leads without a Telegram account ha
     },
     {
         "slug": "checkleaked-vs-checkerleak-safety-privacy-comparison-2026",
+        "gradient": "from-indigo-600 via-purple-700 to-slate-900",
+        "badge_icon": "scale",
+        "tags": ['checkleaked review', 'privacy comparison', 'zero retention'],
         "title": "CheckLeaked vs CheckerLeak: In-Depth 2026 Security, Privacy & Feature Comparison",
         "summary": "An objective comparative review of CheckLeaked and CheckerLeak. Discover the critical differences in data retention, query harvesting, platform coverage, and GDPR compliance.",
         "author": "CheckerLeak Information Security Compliance Desk",
@@ -496,6 +517,9 @@ If an investigator or compliance officer queries sensitive fraud leads on a plat
     },
     {
         "slug": "binance-crypto-exchange-phone-checker-lead-verification",
+        "gradient": "from-amber-500 via-yellow-600 to-slate-900",
+        "badge_icon": "coins",
+        "tags": ['binance lookup', 'crypto leads', 'trader verification'],
         "title": "Binance & Crypto Exchange Lead Verification: How to Detect Active Crypto Traders by Phone",
         "summary": "Learn how financial desks and Web3 growth teams verify cryptocurrency exchange account registrations across Binance, KuCoin, and OKX to score high-value leads.",
         "author": "CheckerLeak FinTech & Web3 Growth Desk",
@@ -548,6 +572,9 @@ Traditional attempts to verify crypto users involve sending cold emails or calli
     },
     {
         "slug": "netflix-email-checker-verify-subscription-status-api",
+        "gradient": "from-rose-600 via-red-700 to-slate-900",
+        "badge_icon": "film",
+        "tags": ['netflix checker', 'subscription tier', 'email osint'],
         "title": "Netflix Email Checker: How to Verify Active Subscriptions, Plan Tiers & Profiles via API",
         "summary": "Learn how modern cybersecurity desks and fraud prevention platforms inspect Netflix account presence by email, detect active subscription tiers (4K UHD vs Standard), and verify streaming footprints without sending alerts.",
         "author": "CheckerLeak Streaming Intelligence Desk",
@@ -682,6 +709,9 @@ Sample structured JSON response delivered in ~180 milliseconds:
     },
     {
         "slug": "sim-swap-detection-api-prevent-account-takeover",
+        "gradient": "from-purple-600 via-indigo-800 to-slate-900",
+        "badge_icon": "cpu",
+        "tags": ['sim swap api', 'imsi change', 'ato defense'],
         "title": "SIM Swap Detection via API: How to Detect IMSI Porting and Prevent Account Takeovers (2026 Guide)",
         "summary": "A deep dive into telecom SS7 signaling, Mobile Network Operator IMSI shifts, and how fintechs and crypto exchanges catch SIM swap attacks in real-time before sending 2FA SMS codes.",
         "author": "CheckerLeak Telecom Risk & SS7 Protocol Desk",
@@ -799,6 +829,9 @@ The API returns instant risk indicators:
     },
     {
         "slug": "verify-email-address-without-sending-email-smtp-handshake",
+        "gradient": "from-blue-600 via-cyan-700 to-slate-900",
+        "badge_icon": "mail",
+        "tags": ['smtp handshake', 'verify email', 'zero bounce'],
         "title": "How to Verify an Email Address Without Sending an Email: The 2026 Live SMTP Protocol Guide",
         "summary": "Step-by-step technical breakdown of DNS MX resolution, EHLO/MAIL FROM handshake simulation, and recipient mailbox probing without delivering messages or generating bounces.",
         "author": "CheckerLeak Email Protocols & Infrastructure Team",
@@ -896,6 +929,9 @@ Certain corporate mail servers are configured as <strong>Catch-All (Accept-All)<
     },
     {
         "slug": "tiktok-phone-number-checker-creator-account-lookup",
+        "gradient": "from-slate-900 via-pink-600 to-rose-700",
+        "badge_icon": "music",
+        "tags": ['tiktok checker', 'creator accounts', 'social commerce'],
         "title": "TikTok Phone Number Checker: How to Verify Active Accounts & Creator Status by Phone",
         "summary": "Discover how influencer platforms and ecommerce growth teams verify ByteDance TikTok account presence by phone and email, detect creator accounts, and check marketplace eligibility.",
         "author": "CheckerLeak Social Commerce & Creator Desk",
@@ -985,6 +1021,9 @@ Structured response format:
 
     {
         "slug": "hlr-lookup-vs-carrier-lookup-which-check-does-phone-list-need",
+        "gradient": "from-indigo-700 via-blue-800 to-slate-950",
+        "badge_icon": "activity",
+        "tags": ['hlr vs carrier', 'mcc mnc', 'list cleaning'],
         "title": "HLR Lookup vs Carrier Lookup: Which Check Does Your Phone List Need? (2026 Guide)",
         "summary": "Compare real-time SS7 Home Location Register (HLR) signaling with static carrier MCC/MNC lookups. Discover which check stops SMS bounce fees, flags ported lines, and detects live cellular roaming.",
         "author": "CheckerLeak Telecom Infrastructure Desk",
@@ -1108,6 +1147,9 @@ curl -X POST "https://www.checkerleak.com/v1/services/check" \\<br>
     },
     {
         "slug": "best-numberchecker-alternatives-bulk-phone-verification",
+        "gradient": "from-violet-600 via-indigo-700 to-slate-900",
+        "badge_icon": "zap",
+        "tags": ['numberchecker alternative', '102 checkers', 'benchmark'],
         "title": "Best NumberChecker.AI Alternatives for Bulk Phone & Footprint Verification (2026 Review)",
         "summary": "An objective engineering review of the top NumberChecker alternatives. Compare platform coverage (102 vs 18 checkers), API latency, anonymous zero-KYC billing, and pricing per 10k checks.",
         "author": "CheckerLeak Product & Competitive Intelligence",
@@ -1246,6 +1288,9 @@ Phone number verification has expanded beyond simple carrier lookups. Modern gro
     },
     {
         "slug": "indonesia-brazil-india-phone-number-carrier-lookup-bulk",
+        "gradient": "from-teal-600 via-emerald-700 to-slate-900",
+        "badge_icon": "globe",
+        "tags": ['indonesia 62', 'brazil 55', 'india 91'],
         "title": "International Phone Carrier Lookup: How to Clean +62, +55, and +91 Bulk Lead Lists",
         "summary": "Optimize bulk SMS and WhatsApp outreach in high-volume emerging markets (Indonesia +62, Brazil +55, India +91). Detect Telkomsel, Vivo, Claro, and Jio carrier allocations in real-time.",
         "author": "CheckerLeak Global Telephony & Geo Desk",
@@ -1332,14 +1377,38 @@ curl -X POST "https://www.checkerleak.com/v1/services/check" \\<br>
 
 
 @blog_router.get("/blog", response_class=HTMLResponse)
-async def blog_index(request: Request):
-    """Renders the official CheckerLeak engineering & SEO blog index."""
+async def blog_index(request: Request, page: int = 1, category: str = None):
+    """Renders the official CheckerLeak engineering & SEO blog index with pagination and filtering."""
+    page_size = 6
+    filtered_articles = ARTICLES
+    if category and category.strip():
+        filtered_articles = [a for a in ARTICLES if a.get("category", "").lower() == category.lower().strip()]
+    
+    total_articles = len(filtered_articles)
+    total_pages = max(1, (total_articles + page_size - 1) // page_size)
+    current_page = max(1, min(page, total_pages))
+    
+    start_idx = (current_page - 1) * page_size
+    end_idx = start_idx + page_size
+    paginated_articles = filtered_articles[start_idx:end_idx]
+    
+    categories = sorted(list(set(a.get("category") for a in ARTICLES if a.get("category"))))
+
     return templates.TemplateResponse(
         request,
         "blog_index.html",
         {
-            "articles": ARTICLES,
-            "canonical_url": "https://checkerleak.com/blog"
+            "articles": paginated_articles,
+            "all_articles_count": len(ARTICLES),
+            "current_page": current_page,
+            "total_pages": total_pages,
+            "has_prev": current_page > 1,
+            "has_next": current_page < total_pages,
+            "prev_page": current_page - 1,
+            "next_page": current_page + 1,
+            "categories": categories,
+            "active_category": category,
+            "canonical_url": f"https://checkerleak.com/blog{f'?page={current_page}' if current_page > 1 else ''}"
         }
     )
 

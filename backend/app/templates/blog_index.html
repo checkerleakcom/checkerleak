@@ -33,7 +33,7 @@
       "@type": "Organization",
       "name": "CheckerLeak.com",
       "url": "https://checkerleak.com",
-      "logo": "https://checkerleak.com/static/logo.png"
+      "logo": "https://checkerleak.com/static/logos/carrier.svg"
     }
   }
   </script>
@@ -47,13 +47,13 @@
     }
   </script>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col font-sans">
+<body class="bg-[#f8fafc] text-slate-800 min-h-screen flex flex-col font-sans antialiased">
 
   <!-- Header -->
   <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 h-18 py-3.5 flex items-center justify-between">
       <a href="/" class="flex items-center gap-2.5">
-        <div class="w-8 h-8 rounded-lg bg-[#435ebf] flex items-center justify-center text-white font-bold shadow-sm">
+        <div class="w-8 h-8 rounded-lg bg-[#435ebf] flex items-center justify-center text-white font-bold text-base shadow-sm">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
             <polyline points="22 4 12 14.01 9 11.01"></polyline>
@@ -61,98 +61,225 @@
         </div>
         <div class="flex items-center gap-2">
           <span class="text-xl font-bold tracking-tight text-slate-900">CheckerLeak<span class="text-[#435ebf]">.com</span></span>
-          <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-50 text-[#435ebf] border border-blue-200 uppercase tracking-wider hidden sm:inline-block">Engineering Blog</span>
         </div>
       </a>
 
-      <div class="flex items-center gap-4 text-sm font-semibold">
-        <a href="/" class="text-slate-600 hover:text-[#435ebf] transition">Home</a>
-        <a href="/#servicesDirectorySection" class="text-slate-600 hover:text-[#435ebf] transition">102+ Checkers</a>
-        <a href="/docs" target="_blank" class="text-slate-600 hover:text-[#435ebf] transition">API Docs</a>
-        <a href="/#pricing" class="px-4 py-2 rounded-lg bg-[#435ebf] text-white hover:bg-blue-700 transition font-bold text-xs">Get API Key</a>
+      <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-slate-600">
+        <a href="/" class="hover:text-[#435ebf] transition">Home</a>
+        <a href="/#servicesDirectorySection" class="hover:text-[#435ebf] transition">102+ Checkers</a>
+        <a href="/blog" class="text-[#435ebf] transition">Blog</a>
+        <a href="/docs" target="_blank" class="hover:text-[#435ebf] transition">API Docs</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="/dashboard" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs transition">Client Portal</a>
       </div>
     </div>
   </header>
 
-  <!-- Hero Banner -->
-  <section class="bg-gradient-to-b from-slate-900 to-slate-800 text-white py-16 px-4">
-    <div class="max-w-4xl mx-auto text-center space-y-4">
-      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 font-bold border border-blue-400/30 text-xs">
-        <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
-        TECHNICAL GUIDES &amp; OSINT RESEARCH
-      </span>
-      <h1 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
-        Telecom Intelligence, HLR Signaling &amp; Footprint Detection
-      </h1>
-      <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto">
-        Deep dives into SS7 cellular signalling, VoIP burner identification, Apple iMessage IDS probes, and scaling contact intelligence pipelines.
-      </p>
+  <!-- Hero Header -->
+  <section class="bg-white border-b border-slate-200 py-12 px-4">
+    <div class="max-w-7xl mx-auto">
+      <div class="max-w-3xl space-y-3">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-[#435ebf] text-xs font-mono font-bold border border-blue-200">
+          <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+          CHECKERLEAK ENGINEERING &amp; INTEL DESK
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
+          Guides, Benchmarks &amp; Telecom OSINT
+        </h1>
+        <p class="text-base sm:text-lg text-slate-600 leading-relaxed">
+          In-depth technical workflows for telecom HLR lookups, iMessage blue-bubble testing, crypto trader identification, and bulk lead list hygiene.
+        </p>
+      </div>
+
+      <!-- Categories Filter Tabs -->
+      <div class="flex flex-wrap items-center gap-2 mt-8 pt-6 border-t border-slate-100">
+        <a href="/blog" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition {% if not active_category %}bg-slate-900 text-white shadow-xs{% else %}bg-slate-100 text-slate-600 hover:bg-slate-200{% endif %}">
+          All Guides ({{ all_articles_count }})
+        </a>
+        {% for cat in categories %}
+        <a href="/blog?category={{ cat }}" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition {% if active_category == cat %}bg-slate-900 text-white shadow-xs{% else %}bg-slate-100 text-slate-600 hover:bg-slate-200{% endif %}">
+          {{ cat }}
+        </a>
+        {% endfor %}
+      </div>
     </div>
   </section>
 
-  <!-- Articles Grid -->
-  <main class="max-w-6xl mx-auto px-4 py-12 flex-1 w-full">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+  <!-- Articles 3-Column Grid -->
+  <main class="max-w-7xl mx-auto px-4 py-12 flex-1 w-full">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
       {% for article in articles %}
-      <article class="bg-white rounded-2xl border border-slate-200 hover:border-blue-400 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden group">
-        <div class="p-7 flex flex-col flex-1">
-          <div class="flex items-center justify-between text-xs font-semibold mb-3">
-            <span class="px-2.5 py-1 rounded-md bg-blue-50 text-[#435ebf] border border-blue-100 font-bold">
+      <article class="bg-white rounded-2xl border border-slate-200 hover:border-slate-300 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden group">
+        
+        <!-- Visual Card Banner -->
+        <a href="/blog/{{ article.slug }}" class="block relative aspect-[16/9] w-full overflow-hidden bg-gradient-to-br {{ article.gradient or 'from-slate-900 via-blue-900 to-indigo-950' }} p-6 flex flex-col justify-between">
+          <div class="flex items-center justify-between z-10">
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-black/30 backdrop-blur-md text-white text-[11px] font-mono font-semibold border border-white/10">
+              <i data-lucide="{{ article.badge_icon or 'sparkles' }}" class="w-3.5 h-3.5 text-blue-300"></i>
               {{ article.category }}
             </span>
-            <span class="text-slate-400 flex items-center gap-1">
-              <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+            <span class="text-[11px] font-mono text-slate-300 bg-black/30 px-2 py-0.5 rounded backdrop-blur-md">
               {{ article.read_time }}
             </span>
           </div>
 
-          <h2 class="text-xl font-bold text-slate-900 group-hover:text-[#435ebf] transition mb-3 leading-snug">
+          <!-- Abstract Graphical Artwork -->
+          <div class="absolute inset-0 opacity-20 pointer-events-none flex items-center justify-center">
+            <svg class="w-64 h-64 text-white" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="50" cy="50" r="40" stroke-dasharray="4 4" />
+              <circle cx="50" cy="50" r="28" />
+              <path d="M10 50h80M50 10v80" stroke-opacity="0.4" />
+            </svg>
+          </div>
+
+          <div class="z-10 mt-auto">
+            <span class="text-xs font-mono text-blue-200/90 font-bold block mb-1 tracking-wider uppercase">CheckerLeak Protocol</span>
+            <h3 class="text-white text-base font-bold leading-snug line-clamp-2 drop-shadow-sm group-hover:text-blue-200 transition">
+              {{ article.title }}
+            </h3>
+          </div>
+        </a>
+
+        <!-- Content Area -->
+        <div class="p-6 flex flex-col flex-1">
+          <div class="flex items-center gap-2 text-[11px] text-slate-400 font-medium mb-3">
+            <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+            <span>{{ article.date }}</span>
+          </div>
+
+          <h2 class="text-lg font-bold text-slate-900 group-hover:text-[#435ebf] transition mb-2.5 leading-snug line-clamp-2">
             <a href="/blog/{{ article.slug }}">
               {{ article.title }}
             </a>
           </h2>
 
-          <p class="text-sm text-slate-600 leading-relaxed mb-6 flex-1">
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-5 line-clamp-3 flex-1">
             {{ article.summary }}
           </p>
 
+          <!-- Tags List -->
+          {% if article.tags %}
+          <div class="flex flex-wrap items-center gap-1.5 mb-5">
+            {% for tag in article.tags %}
+            <span class="px-2 py-0.5 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-600 text-[11px] font-mono transition">
+              {{ tag }}
+            </span>
+            {% endfor %}
+          </div>
+          {% endif %}
+
           <div class="pt-4 border-t border-slate-100 flex items-center justify-between mt-auto">
-            <span class="text-xs text-slate-500 font-medium flex items-center gap-1">
-              <i data-lucide="user-check" class="w-3.5 h-3.5 text-emerald-500"></i>
+            <span class="text-xs text-slate-500 font-medium flex items-center gap-1.5">
+              <span class="w-6 h-6 rounded-full bg-blue-50 text-[#435ebf] flex items-center justify-center font-bold text-[10px]">CL</span>
               {{ article.author }}
             </span>
-            <a href="/blog/{{ article.slug }}" class="inline-flex items-center gap-1 text-xs font-bold text-[#435ebf] hover:translate-x-1 transition">
-              Read Guide &rarr;
+            <a href="/blog/{{ article.slug }}" class="inline-flex items-center gap-1 text-xs font-bold text-[#435ebf] group-hover:translate-x-1 transition">
+              Read &rarr;
             </a>
           </div>
         </div>
+
       </article>
       {% endfor %}
     </div>
 
-    <!-- CTA Section -->
-    <div class="mt-16 p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-[#435ebf] to-indigo-700 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+    <!-- Pagination (Page X of Y & Next Button like competitor) -->
+    {% if total_pages > 1 %}
+    <div class="mt-14 pt-8 border-t border-slate-200 flex items-center justify-center gap-4 text-xs font-medium text-slate-600">
+      {% if has_prev %}
+      <a href="/blog?page={{ prev_page }}{% if active_category %}&category={{ active_category }}{% endif %}" class="px-4 py-2 rounded-xl bg-white border border-slate-200 hover:border-slate-300 hover:shadow-xs transition">
+        &larr; Previous
+      </a>
+      {% endif %}
+
+      <span class="font-mono text-slate-500">
+        Page <strong class="text-slate-900">{{ current_page }}</strong> of <strong class="text-slate-900">{{ total_pages }}</strong>
+      </span>
+
+      {% if has_next %}
+      <a href="/blog?page={{ next_page }}{% if active_category %}&category={{ active_category }}{% endif %}" class="px-4 py-2 rounded-xl bg-white border border-slate-200 hover:border-slate-300 hover:shadow-xs transition font-semibold text-slate-900">
+        Next &rarr;
+      </a>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- Global CTA Banner -->
+    <div class="mt-16 p-8 sm:p-12 rounded-3xl bg-slate-900 border border-slate-800 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
       <div class="space-y-2 text-center md:text-left">
-        <h3 class="text-2xl font-bold">Ready to verify leads across 102+ platforms?</h3>
-        <p class="text-blue-100 text-sm max-w-xl">
-          Get real-time carrier HLR lookups, VoIP risk scoring, and WhatsApp/iMessage presence from $0.90 per 10,000 checks.
+        <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-mono font-bold border border-emerald-500/30">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          REAL-TIME TELEPHONY &amp; OSINT
+        </div>
+        <h3 class="text-2xl font-bold">Ready to verify lists across 102+ platforms?</h3>
+        <p class="text-slate-400 text-sm max-w-xl">
+          Get real-time carrier HLR lookups, VoIP burner detection, and WhatsApp/iMessage presence from $0.90 per 10,000 checks.
         </p>
       </div>
-      <a href="/#pricing" class="px-7 py-3.5 rounded-xl bg-white text-slate-900 font-bold text-sm hover:bg-slate-100 shadow-md transition whitespace-nowrap">
-        Start Free Trial Now
+      <a href="/dashboard" class="px-7 py-3.5 rounded-xl bg-[#435ebf] text-white font-bold text-sm hover:bg-blue-600 shadow-md transition whitespace-nowrap">
+        Start Free Trial Now &rarr;
       </a>
     </div>
   </main>
 
-  <!-- Footer -->
-  <footer class="bg-white border-t border-slate-200 py-8 text-center text-xs text-slate-500">
-    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <p>&copy; 2026 CheckerLeak.com &mdash; Real-Time Contact &amp; Footprint Intelligence Engine.</p>
-      <div class="flex items-center gap-4 font-semibold text-slate-600">
-        <a href="/" class="hover:text-blue-600">Home</a>
-        <a href="/blog" class="hover:text-blue-600">Blog</a>
-        <a href="/docs" class="hover:text-blue-600">API Documentation</a>
-        <a href="/sitemap.xml" class="hover:text-blue-600">Sitemap</a>
+  <!-- Clean Corporate Footer -->
+  <footer class="bg-white border-t border-slate-200 py-12 text-xs text-slate-500 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-5 gap-8 mb-8">
+      <div class="col-span-2 space-y-3">
+        <a href="/" class="flex items-center gap-2.5">
+          <div class="w-7 h-7 rounded-lg bg-[#435ebf] flex items-center justify-center text-white font-bold text-xs shadow-sm">
+            CL
+          </div>
+          <span class="text-base font-bold text-slate-900">CheckerLeak<span class="text-[#435ebf]">.com</span></span>
+        </a>
+        <p class="text-slate-500 text-xs max-w-sm leading-relaxed">
+          High-throughput telephony signaling and multi-channel digital identity verification infrastructure. Zero data retention.
+        </p>
+        <div class="flex items-center gap-4 text-slate-400 pt-1">
+          <a href="/privacy" class="hover:text-slate-700">Privacy Policy</a>
+          <a href="/docs" target="_blank" class="hover:text-slate-700">API Documentation</a>
+          <a href="/sitemap.xml" class="hover:text-slate-700">XML Sitemap</a>
+        </div>
+      </div>
+
+      <div>
+        <h4 class="font-bold text-slate-900 uppercase tracking-wider text-[11px] mb-3">Popular Checkers</h4>
+        <ul class="space-y-2">
+          <li><a href="/products/whatsapp-checker" class="hover:text-[#435ebf]">WhatsApp Checker</a></li>
+          <li><a href="/products/imessage-checker" class="hover:text-[#435ebf]">iMessage Blue Bubble</a></li>
+          <li><a href="/products/carrier-detection" class="hover:text-[#435ebf]">HLR Carrier Lookup</a></li>
+          <li><a href="/products/binance-phone-checker" class="hover:text-[#435ebf]">Binance Crypto</a></li>
+          <li><a href="/products/netflix-email-checker" class="hover:text-[#435ebf]">Netflix Email</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-bold text-slate-900 uppercase tracking-wider text-[11px] mb-3">Resources</h4>
+        <ul class="space-y-2">
+          <li><a href="/blog" class="hover:text-[#435ebf]">Technical Blog</a></li>
+          <li><a href="/docs" target="_blank" class="hover:text-[#435ebf]">REST API Reference</a></li>
+          <li><a href="/#pricing" class="hover:text-[#435ebf]">Transparent Pricing</a></li>
+          <li><a href="/privacy" class="hover:text-[#435ebf]">Zero-Retention Charter</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-bold text-slate-900 uppercase tracking-wider text-[11px] mb-3">Support &amp; Desk</h4>
+        <ul class="space-y-2">
+          <li><a href="https://t.me/CheckerLeakSupport" target="_blank" class="hover:text-[#435ebf]">Telegram Priority Desk</a></li>
+          <li><a href="mailto:support@checkerleak.com" class="hover:text-[#435ebf]">Email Engineering</a></li>
+          <li><a href="/dashboard" class="hover:text-[#435ebf]">Client Dashboard</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p>&copy; 2026 CheckerLeak.com. All rights reserved. Verification utility infrastructure.</p>
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+        <span class="font-mono text-slate-600">All 102 Engines Operational (99.99% Telephony SLA)</span>
       </div>
     </div>
   </footer>
